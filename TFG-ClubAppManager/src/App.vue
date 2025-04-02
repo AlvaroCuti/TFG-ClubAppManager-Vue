@@ -6,12 +6,17 @@ import LogInButton from './components/LogInButton.vue';
 import HeaderSesion from './components/HeaderSesion.vue';
 </script>
 
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="50" height="50" />
-  </header>
-  
-  <div class="login">
+<template>  
+
+<div class="completo">
+  <div class="left"> 
+
+    <div class="header-container">
+      <header>
+        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="50" height="50" />
+      </header>
+    </div>
+
     <div class="pagina"> 
       <div class="titulo">
         <HeaderSesion msgPrincipal="Inicia Sesión" msgSecundario="Bienvenido a FutbolApp"></HeaderSesion>
@@ -30,73 +35,74 @@ import HeaderSesion from './components/HeaderSesion.vue';
       </div>
     </div>
 
-    <div class="imagen"></div>
   </div>
-  
+
+  <div class="right">
+    <div class="imagen-header"></div>
+  </div>
+
+</div>
 </template>
 
 <style scoped>
 
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
+.completo {
+  width: 80%; /* Ajusta según el tamaño deseado */
+  max-width: 400px; /* Evita que sea demasiado ancho en pantallas grandes */
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  justify-content: flex-start;
-  padding: 64px
+  text-align: center; /* Centra el texto */
 }
 
-.login{
-  margin-top: 200px; 
+.header-container {
+  width: 50%;
+  position: fixed; /* Si quieres que siempre esté visible */
+  top: 0;
+  left: 0;
+  background-color: #fff; /* Ajusta según tu diseño */
   display: flex;
-  flex-direction: row;
-  width: 100vh;
-  align-items: stretch;
+  padding: 10px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: stretch;
 }
 
-.pagina {
-  flex: 1; /* Ocupará la mitad de la pantalla */
+header {
+  width: 100%;
+  max-width: 1200px; /* Ajusta según tu diseño */
+  padding-left: 35px;
+}
+
+.left {
+  width: 50vw; /* Ocupa exactamente la mitad izquierda de la pantalla */
+  height: 100vh; /* Toda la altura de la pantalla */
   display: flex;
-  flex-direction: column;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  position: absolute; /* Se mantiene en su posición */
+  left: 0; /* Asegura que comience desde el borde izquierdo */
+}
+
+.right {
+  width: 50%;  /* Ocupa la mitad derecha de la pantalla */
+  height: 100vh; /* Toda la altura de la pantalla */
+  position: fixed;
+  top: 0;
+  right: 0; /* Alineado a la derecha */
+  display: flex;
   justify-content: center;
-  align-items: center; /* Centra el contenido */
-  gap: 32px; /* Espaciado */
-  padding: 40px;
+  align-items: center;
 }
 
-.imagen {
-  flex: 1; /* Ocupará la otra mitad de la pantalla */
-  background: url('https://th.bing.com/th/id/OIP.XBntIOuDOSjJKknK5Qj74QHaE8?rs=1&pid=ImgDetMain') no-repeat center center;
-  background-size: cover;
-}
-
-.pagina{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 64px;
-}
-
-.credenciales{
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.register{
-  display: flex;
-  flex-direction: row;
-}
-
-.imagen{
-  flex: 1;
-  background: url('https://th.bing.com/th/id/OIP.XBntIOuDOSjJKknK5Qj74QHaE8?rs=1&pid=ImgDetMain') no-repeat center center;
-  background-size: cover;
+.imagen-header {
+  width: 100%; /* Ocupará todo el ancho de .right */
+  height: 100%; /* Ocupará toda la altura */
+  background-image: url('@/assets/fondo.png');  /*Ruta de la imagen */
+  background-size: cover; /* Ajusta la imagen para cubrir todo el div */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
 }
 
 </style>
