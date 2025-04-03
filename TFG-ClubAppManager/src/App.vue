@@ -7,16 +7,14 @@ import HeaderSesion from './components/HeaderSesion.vue';
 </script>
 
 <template>  
-
-<div class="completo">
-  <div class="left"> 
-
-    <div class="header-container">
+<div class="header-container">
       <header>
-        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="50" height="50" />
+        <img alt="Vue logo" class="logo" src="@/assets/LogoFinal.png" width="50" height="50" />
       </header>
     </div>
-
+<div class="completo"> 
+  
+  <div class="left"> 
     <div class="pagina"> 
       <div class="titulo">
         <HeaderSesion msgPrincipal="Inicia Sesión" msgSecundario="Bienvenido a FutbolApp"></HeaderSesion>
@@ -46,45 +44,6 @@ import HeaderSesion from './components/HeaderSesion.vue';
 
 <style scoped>
 
-.completo {
-  width: 80%; /* Ajusta según el tamaño deseado */
-  max-width: 400px; /* Evita que sea demasiado ancho en pantallas grandes */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center; /* Centra el texto */
-}
-
-.header-container {
-  width: 50%;
-  position: fixed; /* Si quieres que siempre esté visible */
-  top: 0;
-  left: 0;
-  background-color: #fff; /* Ajusta según tu diseño */
-  display: flex;
-  padding: 10px 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: stretch;
-}
-
-header {
-  width: 100%;
-  max-width: 1200px; /* Ajusta según tu diseño */
-  padding-left: 35px;
-}
-
-.left {
-  width: 50vw; /* Ocupa exactamente la mitad izquierda de la pantalla */
-  height: 100vh; /* Toda la altura de la pantalla */
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  position: absolute; /* Se mantiene en su posición */
-  left: 0; /* Asegura que comience desde el borde izquierdo */
-}
-
 .right {
   width: 50%;  /* Ocupa la mitad derecha de la pantalla */
   height: 100vh; /* Toda la altura de la pantalla */
@@ -105,4 +64,58 @@ header {
   background-repeat: no-repeat; /* Evita que la imagen se repita */
 }
 
+.header-container {
+  width: 50%;
+  position: fixed; /* Si quieres que siempre esté visible */
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  padding: 10px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: stretch;
+}
+
+header {
+  padding-left: 35px;
+}
+
+.left{
+  background-color: #F6F5F8;
+  position: fixed;
+  width: 50%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.pagina{
+  display: flex;
+  flex-direction: column; 
+  gap: 53px; 
+}
+
+.credenciales{
+  display: flex;
+  flex-direction: column; 
+  gap: 16px;
+}
+
+.register{
+  display: flex;
+  flex-direction: row;
+}
+
+.register h5{
+  padding: 5px;
+  color: #878492;
+}
+
+.register a{
+  color: #6543E0;  
+}
 </style>

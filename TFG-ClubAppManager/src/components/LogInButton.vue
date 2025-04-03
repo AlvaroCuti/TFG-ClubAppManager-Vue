@@ -27,6 +27,12 @@ button {
   width: 100%;
   background-color: #6543E0;
   color:#F6F5F8;
-
+  border: 0;
 }
+
+button:hover{
+  background-color: #593bc8; /* Verde más oscuro */
+  transform: scale(1.02); /* Hace el botón un poco más grande */
+}
+
 </style>

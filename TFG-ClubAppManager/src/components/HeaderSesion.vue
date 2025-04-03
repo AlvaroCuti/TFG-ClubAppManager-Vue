@@ -24,6 +24,7 @@ h1{
     font-size: 2.6rem;
     position: relative;
     top: -10px;
+    color: #0E0A1C;
 }
 
 h3{
@@ -31,6 +32,7 @@ h3{
     font-size: 1rem;
     position: relative;
     top: -10px;
+    color: #5A5370;
 }
 
 h1,h3{

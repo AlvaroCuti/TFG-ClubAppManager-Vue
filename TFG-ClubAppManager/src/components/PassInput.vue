@@ -26,5 +26,11 @@ input {
   width: 100%;
   background-color: #E1E0E7;
   color:#878492;
+  border: 0;
+}
+
+input:focus{
+  outline: none;
+  border: none; /* Opcional, si también quieres quitar el borde */
 }
 </style>
