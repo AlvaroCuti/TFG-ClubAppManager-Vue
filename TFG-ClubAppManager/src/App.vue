@@ -29,10 +29,10 @@ import HeaderSesion from './components/HeaderSesion.vue';
 
       <div class="register">
           <h5>¿No tienes una cuenta?</h5>
-          <a>Regístrate aqui</a>
+          <a to="/register">Regístrate aqui</a>
       </div>
     </div>
-
+    <RouterView/>
   </div>
 
   <div class="right">
