@@ -4,6 +4,12 @@ import TextInput from '../components/TextInput.vue';
 import PassInput from '../components/PassInput.vue';
 import LogInButton from '../components/LogInButton.vue';
 import ImagesDrop from '../components/ImagesDrop.vue';
+import { ref } from "vue";
+
+const currentIndex = ref(0); // Índice del paso actual
+const steps = ref(3); // Número total de pasos
+
+
 </script>
 
 <!-- src/views/RegisterForm.vue -->
@@ -29,34 +35,69 @@ import ImagesDrop from '../components/ImagesDrop.vue';
             <RouterLink to="/login">Inicia sesión</RouterLink>
           </div>
         </div>
+        <div class="carousel-container">
+          <div class="carousel" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
+            <div class="parte">
+              <div class="credenciales">
+                <div class="nombre">
+                  <TextInput placeholder="Nombre"></TextInput>
+                  <TextInput placeholder="Apellidos"></TextInput>
+                </div>
+                
+                <TextInput placeholder="Correo electrónico"></TextInput>
+                <TextInput placeholder="Telefono"></TextInput>
+                <TextInput placeholder="Fecha de nacimiento"></TextInput>
+                <PassInput/>
+                <PassInput/>
+                <ImagesDrop></ImagesDrop>
+              </div>
+             
+            </div>
 
-        <div class="credenciales">
-          <div class="nombre">
-            <TextInput placeholder="Nombre"></TextInput>
-            <TextInput placeholder="Apellidos"></TextInput>
+            <div class="parte">
+              <div class="credenciales">
+                <div class="nombre">
+                  <TextInput placeholder="Nombre"></TextInput>
+                  <TextInput placeholder="Apellidos"></TextInput>
+                </div>
+                
+                <TextInput placeholder="Correo electrónico"></TextInput>
+                <TextInput placeholder="Telefono"></TextInput>
+                <TextInput placeholder="Fecha de nacimiento"></TextInput>
+                <PassInput/>
+                <PassInput/>
+                <ImagesDrop></ImagesDrop>
+              </div>
+            </div>
+
+            <div class="parte">
+              <div class="credenciales">
+                <div class="nombre">
+                  <TextInput placeholder="Nombre"></TextInput>
+                  <TextInput placeholder="Apellidos"></TextInput>
+                </div>
+                
+                <TextInput placeholder="Correo electrónico"></TextInput>
+                <TextInput placeholder="Telefono"></TextInput>
+                <TextInput placeholder="Fecha de nacimiento"></TextInput>
+                <PassInput/>
+                <PassInput/>
+                <ImagesDrop></ImagesDrop>
+              </div>
+              
+            </div>
           </div>
-          
-          <TextInput placeholder="Correo electrónico"></TextInput>
-          <TextInput placeholder="Telefono"></TextInput>
-          <TextInput placeholder="Fecha de nacimiento"></TextInput>
-          <PassInput/>
-          <PassInput/>
         </div>
-
-        <ImagesDrop></ImagesDrop>
-
         <div class="dots">
-            <span 
-                v-for="(item, index) in items" 
-                :key="index" 
-                class="dot" 
-                :class="{ active: index === currentIndex }"
-                @click="currentIndex = index"
-            ></span>
+          <span v-for="(step, index) in steps" :key="index" 
+            class="dot" 
+            :class="{ active: index === currentIndex }" 
+            @click="currentIndex = index">
+          </span>
         </div>
-
-        <LogInButton/>
-
+        <div class="boton">
+          <LogInButton/>
+        </div>
       </div>
     </div>
 
@@ -64,6 +105,39 @@ import ImagesDrop from '../components/ImagesDrop.vue';
 </template>
 
 <style scoped>
+
+.boton{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel {
+  display: flex;
+  width: 300%;
+  transition: transform 0.4s ease-in-out;
+}
+
+.parte {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-shrink: 0;
+  text-align: center;
+  gap: 53px;
+}
 
 .left {
   width: 50%;  
@@ -93,7 +167,7 @@ import ImagesDrop from '../components/ImagesDrop.vue';
   right: 0px;
   top: 0px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
@@ -129,7 +203,6 @@ header {
 .inicio{
   display: flex;
   flex-direction: row;
-  
 }
 
 .inicio h5{
@@ -151,6 +224,26 @@ header {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  margin: 5px;
+  background: gray;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: #6543E0;
 }
 
 </style>
