@@ -3,14 +3,18 @@ defineProps({
   placeholder:{
     type: String,
     default: "Iniciar Sesión"
+  },
+  to: {
+    type: String,
+    required: true
   }
 })
 </script>
 
 <template>
-    <div class="container">
+    <RouterLink :to="to" class="container">
         <button>{{placeholder}}</button>
-    </div>
+    </RouterLink>
 </template>
   
 

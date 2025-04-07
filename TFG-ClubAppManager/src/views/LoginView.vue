@@ -26,7 +26,7 @@ import { RouterLink } from 'vue-router';
         <PassInput/>
       </div>
 
-      <LogInButton/>
+      <LogInButton to="/app"/>
 
       <div class="register">
           <h5>¿No tienes una cuenta?</h5>
