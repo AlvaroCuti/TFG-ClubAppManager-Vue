@@ -5,6 +5,7 @@ import PassInput from '../components/PassInput.vue';
 import LogInButton from '../components/LogInButton.vue';
 import ImagesDrop from '../components/ImagesDrop.vue';
 import { ref } from "vue";
+import TagTutor from '@/components/TagTutor.vue';
 
 const currentIndex = ref(0); // Índice del paso actual
 const steps = ref(3); // Número total de pasos
@@ -32,7 +33,7 @@ const steps = ref(3); // Número total de pasos
           <HeaderSesion msgPrincipal="Registro"></HeaderSesion>
           <div class="inicio">
             <h5>¿Ya tienes una cuenta?</h5>
-            <RouterLink to="/login">Inicia sesión</RouterLink>
+            <RouterLink to="/login" class="link">Inicia sesión</RouterLink>
           </div>
         </div>
         <div class="carousel-container">
@@ -48,41 +49,38 @@ const steps = ref(3); // Número total de pasos
                 <TextInput placeholder="Telefono"></TextInput>
                 <TextInput placeholder="Fecha de nacimiento"></TextInput>
                 <PassInput/>
-                <PassInput/>
-                <ImagesDrop></ImagesDrop>
+                <PassInput placeholder="Repite la contraseña"/>
+                <div class="drop">
+                  <ImagesDrop></ImagesDrop>
+                </div>
               </div>
              
             </div>
 
             <div class="parte">
               <div class="credenciales">
-                <div class="nombre">
-                  <TextInput placeholder="Nombre"></TextInput>
-                  <TextInput placeholder="Apellidos"></TextInput>
+                <div class="tutor">
+                  <TagTutor placeholder="Tutor 1"></TagTutor>  
                 </div>
                 
-                <TextInput placeholder="Correo electrónico"></TextInput>
-                <TextInput placeholder="Telefono"></TextInput>
-                <TextInput placeholder="Fecha de nacimiento"></TextInput>
-                <PassInput/>
-                <PassInput/>
-                <ImagesDrop></ImagesDrop>
+                <TextInput placeholder="Correo electrónico tutor 1"></TextInput>
+                <div class="drop">
+                  <ImagesDrop></ImagesDrop>
+                </div>
               </div>
             </div>
 
             <div class="parte">
               <div class="credenciales">
-                <div class="nombre">
-                  <TextInput placeholder="Nombre"></TextInput>
-                  <TextInput placeholder="Apellidos"></TextInput>
+                <div class="tutor">
+                  <TagTutor placeholder="Tutor 2"></TagTutor>  
                 </div>
+
+                <TextInput placeholder="Correo electrónico tutor 2"></TextInput>
                 
-                <TextInput placeholder="Correo electrónico"></TextInput>
-                <TextInput placeholder="Telefono"></TextInput>
-                <TextInput placeholder="Fecha de nacimiento"></TextInput>
-                <PassInput/>
-                <PassInput/>
-                <ImagesDrop></ImagesDrop>
+                <div class="drop">
+                  <ImagesDrop></ImagesDrop>
+                </div>
               </div>
               
             </div>
@@ -96,7 +94,7 @@ const steps = ref(3); // Número total de pasos
           </span>
         </div>
         <div class="boton">
-          <LogInButton/>
+          <LogInButton class="boton-login"/>
         </div>
       </div>
     </div>
@@ -106,11 +104,31 @@ const steps = ref(3); // Número total de pasos
 
 <style scoped>
 
+.tutor{
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.link{
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.drop{
+  margin-top: 20px;
+
+}
+
 .boton{
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: stretch;
+}
+
+.boton-login{
+  width: 100%; /* se adapta al contenedor padre */
+  max-width: 410px; /* igual que .credenciales si es fijo */
 }
 
 .carousel-container {

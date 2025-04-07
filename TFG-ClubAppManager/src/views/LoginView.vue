@@ -30,7 +30,7 @@ import { RouterLink } from 'vue-router';
 
       <div class="register">
           <h5>¿No tienes una cuenta?</h5>
-          <RouterLink to="/register">Regístrate aqui</RouterLink>
+          <RouterLink to="/register" class="link">Regístrate aqui</RouterLink>
       </div>
     </div>
     <RouterView/>
@@ -44,6 +44,11 @@ import { RouterLink } from 'vue-router';
 </template>
 
 <style scoped>
+
+.link{
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 
 .right {
   width: 50%;  /* Ocupa la mitad derecha de la pantalla */

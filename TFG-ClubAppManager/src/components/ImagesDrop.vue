@@ -18,6 +18,7 @@
   border-style: dashed;
   border-color: #A9A5B8;
   border-radius: 16px;
+  border-width: 1px;
   width: 100%;
   display: flex;
   flex-direction: column;
