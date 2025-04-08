@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Register from '../views/RegisterView.vue'
 import Login from '../views/LoginView.vue'
 import Principal from '../views/PrincipalView.vue'
+import Jugadores from '../views/JugadoresView.vue'
+import Entrenadores from '../views/EntrenadoresView.vue'
+import Equipos from '../views/EquiposView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,9 +25,25 @@ const router = createRouter({
     },
     {
       path: '/app',
-      name: 'Principal',
       component: Principal,
-    }
+      children: [
+        {
+          path: 'jugadores',
+          name: 'Jugadores',
+          component: Jugadores,
+        },
+        {
+          path: 'equipos',
+          name: 'Equipos',
+          component: Equipos, // lazy load
+        },
+        {
+          path: 'entrenadores',
+          name: 'Entrenadores',
+          component: Entrenadores,
+        },
+      ],
+    },
   ],
 })
 

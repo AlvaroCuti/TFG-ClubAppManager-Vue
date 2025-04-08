@@ -3,28 +3,26 @@
 
 <template>
    <div class="completo">
-
         <div class="logo">
             <img alt="logo" class="logo" src="@/assets/LogoFinal.png" width="40" height="40" />
         </div>
-    
+
         <div class="apartados">
             <nav>
                 <li class="apartado apartado1">
-                    <router-link class="link" to="/jugadores">
+                    <router-link class="link" to="/app/jugadores">
                         <img alt="logo" class="logo" src="@/assets/User.png" width="18" height="18" />
                         Jugadores
                     </router-link>
                 </li>
                 <li class="apartado apartado2">
-                    
-                    <router-link class="link" to="/equipos">
+                    <router-link class="link" to="/app/equipos">
                         <img alt="logo" class="logo" src="@/assets/IconEquipo.png" width="18" height="18" />
                         Equipos
                     </router-link>
                 </li>
                 <li class="apartado apartado3">
-                    <router-link class="link" to="/entrenadores">
+                    <router-link class="link" to="/app/entrenadores">
                         <img alt="logo" class="logo" src="@/assets/IconEntrenadores.png" width="18" height="18" />
                         Entrenadores
                     </router-link>
@@ -41,7 +39,6 @@
                 <h5>Administrador</h5>
             </div>
         </div>
-
    </div> 
 </template>
   
@@ -54,7 +51,9 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    text-decoration: none;
+    font-weight: 500;
+    padding-right: 16px;
+    transition: color 0.4s ease; /* transición para el texto */
 }
 
 .apartado{
@@ -64,23 +63,45 @@
     align-items: center;
 }
 
+nav{
+    gap: 16px;
+}
+
 .apartado1:hover{
+    transition: color 0.4s ease; /* transición para el texto */
     background-color: #6543E0;
     color: aliceblue;
+    border-radius: 8px;
 }
 
 .apartado2:hover{
+    transition: color 0.4s ease; /* transición para el texto */
     background-color: #6543E0;
     color: aliceblue;
+    border-radius: 8px;
 }
 
 .apartado3:hover{
+    transition: color 0.4s ease; /* transición para el texto */
     background-color: #6543E0;
+    color: aliceblue;
+    border-radius: 8px;
+}
+
+.link:hover{
     color: aliceblue;
 }
 
+.apartado img {
+    transition: filter 0.4s ease; /* transición para el icono */
+}
+
+.apartado:hover img {
+    filter: brightness(0) invert(1);
+}
+
 .completo{
-    background-color: aliceblue;
+    background-color: #E1E0E7;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -88,6 +109,7 @@
 
 .logo{
     margin-left: 10px;
+    margin-right: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,8 +117,10 @@
 
 .apartados{
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    gap: 16px;
 }
 
 .apartados > nav{
