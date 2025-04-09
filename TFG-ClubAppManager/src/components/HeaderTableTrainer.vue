@@ -1,23 +1,16 @@
-<script setup>
-defineProps({
-    items: {
-        type: Array,
-        required: true
-    },
-    par: {
-        type: Boolean,
-        required: true
-    },
-    col:{
-        type: Number,
-        required: true,
+<script>
+    export default {
+        props: {
+            items: {
+            type: Array,
+            required: true
+            }
+        }
     }
-})
 </script>
 
-
 <template>
-    <div class="container" :style="{ backgroundColor: par ? '#E1E0E7' : '#C7C4D2'}">
+    <div class="container">
         <div v-for="(item, index) in items" :key="index" class="box">
             {{ item }}
         </div>
@@ -28,14 +21,15 @@ defineProps({
 <style scoped>
     .container{
         display: grid;
-        grid-template-columns: repeat(7, 1fr); /* 7 columnas iguales */
-        background-color: #E1E0E7;
+        grid-template-columns: repeat(5, 1fr); /* 7 columnas iguales */
+        background-color: #6543E0;
         margin-right: 100px;
-        border-radius: 0px 0px 0px 0px;
+        border-radius: 8px;
+        margin-bottom: 3px; /* solo en HeaderTable */
     }
 
     .box{
-        color: #000;
+        color: #FFF;
         font-weight: 600;
         padding-top: 5px;
         padding-bottom: 5px;
@@ -45,5 +39,4 @@ defineProps({
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
 </style>

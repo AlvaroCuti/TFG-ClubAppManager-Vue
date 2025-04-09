@@ -3,35 +3,44 @@ defineProps({
   placeholder:{
     type: String,
     required: true
+  },
+  icon:{
+    type: String,
+    required: true
   }
 })
 </script>
 
 <template>
     <button class="boton">
+        <img :src="icon" width="20" height="20"/>
         {{placeholder}}
-        <img src="@/assets/Cross.png" width="12" height="12"/>
     </button>
 </template>
   
 
 <style scoped>
-  .boton{
+button {
+    border-radius: 7px;
     background-color: #6543E0;
-    color: white;
-    border-color: #6543E0;
-    border-width: 1px;
-    border-radius: 50px;
+    color:#F6F5F8;
+    border: 0;
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: center;
-    gap: 9px;
+    align-items: center;
+    gap: 12px;
     padding-right: 18px;
     padding-left: 18px;
     padding-top: 6px;
     padding-bottom: 5px;
     font-size: smaller;
     font-weight: 700;
-  }
+}
+
+button:hover{
+  background-color: #593bc8; /* Verde más oscuro */
+  transform: scale(1.02); /* Hace el botón un poco más grande */
+}
+
 </style>

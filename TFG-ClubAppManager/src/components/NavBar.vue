@@ -4,7 +4,7 @@
 <template>
    <div class="completo">
         <div class="logo">
-            <img alt="logo" class="logo" src="@/assets/LogoFinal.png" width="40" height="40" />
+            <img alt="logo" class="logo" src="@/assets/LogoFinal.png" width="50" height="50" />
         </div>
 
         <div class="apartados">

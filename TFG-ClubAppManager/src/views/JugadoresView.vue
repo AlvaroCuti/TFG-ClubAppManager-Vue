@@ -53,6 +53,7 @@
     flex-direction: row-reverse;
     gap: 8px;
     margin-right: 100px;
+    margin-left: 100px;
     margin-top: 5px;
     margin-bottom: -10px;
 }

@@ -8,10 +8,6 @@ defineProps({
         type: Boolean,
         required: true
     },
-    col:{
-        type: Number,
-        required: true,
-    }
 })
 </script>
 
@@ -28,7 +24,7 @@ defineProps({
 <style scoped>
     .container{
         display: grid;
-        grid-template-columns: repeat(7, 1fr); /* 7 columnas iguales */
+        grid-template-columns: repeat(5, 1fr); /* 7 columnas iguales */
         background-color: #E1E0E7;
         margin-right: 100px;
         border-radius: 0px 0px 0px 0px;
