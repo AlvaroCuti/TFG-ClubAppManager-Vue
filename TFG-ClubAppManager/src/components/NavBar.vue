@@ -10,19 +10,19 @@
         <div class="apartados">
             <nav>
                 <li class="apartado apartado1">
-                    <router-link class="link" to="/app/jugadores">
+                    <router-link class="link" to="/app/jugadores" active-class="activo">
                         <img alt="logo" class="logo" src="@/assets/User.png" width="18" height="18" />
                         Jugadores
                     </router-link>
                 </li>
                 <li class="apartado apartado2">
-                    <router-link class="link" to="/app/equipos">
+                    <router-link class="link" to="/app/equipos" active-class="activo">
                         <img alt="logo" class="logo" src="@/assets/IconEquipo.png" width="18" height="18" />
                         Equipos
                     </router-link>
                 </li>
                 <li class="apartado apartado3">
-                    <router-link class="link" to="/app/entrenadores">
+                    <router-link class="link" to="/app/entrenadores" active-class="activo">
                         <img alt="logo" class="logo" src="@/assets/IconEntrenadores.png" width="18" height="18" />
                         Entrenadores
                     </router-link>
@@ -70,26 +70,26 @@ nav{
 .apartado1:hover{
     transition: color 0.4s ease; /* transición para el texto */
     background-color: #6543E0;
-    color: aliceblue;
+    color: #E1E0E7;
     border-radius: 8px;
 }
 
 .apartado2:hover{
     transition: color 0.4s ease; /* transición para el texto */
     background-color: #6543E0;
-    color: aliceblue;
+    color: #E1E0E7;
     border-radius: 8px;
 }
 
 .apartado3:hover{
     transition: color 0.4s ease; /* transición para el texto */
     background-color: #6543E0;
-    color: aliceblue;
+    color: #E1E0E7;
     border-radius: 8px;
 }
 
 .link:hover{
-    color: aliceblue;
+    color: #E1E0E7;
 }
 
 .apartado img {
@@ -97,6 +97,16 @@ nav{
 }
 
 .apartado:hover img {
+    filter: brightness(0) invert(1);
+}
+
+.link.activo{
+    background-color: #6543E0;
+    color: #E1E0E7;
+    border-radius: 8px;
+}
+
+.link.activo img {
     filter: brightness(0) invert(1);
 }
 

@@ -1,16 +1,19 @@
-<script>
-    export default {
-        props: {
-            items: {
-            type: Array,
-            required: true
-            }
-        }
+<script setup>
+defineProps({
+    items: {
+        type: Array,
+        required: true
+    },
+    par: {
+        type: Boolean,
+        required: true
     }
+})
 </script>
 
+
 <template>
-    <div class="container">
+    <div class="container" :style="{ backgroundColor: par ? '#E1E0E7' : '#C7C4D2'}">
         <div v-for="(item, index) in items" :key="index" class="box">
             {{ item }}
         </div>
@@ -22,14 +25,13 @@
     .container{
         display: grid;
         grid-template-columns: repeat(7, 1fr); /* 7 columnas iguales */
-        background-color: #6543E0;
+        background-color: #E1E0E7;
         margin-right: 100px;
-        border-radius: 8px;
-        margin-bottom: 3px; /* solo en HeaderTable */
+        border-radius: 0px 0px 0px 0px;
     }
 
     .box{
-        color: #FFF;
+        color: #000;
         font-weight: 600;
         padding-top: 5px;
         padding-bottom: 5px;
@@ -39,4 +41,5 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
 </style>
