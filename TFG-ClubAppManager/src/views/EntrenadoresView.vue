@@ -51,10 +51,9 @@ import iconoPlus from '@/assets/IconPlus.png';
     display: flex;
     flex-direction: row;
     justify-content: end;
-    margin-right: 100px;
+    margin-right: 50px;
     margin-left: 100px;
     margin-top: 5px;
-    margin-bottom: 10px;
 }
 
 .contenido{
