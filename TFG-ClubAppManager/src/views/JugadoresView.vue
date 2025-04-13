@@ -1,9 +1,15 @@
 <script setup>
+import { ref } from 'vue';  
+
     import ItemTable from '../components/ItemTable.vue';
     import HeaderTable from '../components/HeaderTable.vue';
     import RoundButtonNotFilled from '../components/RoundButtonNoFill.vue';
     import RoundButtonFilled from '../components/RoundButtonFilled.vue';
+    const filtros = ref(['Edad: 20-30', 'Sexo: Masculino']);
 
+function eliminarFiltro(index) {
+  filtros.value.splice(index, 1);
+}
 </script>
 
 <template>  
@@ -14,7 +20,7 @@
 
         <div class="filtros">
             <RoundButtonNotFilled placeholder="Filtros"></RoundButtonNotFilled>
-            <RoundButtonFilled placeholder="Nombre"></RoundButtonFilled>
+            <RoundButtonFilled v-for="(filtro, index) in filtros" :key="index" :placeholder="filtro" @remove="eliminarFiltro(index)"></RoundButtonFilled>
         </div>
         
         <div class="contenido">
