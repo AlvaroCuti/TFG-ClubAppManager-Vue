@@ -6,9 +6,14 @@ import LogInButton from '../components/LogInButton.vue';
 import HeaderSesion from '../components/HeaderSesion.vue';
 import { RouterLink } from 'vue-router';
 import { ref } from "vue";
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/auth'
+
+const router = useRouter();
 
 const tel = ref('');
 const pass = ref('');
+const auth = useAuthStore()
 
 const logear = async () => {
   try {
@@ -24,8 +29,9 @@ const logear = async () => {
       });
 
       if (response.ok) {
-        console.log("Usuario registrado correctamente");
-        // Redirige o muestra mensaje
+        const data = await response.json()
+        auth.setToken(data.token)
+        router.push("/app/jugadores");
       } else {
         const errorData = await response.json();
         console.error("Error:", errorData);

@@ -1,15 +1,40 @@
 <script setup>
-import { ref } from 'vue';  
-
+    import { ref, onMounted } from 'vue';
     import ItemTable from '../components/ItemTable.vue';
     import HeaderTable from '../components/HeaderTable.vue';
     import RoundButtonNotFilled from '../components/RoundButtonNoFill.vue';
     import RoundButtonFilled from '../components/RoundButtonFilled.vue';
+    import { useAuthStore } from '@/stores/auth'
+   
+    const jugadores = ref([]);
+    const auth = useAuthStore()
     const filtros = ref(['Edad: 20-30', 'Sexo: Masculino']);
 
     function eliminarFiltro(index) {
         filtros.value.splice(index, 1);
     }
+
+    onMounted(async () => {
+        try {
+        const response = await fetch("http://localhost:8081/api/usuario?page=0&size=10", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            jugadores.value = data._embedded.jugadorDTOList;
+            console.log(jugadores)
+        } else {
+            const errorData = await response.json();
+            console.error("Error:", errorData);
+        }
+        } catch (error) {
+        console.error("Error en la solicitud:", error);
+        }
+    });
 </script>
 
 <template>  
@@ -25,8 +50,20 @@ import { ref } from 'vue';
         
         <div class="contenido">
             <HeaderTable :items="['Nombre', 'Fecha de nacimiento', 'Correo electrónico', 'Teléfono', 'Correo electrónico Tutor 1', 'Correo electrónico Tutor 2', '']"></HeaderTable>
-            <ItemTable :items="['Pepe Perez Martin', '26/01/2003', 'ejemplo@gmail.com', '777777777', 'ejemplo@gmail.com', 'ejemplo@gmail.com', '']" :par="false"></ItemTable>
-            <ItemTable :items="['Pepe Perez Martin', '26/01/2003', 'ejemplo@gmail.com', '777777777', 'ejemplo@gmail.com', 'ejemplo@gmail.com', '']" :par="true"></ItemTable>
+            <ItemTable
+                v-for="(jugador, index) in jugadores"
+                :key="jugador.id || index"
+                :items="[
+                    jugador.nombre,
+                    jugador.fechaNac,
+                    jugador.email,
+                    jugador.tel,
+                    jugador.emailTutor1,
+                    jugador.emailTutor2,
+                    ''
+                ]"
+                :par="index % 2 === 0"
+            />
         </div>
     </div>
 </template>
