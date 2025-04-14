@@ -60,7 +60,6 @@
                     jugador.tel,
                     jugador.emailTutor1,
                     jugador.emailTutor2,
-                    ''
                 ]"
                 :par="index % 2 === 0"
             />

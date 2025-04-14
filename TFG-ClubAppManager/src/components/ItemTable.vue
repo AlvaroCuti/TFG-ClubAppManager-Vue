@@ -1,5 +1,8 @@
 <script setup>
-defineProps({
+import { useAuthStore } from '@/stores/auth'
+const auth = useAuthStore()
+
+const props = defineProps({
     items: {
         type: Array,
         required: true
@@ -13,6 +16,39 @@ defineProps({
         required: true,
     }
 })
+
+const handleClick = async () => {
+  try {
+    const tel = props.items[3]; 
+    const nom = props.items[0]; 
+
+    const response = await fetch(`http://localhost:8081/api/usuario/${tel}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${auth.token}`
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la respuesta: ${response.status}`);
+    }
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${nom}-imagenes.zip`; 
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+
+  } catch (err) {
+    console.error('Error al descargar el archivo:', err);
+  }
+};
+
 </script>
 
 
@@ -21,6 +57,12 @@ defineProps({
         <div v-for="(item, index) in items" :key="index" class="box">
             {{ item }}
         </div>
+        <div class="logo-column">
+            <button class="boton" @click="handleClick">
+                <img alt="logo" class="logo" src="@/assets/descarga.png" width="24" height="24" />
+            </button>
+        </div>
+        
     </div>
 </template>
   
@@ -32,6 +74,27 @@ defineProps({
         background-color: #E1E0E7;
         margin-right: 100px;
         border-radius: 0px 0px 0px 0px;
+    }
+
+    .logo-column {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #E1E0E7;
+    }
+
+    .boton{
+        border-radius: 10px;
+        border-width: 1px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+
     }
 
     .box{
