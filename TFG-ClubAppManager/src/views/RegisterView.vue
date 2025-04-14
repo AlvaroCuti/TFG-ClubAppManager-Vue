@@ -10,6 +10,89 @@ import TagTutor from '@/components/TagTutor.vue';
 const currentIndex = ref(0); // Índice del paso actual
 const steps = ref(3); // Número total de pasos
 
+const nombre = ref('');
+const apellidos = ref('');
+const email = ref('');
+const telefono = ref('');
+const fechaNacimiento = ref('');
+const pass = ref('');
+// const repetirPass = ref('');
+
+const emailTutor1 = ref('');
+const emailTutor2 = ref('');
+
+const dniFrontal = ref(null);
+const dniTrasero = ref(null);
+const dniFrontalTutor1 = ref(null);
+const dniTraseroTutor1 = ref(null);
+const dniFrontalTutor2 = ref(null);
+const dniTraseroTutor2 = ref(null);
+
+const dniArchivos = ref([]);
+const dniArchivos1 = ref([]);
+const dniArchivos2 = ref([]);
+
+const handleDniFilesUser = (archivos) => {
+  // Puedes guardarlos directamente en un ref, o separar si necesitas frontal/trasero
+  dniArchivos.value = archivos;
+  // O, si solo esperas uno por input:
+  dniFrontal.value = archivos[0] || null;
+  dniTrasero.value = archivos[1] || null;
+};
+
+const handleDniFilesTutor1 = (archivos) => {
+  // Puedes guardarlos directamente en un ref, o separar si necesitas frontal/trasero
+  dniArchivos1.value = archivos;
+  // O, si solo esperas uno por input:
+  dniFrontalTutor1.value = archivos[0] || null;
+  dniTraseroTutor1.value = archivos[1] || null;
+};
+
+const handleDniFilesTutor2 = (archivos) => {
+  // Puedes guardarlos directamente en un ref, o separar si necesitas frontal/trasero
+  dniArchivos2.value = archivos;
+  // O, si solo esperas uno por input:
+  dniFrontalTutor2.value = archivos[0] || null;
+  dniTraseroTutor2.value = archivos[1] || null;
+};
+
+const registrar = async () => {
+  const creacionDTO = {
+    nombre: nombre.value.concat(" ", apellidos.value),
+    email: email.value,
+    tel: telefono.value,
+    fechaNac: fechaNacimiento.value,
+    pass: pass.value,
+    emailTutor1: emailTutor1.value,
+    emailTutor2: emailTutor2.value,
+  };
+
+  const formData = new FormData();
+  formData.append("creacionDTOString", JSON.stringify(creacionDTO));
+  formData.append("dniFrontal", dniFrontal.value);
+  formData.append("dniTrasero", dniTrasero.value);
+  formData.append("dniFrontalTutor1", dniFrontalTutor1.value);
+  formData.append("dniTraseroTutor1", dniTraseroTutor1.value);
+  formData.append("dniFrontalTutor2", dniFrontalTutor2.value);
+  formData.append("dniTraseroTutor2", dniTraseroTutor2.value);
+
+  try {
+    const response = await fetch("http://localhost:8081/api/usuario/register", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      console.log("Usuario registrado correctamente");
+      // Redirige o muestra mensaje
+    } else {
+      const errorData = await response.json();
+      console.error("Error:", errorData);
+    }
+  } catch (error) {
+    console.error("Error en la solicitud:", error);
+  }
+};
 
 </script>
 
@@ -41,17 +124,17 @@ const steps = ref(3); // Número total de pasos
             <div class="parte">
               <div class="credenciales">
                 <div class="nombre">
-                  <TextInput placeholder="Nombre"></TextInput>
-                  <TextInput placeholder="Apellidos"></TextInput>
+                  <TextInput v-model="nombre" placeholder="Nombre"></TextInput>
+                  <TextInput v-model="apellidos" placeholder="Apellidos"></TextInput>
                 </div>
                 
-                <TextInput placeholder="Correo electrónico"></TextInput>
-                <TextInput placeholder="Telefono"></TextInput>
-                <TextInput placeholder="Fecha de nacimiento"></TextInput>
-                <PassInput/>
+                <TextInput v-model="email" placeholder="Correo electrónico"></TextInput>
+                <TextInput v-model="telefono" placeholder="Telefono"></TextInput>
+                <TextInput v-model="fechaNacimiento" placeholder="Fecha de nacimiento"></TextInput>
+                <PassInput v-model="pass"/>
                 <PassInput placeholder="Repite la contraseña"/>
                 <div class="drop">
-                  <ImagesDrop></ImagesDrop>
+                  <ImagesDrop @update:files="handleDniFilesUser"/>
                 </div>
               </div>
              
@@ -63,9 +146,9 @@ const steps = ref(3); // Número total de pasos
                   <TagTutor placeholder="Tutor 1"></TagTutor>  
                 </div>
                 
-                <TextInput placeholder="Correo electrónico tutor 1"></TextInput>
+                <TextInput v-model="emailTutor1" placeholder="Correo electrónico tutor 1"></TextInput>
                 <div class="drop">
-                  <ImagesDrop></ImagesDrop>
+                  <ImagesDrop @update:files="handleDniFilesTutor1"/>
                 </div>
               </div>
             </div>
@@ -76,10 +159,10 @@ const steps = ref(3); // Número total de pasos
                   <TagTutor placeholder="Tutor 2"></TagTutor>  
                 </div>
 
-                <TextInput placeholder="Correo electrónico tutor 2"></TextInput>
+                <TextInput v-model="emailTutor2" placeholder="Correo electrónico tutor 2"></TextInput>
                 
                 <div class="drop">
-                  <ImagesDrop></ImagesDrop>
+                  <ImagesDrop  @update:files="handleDniFilesTutor2"/>
                 </div>
               </div>
               
@@ -94,7 +177,7 @@ const steps = ref(3); // Número total de pasos
           </span>
         </div>
         <div class="boton">
-          <LogInButton class="boton-login"/>
+          <LogInButton @click="registrar" class="boton-login"/>
         </div>
       </div>
     </div>

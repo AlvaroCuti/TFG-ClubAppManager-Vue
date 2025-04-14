@@ -5,6 +5,35 @@ import PassInput from '../components/PassInput.vue';
 import LogInButton from '../components/LogInButton.vue';
 import HeaderSesion from '../components/HeaderSesion.vue';
 import { RouterLink } from 'vue-router';
+import { ref } from "vue";
+
+const tel = ref('');
+const pass = ref('');
+
+const logear = async () => {
+  try {
+      const response = await fetch("http://localhost:8081/api/usuario/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            tel: tel.value,
+            pass: pass.value
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Usuario registrado correctamente");
+        // Redirige o muestra mensaje
+      } else {
+        const errorData = await response.json();
+        console.error("Error:", errorData);
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+    }
+  };
 </script>
 
 <template>  
@@ -22,11 +51,11 @@ import { RouterLink } from 'vue-router';
       </div>
 
       <div class="credenciales">
-        <TextInput/>
-        <PassInput/>
+        <TextInput v-model="tel"/>
+        <PassInput v-model="pass"/>
       </div>
 
-      <LogInButton to="/app/jugadores"/>
+      <LogInButton @click="logear"/>
 
       <div class="register">
           <h5>¿No tienes una cuenta?</h5>

@@ -9,11 +9,13 @@ defineProps({
     required: true
   }
 })
+const emit = defineEmits(["click"]);
+
 </script>
 
 <template>
     <RouterLink :to="to" class="container">
-        <button>{{placeholder}}</button>
+        <button @click="emit('click')">{{placeholder}}</button>
     </RouterLink>
 </template>
   

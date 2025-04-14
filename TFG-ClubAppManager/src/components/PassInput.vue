@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-  value: {
+  modelValue: {
     type: String,
     required: true,
   },
@@ -9,11 +9,14 @@ defineProps({
     default: "Contraseña"
   }
 })
+
+const emit = defineEmits(["update:modelValue"]);
+
 </script>
 
 <template>
     <div class="container">
-      <input :value="value" type="password" :placeholder="placeholder" />
+      <input :value="modelValue" type="password" :placeholder="placeholder" @input="event => emit('update:modelValue', event.target.value)"/>
     </div>
 </template>
   

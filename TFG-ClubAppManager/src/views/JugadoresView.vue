@@ -7,9 +7,9 @@ import { ref } from 'vue';
     import RoundButtonFilled from '../components/RoundButtonFilled.vue';
     const filtros = ref(['Edad: 20-30', 'Sexo: Masculino']);
 
-function eliminarFiltro(index) {
-  filtros.value.splice(index, 1);
-}
+    function eliminarFiltro(index) {
+        filtros.value.splice(index, 1);
+    }
 </script>
 
 <template>  

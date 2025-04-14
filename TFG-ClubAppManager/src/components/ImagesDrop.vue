@@ -1,12 +1,30 @@
 <script setup>
+    import { ref } from 'vue';
 
+    const fileInput = ref(null);
+    const emit = defineEmits(['update:files']);
+    const archivosSeleccionados = ref([]);
+
+    const abrirSelector = () => {
+        fileInput.value?.click();
+    };
+
+    const handleArchivo = (event) => {
+        const nuevosArchivos = Array.from(event.target.files);
+        archivosSeleccionados.value.push(...nuevosArchivos);
+        emit('update:files', archivosSeleccionados.value);
+        event.target.value = '';
+    };
 </script>
 
 <template>
-    <div class="container">
+    <div class="container" @click="abrirSelector">
         <img alt="logo" class="logo" src="@/assets/cloud.png" width="25" height="25" />
         <h4>Seleccione fotos del DNI por delante y por detrás</h4>
     </div>
+
+    <input type="file" ref="fileInput" style="display: none" accept="image/*" multiple @change="handleArchivo" />
+
 </template>
   
 
