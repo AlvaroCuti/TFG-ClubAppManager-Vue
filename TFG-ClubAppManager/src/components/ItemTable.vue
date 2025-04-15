@@ -80,7 +80,6 @@ const handleClick = async () => {
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #E1E0E7;
     }
 
     .boton{
