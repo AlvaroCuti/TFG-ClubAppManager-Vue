@@ -1,5 +1,8 @@
 <script setup>
-defineProps({
+import { useAuthStore } from '@/stores/auth'
+const auth = useAuthStore()
+
+const props = defineProps({
     items: {
         type: Array,
         required: true
@@ -9,6 +12,64 @@ defineProps({
         required: true
     },
 })
+
+const eliminar = async () => {
+    
+  const tel = props.items[3]; 
+
+  try {
+    const response = await fetch(`http://localhost:8081/api/entrenador/${tel}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${auth.token}`
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la respuesta: ${response.status}`);
+    }
+    
+  } catch (err) {
+    console.error('Error al descargar el archivo:', err);
+  }
+};
+
+const descargar = async () => {
+    
+    const tel = props.items[3]; 
+    const nom = props.items[0]; 
+    try {
+      const response = await fetch(`http://localhost:8081/api/entrenador/${tel}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${auth.token}`
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error en la respuesta: ${response.status}`);
+      }
+      
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${nom}-imagenes.zip`; 
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Error al descargar el archivo:', err);
+    }
+  };
+
+  const editar = async () => {
+    
+   
+  };
+
 </script>
 
 
@@ -19,8 +80,14 @@ defineProps({
         </div>
 
         <div class="logo-column">
-            <button class="boton" @click="handleClick">
-                <img alt="logo" class="logo" src="@/assets/descarga.png" width="24" height="24" />
+            <button class="boton" @click="descargar">
+                <img alt="logo" class="logo" src="@/assets/descarga.png" width="20" height="20" />
+            </button>
+            <button class="boton" @click="editar">
+                <img alt="logo" class="logo" src="@/assets/edit.png" width="20" height="20" />
+            </button>
+            <button class="boton" @click="eliminar">
+                <img alt="logo" class="logo" src="@/assets/basura.png" width="20" height="20" />
             </button>
         </div>
     </div>
@@ -48,11 +115,14 @@ defineProps({
         text-overflow: ellipsis;
     }
 
-    
     .logo-column {
         display: flex;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
+        gap: 10px;
+        margin-top: 4px;
+        margin-bottom: 4px;
     }
 
     .boton{

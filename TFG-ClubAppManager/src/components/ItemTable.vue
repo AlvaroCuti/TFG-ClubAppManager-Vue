@@ -59,7 +59,7 @@ const handleClick = async () => {
         </div>
         <div class="logo-column">
             <button class="boton" @click="handleClick">
-                <img alt="logo" class="logo" src="@/assets/descarga.png" width="24" height="24" />
+                <img alt="logo" class="logo" src="@/assets/descarga.png" width="20" height="20" />
             </button>
         </div>
         
