@@ -65,11 +65,6 @@ const descargar = async () => {
     }
   };
 
-  const editar = async () => {
-    
-   
-  };
-
 </script>
 
 
@@ -83,9 +78,9 @@ const descargar = async () => {
             <button class="boton" @click="descargar">
                 <img alt="logo" class="logo" src="@/assets/descarga.png" width="20" height="20" />
             </button>
-            <button class="boton" @click="editar">
+            <!-- <button class="boton" @click="editar">
                 <img alt="logo" class="logo" src="@/assets/edit.png" width="20" height="20" />
-            </button>
+            </button> -->
             <button class="boton" @click="eliminar">
                 <img alt="logo" class="logo" src="@/assets/basura.png" width="20" height="20" />
             </button>
