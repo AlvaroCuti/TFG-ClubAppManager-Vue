@@ -5,14 +5,62 @@
     import RoundButtonNotFilled from '../components/RoundButtonNoFill.vue';
     import RoundButtonFilled from '../components/RoundButtonFilled.vue';
     import { useAuthStore } from '@/stores/auth'
+    import FiltrosJugadores from '@/components/FiltrosJugadores.vue';
    
     const jugadores = ref([]);
     const auth = useAuthStore()
-    const filtros = ref(['Edad: 20-30', 'Sexo: Masculino']);
+    const filtros = ref([]);
 
-    function eliminarFiltro(index) {
-        filtros.value.splice(index, 1);
+    const modalVisible = ref(false)
+
+    const abrirModal = () => {
+        modalVisible.value = true
     }
+
+    const guardarJugadores = ({ jugadores: jugadoresFiltrados, filtros: filtrosAplicados }) => {
+        jugadores.value = jugadoresFiltrados;
+        filtros.value = filtrosAplicados;
+    };
+
+    const eliminarFiltro = async (index) => {
+        filtros.value.splice(index, 1); // quitamos el filtro
+
+        // Creamos un objeto a partir de los filtros que quedan
+        const campos = {};
+        for (const filtro of filtros.value) {
+            const [key, val] = filtro.split(':').map(s => s.trim());
+            if (key && val) campos[key] = val;
+        }
+
+        // Generamos la query string
+        const queryParams = Object.entries(campos)
+            .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
+            .join('&');
+
+        const url = queryParams
+            ? `http://localhost:8081/api/usuario?${queryParams}&page=0&size=10`
+            : `http://localhost:8081/api/usuario?page=0&size=10`;
+
+        try {
+            const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${auth.token}`,
+            },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                jugadores.value = data._embedded.jugadorDTOList;
+            } else {
+                const errorData = await response.json();
+                console.error("Error:", errorData);
+            }
+        } catch (error) {
+            console.error("Error en la solicitud:", error);
+        }
+    };
+
 
     onMounted(async () => {
         try {
@@ -44,8 +92,18 @@
         </div>
 
         <div class="filtros">
-            <RoundButtonNotFilled placeholder="Filtros"></RoundButtonNotFilled>
-            <RoundButtonFilled v-for="(filtro, index) in filtros" :key="index" :placeholder="filtro" @remove="eliminarFiltro(index)"></RoundButtonFilled>
+            <RoundButtonNotFilled placeholder="Filtros" @click="abrirModal"></RoundButtonNotFilled>
+            <FiltrosJugadores
+                v-if="modalVisible"
+                @close="modalVisible = false"
+                @submit="guardarJugadores"
+            />
+            <RoundButtonFilled
+                v-for="(filtro, index) in filtros"
+                :key="index"
+                :placeholder="filtro"
+                @remove="eliminarFiltro(index)"
+            /> 
         </div>
         
         <div class="contenido">
