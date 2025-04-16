@@ -30,11 +30,10 @@
     <div class="tag">
 
         <h2>Nombre: {{nombre}}</h2>
-        <h3>Categoria: {{categoria}}</h3>
         <h3>Participantes: {{participantes}}</h3>
         <h3>Entrenador: {{entrenador}}</h3> 
         
-        <ButtonWithIcon :icon="iconoPlusPerson" class="boton" placeholder="Añadir Equipo"></ButtonWithIcon>
+        <ButtonWithIcon :icon="iconoPlusPerson" class="boton" placeholder="Añadir Miembro"></ButtonWithIcon>
 
     </div>
 

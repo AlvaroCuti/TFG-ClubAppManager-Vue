@@ -2,8 +2,45 @@
     import ButtonWithIcon from '../components/ButtonWithIcon.vue';
     import EquipoInfoTag from '../components/EquipoInfoTag.vue';
     import iconoPlus from '@/assets/IconPlus.png'; 
+    import { ref, onMounted } from 'vue';
+    import { useAuthStore } from '@/stores/auth'
+    import RegistroEquipo from '@/components/RegistroEquipo.vue';
 
 
+    const modalVisible = ref(false)
+    const equipos = ref([]);
+    const auth = useAuthStore()
+
+    const abrirModal = () => {
+        modalVisible.value = true
+    }
+
+    const guardarEntrenador = (entrenador) => {
+        console.log('Nuevo entrenador:', entrenador)
+        
+    }
+
+    onMounted(async () => {
+        try {
+        const response = await fetch("http://localhost:8081/api/equipo?page=0&size=10", {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            equipos.value = data._embedded.equipoDTOList;            ;
+            console.log(equipos)
+        } else {
+            const errorData = await response.json();
+            console.error("Error:", errorData);
+        }
+        } catch (error) {
+        console.error("Error en la solicitud:", error);
+        }
+    });
 </script>
 
 <template>  
@@ -13,16 +50,21 @@
         </div>
 
         <div class="boton">
-            <ButtonWithIcon :icon="iconoPlus" placeholder="Añadir Equipo"></ButtonWithIcon>
+            <ButtonWithIcon :icon="iconoPlus" placeholder="Añadir Equipo" @click="abrirModal"></ButtonWithIcon>
+            <RegistroEquipo
+                v-if="modalVisible"
+                @close="modalVisible = false"
+                @submit="guardarEntrenador"
+            />
         </div>
 
         <div class="contenido">
-            <EquipoInfoTag placeholder="Añadir miembro"></EquipoInfoTag>
-            <EquipoInfoTag placeholder="Añadir miembro"></EquipoInfoTag>
-            <EquipoInfoTag placeholder="Añadir miembro"></EquipoInfoTag>
-            <EquipoInfoTag placeholder="Añadir miembro"></EquipoInfoTag>
-            <EquipoInfoTag placeholder="Añadir miembro"></EquipoInfoTag>
-
+            <EquipoInfoTag
+            v-for="(equipo, index) in equipos"
+                :key="equipo.id || index"
+                :nombre=equipo.idEquipo
+                :entrenador=equipo.entrenadores
+            />
         </div>
     </div>
 </template>

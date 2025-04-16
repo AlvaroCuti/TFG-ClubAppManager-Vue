@@ -56,6 +56,14 @@ const handleDniFilesTutor2 = (archivos) => {
   dniTraseroTutor2.value = archivos[1] || null;
 };
 
+const siguientePasoORegistrar = () => {
+  if (currentIndex.value < steps.value - 1) {
+    currentIndex.value++;
+  } else {
+    registrar(); // último paso, ahora sí registramos
+  }
+};
+
 const registrar = async () => {
   const creacionDTO = {
     nombre: nombre.value.concat(" ", apellidos.value),
@@ -177,7 +185,11 @@ const registrar = async () => {
           </span>
         </div>
         <div class="boton">
-          <LogInButton @click="registrar" class="boton-login"/>
+          <LogInButton 
+            @click="siguientePasoORegistrar" 
+            class="boton-login" 
+            :placeholder="currentIndex === steps - 1 ? 'Registrarse' : 'Siguiente'" 
+          />
         </div>
       </div>
     </div>
