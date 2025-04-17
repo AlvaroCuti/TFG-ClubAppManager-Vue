@@ -32,6 +32,8 @@ const logear = async () => {
         const data = await response.json()
         auth.setToken(data.token)
         auth.setTel(data.tel)
+        auth.setNombre(data.nombre)
+        auth.setRol(data.rol)
         if (data.rol === 'ADMIN') {
           router.push('/app/jugadores');
         } else if (data.rol === 'JUGADOR') {

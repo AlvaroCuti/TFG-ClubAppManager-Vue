@@ -1,7 +1,4 @@
 <script setup>
-import { useAuthStore } from '@/stores/auth'
-const auth = useAuthStore()
-
 </script>
 
 <template>
@@ -13,7 +10,7 @@ const auth = useAuthStore()
         <div class="apartados">
             <nav>
                 <li class="apartado apartado1">
-                    <router-link class="link" to="/vistaJugador/jugador" active-class="activo">
+                    <router-link class="link" to="/vistaEntrenador/entrenador" active-class="activo">
                         <img alt="logo" class="logo" src="@/assets/IconEquipo.png" width="18" height="18" />
                         Mi Equipo
                     </router-link>
@@ -26,8 +23,8 @@ const auth = useAuthStore()
                 <img alt="logo" class="logo" src="@/assets/Avatar.png" width="35" height="35" />
             </div>
             <div class="infoPerfil">
-                <h4>{{auth.nombre}}</h4>
-                <h5>{{ auth.rol && auth.rol.charAt(0).toUpperCase() + auth.rol.slice(1).toLowerCase() }}</h5>
+                <h4>Jose Angel</h4>
+                <h5>Administrador</h5>
             </div>
         </div>
    </div> 
