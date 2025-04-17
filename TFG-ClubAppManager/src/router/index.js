@@ -5,6 +5,8 @@ import Principal from '../views/PrincipalView.vue'
 import Jugadores from '../views/JugadoresView.vue'
 import Entrenadores from '../views/EntrenadoresView.vue'
 import Equipos from '../views/EquiposView.vue'
+import General from '../views/GeneralUsersView.vue'
+import EntrenamientosJugador from '../views/EntrenamientosJugadorView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +43,28 @@ const router = createRouter({
           path: 'entrenadores',
           name: 'Entrenadores',
           component: Entrenadores,
+        },
+      ],
+    },
+    {
+      path: '/vistaJugador',
+      component: General,
+      children: [
+        {
+          path: 'jugador',
+          name: 'Jugador',
+          component: EntrenamientosJugador,
+        },
+      ],
+    },
+    {
+      path: '/vistaEntrenador',
+      component: Principal,
+      children: [
+        {
+          path: 'entrenador',
+          name: 'Entrenador',
+          component: Jugadores,
         },
       ],
     },

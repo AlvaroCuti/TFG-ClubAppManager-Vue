@@ -31,7 +31,16 @@ const logear = async () => {
       if (response.ok) {
         const data = await response.json()
         auth.setToken(data.token)
-        router.push("/app/jugadores");
+        auth.setTel(data.tel)
+        if (data.rol === 'ADMIN') {
+          router.push('/app/jugadores');
+        } else if (data.rol === 'JUGADOR') {
+          router.push('/vistaJugador/jugador');
+        } else if (data.rol === 'ENTRENADOR') {
+          router.push('/vistaEntrenador/entrenador');
+        } else {
+          console.warn('Rol no reconocido:', data.rol)
+        }
       } else {
         const errorData = await response.json();
         console.error("Error:", errorData);
