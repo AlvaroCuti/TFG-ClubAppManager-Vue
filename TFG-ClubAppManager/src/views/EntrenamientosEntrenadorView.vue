@@ -2,7 +2,7 @@
     import ButtonWithIcon from '../components/ButtonWithIcon.vue';
     import iconoPlus from '@/assets/IconPlus.png'; 
     import EntrenamientoTagTrainer from '../components/EntrenamientoTagTrainer.vue';
-    import {  ref, onMounted } from 'vue';
+    import {  ref, onMounted, watch} from 'vue';
     import {useAuthStore } from '@/stores/auth'
     import RegistroEntrenamientoModal from '../components/RegistroEntrenamiento.vue'
     
@@ -10,49 +10,94 @@
     const auth = useAuthStore()
 
     const entrenamientos = ref([]);
+    const equipos = ref([]);
 
     const abrirModal = () => {
         modalVisible.value = true
     }
+    const equipoSeleccionado = ref(null);
+
+    const cargarEntrenamientos = async () => {
+        if (!equipoSeleccionado.value) return;
+
+        try {
+            const response = await fetch(
+            `http://localhost:8081/api/equipo/${equipoSeleccionado.value}/entrenamiento?page=0&size=10`,
+            {
+                method: 'GET',
+                headers: {
+                Authorization: `Bearer ${auth.token}`,
+                },
+            }
+            );
+
+            if (response.ok) {
+                const data = await response.json();
+                entrenamientos.value = data._embedded?.entrenamientoDTOList || [];
+            } else {
+                const errorData = await response.json();
+                console.error('Error al obtener entrenamientos:', errorData);
+            }
+            } catch (error) {
+                console.error('Error en la solicitud:', error);
+            }
+    };
 
     onMounted(async () => {
-        try {
-        const response = await fetch("http://localhost:8081/api/equipo/67ffe8827e8a3239b269b564/entrenamiento?page=0&size=10", {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${auth.token}`
-            },
-        });
+  try {
+    const response = await fetch(
+      `http://localhost:8081/api/entrenador/${auth.tel}/equipo`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      }
+    );
 
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data)
-            entrenamientos.value = data._embedded.entrenamientoDTOList;
-            console.log(entrenamientos.value)
-        } else {
-            const errorData = await response.json();
-            console.error("Error:", errorData);
-        }
-        } catch (error) {
-        console.error("Error en la solicitud:", error);
-        }
-    });
+    if (response.ok) {
+      const data = await response.json();
+      equipos.value = data.equipos;
+
+      // ✅ Seleccionar automáticamente el primero
+      if (equipos.value.length > 0) {
+        equipoSeleccionado.value = equipos.value[0].idEquipo;
+        await cargarEntrenamientos(); // carga inicial
+      }
+    } else {
+      const errorData = await response.json();
+      console.error('Error al obtener equipos:', errorData);
+    }
+  } catch (error) {
+    console.error('Error en la solicitud de equipos:', error);
+  }
+});
+
+watch(equipoSeleccionado, () => {
+  cargarEntrenamientos();
+});
 </script>
 
 <template>  
     <div class="completo">
         <div class="titulo">
-            <h1>Mi Equipo</h1>
+            <h1>Mis Equipos</h1>
         </div>
         <div class="boton">
+            <div class="selector-equipo">
+                <label for="equipoSelect">Selecciona un equipo:</label>
+                <select id="equipoSelect" v-model="equipoSeleccionado">
+                <option v-for="equipo in equipos" :key="equipo.idEquipo" :value="equipo.idEquipo">
+                    {{ equipo.idEquipo }}
+                </option>
+                </select>
+            </div>
+
             <ButtonWithIcon :icon="iconoPlus" placeholder="Añadir Entrenamiento" @click="abrirModal"></ButtonWithIcon>
-            <RegistroEquipo
-                v-if="modalVisible"
-                @close="modalVisible = false"
-                @submit="guardarEntrenador"
-            />
+            
             <RegistroEntrenamientoModal
                 v-if="modalVisible"
+                :equipo-id="equipoSeleccionado"
                 @close="modalVisible = false"
                 @submit="guardarEntrenador"
             />
@@ -97,11 +142,15 @@
 .boton{
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: space-between;
     margin-right: 50px;
     margin-left: 100px;
     margin-top: 5px;
     margin-bottom: 10px;
+}
+
+.selector-equipo{
+    color: #000;
 }
 
 .contenido{

@@ -10,6 +10,13 @@ const lugar = ref('')
 
 const emitClose = () => emit('close')
 
+const props = defineProps({
+  equipoId: {
+    type: String,
+    required: true
+  }
+});
+
 const handleSubmit = () => {
   const nuevoEntrenamiento = {
     fecha: fecha.value,
@@ -26,7 +33,7 @@ const crear = async () => {
   };
 
   try {
-    const response = await fetch("http://localhost:8081/api/equipo/67ffe8827e8a3239b269b564/entrenamiento", {
+    const response = await fetch(`http://localhost:8081/api/equipo/${props.equipoId}/entrenamiento`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

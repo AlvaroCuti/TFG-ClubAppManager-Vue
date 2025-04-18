@@ -12,7 +12,7 @@
                 <li class="apartado apartado1">
                     <router-link class="link" to="/vistaEntrenador/entrenador" active-class="activo">
                         <img alt="logo" class="logo" src="@/assets/IconEquipo.png" width="18" height="18" />
-                        Mi Equipo
+                        Mis Equipos
                     </router-link>
                 </li>
             </nav>

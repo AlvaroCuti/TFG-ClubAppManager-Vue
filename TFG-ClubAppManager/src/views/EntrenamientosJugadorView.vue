@@ -7,8 +7,31 @@
     const entrenamientos = ref([]);
 
     onMounted(async () => {
+
+        const equipo = ref([]);
+
         try {
-        const response = await fetch("http://localhost:8081/api/equipo/67ffe8827e8a3239b269b564/entrenamiento?page=0&size=10", {
+        const response = await fetch(`http://localhost:8081/api/usuario/${auth.tel}/equipo`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${auth.token}`
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            equipo.value = data.idEquipo;
+        } else {
+            const errorData = await response.json();
+            console.error("Error:", errorData);
+        }
+        } catch (error) {
+        console.error("Error en la solicitud:", error);
+        }
+
+
+        try {
+        const response = await fetch(`http://localhost:8081/api/equipo/${equipo.value}/entrenamiento?page=0&size=10`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${auth.token}`
