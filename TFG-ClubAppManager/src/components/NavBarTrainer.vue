@@ -1,4 +1,6 @@
 <script setup>
+import { useAuthStore } from '@/stores/auth'
+const auth = useAuthStore()
 </script>
 
 <template>
@@ -23,8 +25,8 @@
                 <img alt="logo" class="logo" src="@/assets/Avatar.png" width="35" height="35" />
             </div>
             <div class="infoPerfil">
-                <h4>Jose Angel</h4>
-                <h5>Administrador</h5>
+                <h4>{{auth.nombre}}</h4>
+                <h5>{{ auth.rol && auth.rol.charAt(0).toUpperCase() + auth.rol.slice(1).toLowerCase() }}</h5>
             </div>
         </div>
    </div> 

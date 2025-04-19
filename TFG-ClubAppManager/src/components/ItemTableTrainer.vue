@@ -1,5 +1,8 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth'
+import { ref} from 'vue';
+import ActualizarEntrenadorModal from '../components/ActualizarEntrenador.vue'
+
 const auth = useAuthStore()
 
 const props = defineProps({
@@ -12,6 +15,16 @@ const props = defineProps({
         required: true
     },
 })
+
+  const modalVisible = ref(false)
+  const abrirModal = () => {
+      modalVisible.value = true
+  }
+
+  const guardarEntrenador = (entrenador) => {
+      console.log('Nuevo entrenador:', entrenador)
+      
+  }
 
 const eliminar = async () => {
     
@@ -78,9 +91,15 @@ const descargar = async () => {
             <button class="boton" @click="descargar">
                 <img alt="logo" class="logo" src="@/assets/descarga.png" width="20" height="20" />
             </button>
-            <!-- <button class="boton" @click="editar">
+            <button class="boton" @click="abrirModal">
                 <img alt="logo" class="logo" src="@/assets/edit.png" width="20" height="20" />
-            </button> -->
+            </button>
+            <ActualizarEntrenadorModal
+                v-if="modalVisible"
+                :entrenadorId = "items[3]"
+                @close="modalVisible = false"
+                @submit="guardarEntrenador"
+            />
             <button class="boton" @click="eliminar">
                 <img alt="logo" class="logo" src="@/assets/basura.png" width="20" height="20" />
             </button>

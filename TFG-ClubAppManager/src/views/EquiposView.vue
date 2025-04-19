@@ -62,8 +62,10 @@
             <EquipoInfoTag
             v-for="(equipo, index) in equipos"
                 :key="equipo.id || index"
-                :nombre=equipo.idEquipo
+                :nombre=equipo.nombre
                 :entrenador=equipo.entrenadores
+                :participantes=equipo.numeroJugadores
+                :idEquipo=equipo.idEquipo
             />
         </div>
     </div>

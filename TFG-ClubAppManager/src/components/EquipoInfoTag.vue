@@ -1,16 +1,29 @@
 <script setup>
     import ButtonWithIcon from '../components/ButtonWithIcon.vue';
     import trash from '@/assets/trash.png'; 
+    import edit from '@/assets/edit.png'; 
+    import iconoPlusPerson from '@/assets/IconPersonPlus.png'; 
     import ButtonOnlyIcon from '../components/ButtonOnlyIcon.vue';
     import { useAuthStore } from '@/stores/auth'
+    import { computed } from 'vue'
+    import { ref } from 'vue';
+    import EditarEquipo from './EditarEquipo.vue';
+
     const auth = useAuthStore()
-    
+    const modalVisible = ref(false)
+
+    const abrirModal = () => {
+        modalVisible.value = true
+    }
+
+    const participantesDisplay = computed(() => {
+    return props.participantes === '0' || props.participantes === 0 || !props.participantes
+        ? '0'
+        : props.participantes
+    })
+
     const props = defineProps({
         nombre:{
-            type: String,
-            required: true
-        },
-        categoria:{
             type: String,
             required: true
         },
@@ -22,10 +35,10 @@
             type: String,
             required: true
         },
-        placeholder:{
-            type: String,
-            required: true
-        },
+        idEquipo:{
+            type:String,
+            required:true
+        }
     })
     
     const borrar = async () => {
@@ -53,12 +66,19 @@
     <div class="tag">
 
         <h2>Nombre: {{nombre}}</h2>
-        <h3>Participantes: {{participantes}}</h3>
+        <h3>Participantes: {{ participantesDisplay }}</h3>
         <h3>Entrenador: {{entrenador}}</h3> 
         
         <div class="botones">
             <ButtonWithIcon :icon="iconoPlusPerson" class="boton" placeholder="Añadir Miembro"></ButtonWithIcon>
             <ButtonOnlyIcon :icon="trash" class="boton2" color="#c70714" @click="borrar"></ButtonOnlyIcon>
+            <ButtonOnlyIcon :icon="edit" class="boton2" color="#fff100" @click="abrirModal"></ButtonOnlyIcon>
+            <EditarEquipo
+                v-if="modalVisible"
+                :idEquipo=props.idEquipo
+                @close="modalVisible = false"
+                @submit="guardarEntrenador"
+            />
         </div>
 
     </div>

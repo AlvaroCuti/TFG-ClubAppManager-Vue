@@ -6,29 +6,30 @@ const emit = defineEmits(['close', 'submit'])
 const auth = useAuthStore()
 
 const emitClose = () => emit('close')
-
-const inputs = ref([{ tel: '' }])  // Array para almacenar los inputs
 const nombre = ref('')
 
-const addInput = () => {
-  inputs.value.push({ tel: '' })  // Agregar un nuevo input
-}
+const props = defineProps({
+    idEquipo:{
+        type: String,
+        required: true
+    },
+})
 
-const registrar = async () => {
-  
-  const crearEquipoDTO = {
+const actualizar = async () => {
+  const modificarEquipoDTO = {
     nombre: nombre.value,
-    entrenadores: inputs.value
+    entrenadores: [],
+    jugadores: [] 
   };
 
   try {
-    const response = await fetch("http://localhost:8081/api/equipo", {
-      method: "POST",
+    const response = await fetch(`http://localhost:8081/api/equipo/${props.idEquipo}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${auth.token}`
       },
-      body: JSON.stringify(crearEquipoDTO),
+      body: JSON.stringify(modificarEquipoDTO),
     });
 
     if (response.ok) {
@@ -48,22 +49,12 @@ const registrar = async () => {
     <teleport to="body">
       <div class="modal-overlay" @click.self="emitClose">
         <div class="modal-box">
-          <h2>Registrar Equipo</h2>
-          <form @submit.prevent="registrar">
+          <h2>Editar Equipo</h2>
+          <form @submit.prevent="actualizar">
             <label>
-              Nombre del equipo:
+              Nuevo nombre del equipo:
               <input v-model="nombre" type="text" required />
             </label>
-            <div v-for="(input, index) in inputs" :key="index">
-              <label>
-                Telefono del entrenador:
-                <input v-model="input.tel" type="text" required />
-              </label>
-            </div>
-            <div class="boton">
-                <button type="button" @click="addInput">+</button>
-            </div>
-            
             <div class="modal-actions">
               <button type="submit">Guardar</button>
               <button type="button" @click="emitClose">Cancelar</button>
