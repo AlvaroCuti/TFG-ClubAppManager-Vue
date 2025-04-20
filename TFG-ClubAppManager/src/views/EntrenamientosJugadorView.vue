@@ -41,7 +41,11 @@
         if (response.ok) {
             const data = await response.json();
             console.log(data)
-            entrenamientos.value = data._embedded.entrenamientoDTOList;
+            entrenamientos.value = data._embedded.entrenamientoDTOList.map(e => ({
+            ...e,
+                numAsistencias: e.asistencias.length,
+                yaAsistio: e.asistencias.some(a => a.idJugador === auth.tel) 
+            }));            
             console.log(entrenamientos.value)
         } else {
             const errorData = await response.json();
@@ -66,6 +70,7 @@
                 :lugar="entrenamiento.lugar"
                 :numAsistencias="entrenamiento.numAsistencias"
                 :idEntrenamiento="entrenamiento.idEntrenamiento"
+                :yaAsistio="entrenamiento.yaAsistio"
             />
         </div>
     </div>

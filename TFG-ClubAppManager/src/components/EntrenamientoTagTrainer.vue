@@ -26,7 +26,7 @@
 
         <div class="info">
             <h5 class="titulo">Entrenamiento</h5>
-            <h5 class="hora">{{ horario }} {{ lugar }}</h5>
+            <h5 class="hora">{{ horario }}, {{ lugar }}</h5>
             <h5 class="asis">{{ numAsistencias }} participantes</h5> 
         </div>
         

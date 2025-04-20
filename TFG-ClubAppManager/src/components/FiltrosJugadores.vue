@@ -52,7 +52,6 @@ const filtrar = async () => {
         jugadores: jugadoresFiltrados,
         filtros: filtrosAplicados
       });
-
       emitClose();
     } else {
       const errorData = await response.json();
@@ -80,7 +79,7 @@ const filtrar = async () => {
             </label>
             <label>
               Fecha de nacimiento:
-              <input v-model="fechaNac" type="tel" />
+              <input v-model="fechaNac" type="date" />
             </label>
             <label>
               Correo electrónico:
@@ -140,5 +139,9 @@ const filtrar = async () => {
         gap: 15px;
     }
     
+    input[type="date"] {
+      font-family: 'Arial', sans-serif; /* o la fuente que estés usando */
+      color: black;
+    }
 </style>
   

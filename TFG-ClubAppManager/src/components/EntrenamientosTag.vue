@@ -12,11 +12,15 @@
             required: true
         },
         numAsistencias:{
-            type: String,
+            type: Number,
             required: true
         },
         idEntrenamiento:{
             type: String,
+            required: true
+        },
+        yaAsistio:{
+            type: Boolean,
             required: true
         },
     })
@@ -32,6 +36,7 @@
         });
 
         if (response.ok) {
+            window.location.reload();
             console.log("Usuario registrado correctamente");
             // Redirige o muestra mensaje
         } else {
@@ -52,11 +57,11 @@
         <div class="info">
             <div class="datos">
                 <h5 class="titulo">Entrenamiento</h5>
-                <h5 class="hora">{{ horario }} {{ lugar }}</h5>
+                <h5 class="hora">{{ horario }}, {{ lugar }}</h5>
                 <h5 class="asis">{{ numAsistencias }} participantes</h5> 
             </div>
-            <div class="boton">
-               <button @click="handleClick"> Asistir </button> 
+            <div class="boton" >
+               <button :disabled="yaAsistio" @click="handleClick"> Asistir </button> 
             </div>
         </div>
         
@@ -146,6 +151,12 @@ button:hover{
 .hora{
     font-size: small;
     font-weight: 700;
+}
+
+button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+  transform: none;
 }
 
 </style>

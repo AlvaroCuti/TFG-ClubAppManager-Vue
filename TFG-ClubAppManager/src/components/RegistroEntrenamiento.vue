@@ -6,6 +6,7 @@ const auth = useAuthStore()
 const emit = defineEmits(['close', 'submit'])
 
 const fecha = ref('')
+const hora = ref('')
 const lugar = ref('')
 
 const emitClose = () => emit('close')
@@ -20,6 +21,7 @@ const props = defineProps({
 const handleSubmit = () => {
   const nuevoEntrenamiento = {
     fecha: fecha.value,
+    hora: hora.value,
     lugar: lugar.value,
   }
   emit('submit', nuevoEntrenamiento)
@@ -29,6 +31,7 @@ const handleSubmit = () => {
 const crear = async () => {
   const ProgramacionEntrenamientoDTO = {
     fecha: fecha.value,
+    hora: hora.value,
     lugar: lugar.value,
   };
 
@@ -43,6 +46,7 @@ const crear = async () => {
     });
 
     if (response.ok) {
+      window.location.reload();
       console.log("Usuario registrado correctamente");
     } else {
       const errorData = await response.json();
@@ -62,7 +66,11 @@ const crear = async () => {
           <form @submit.prevent="handleSubmit">
             <label>
               Fecha:
-              <input v-model="fecha" type="text" required />
+              <input v-model="fecha" type="date" required />
+            </label>
+            <label>
+              Hora:
+              <input v-model="hora" type="time" required />
             </label>
             <label>
               Lugar:
@@ -114,5 +122,14 @@ const crear = async () => {
         gap: 15px;
     }
     
+    input[type="date"] {
+      font-family: 'Arial', sans-serif; /* o la fuente que estés usando */
+      color: black;
+    }
+    
+    input[type="time"] {
+      font-family: 'Arial', sans-serif;
+      color: black;
+    }
 </style>
   

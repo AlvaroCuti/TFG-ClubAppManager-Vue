@@ -61,7 +61,7 @@ const registrar = async () => {
 
     if (response.ok) {
       console.log("Usuario registrado correctamente");
-      // Redirige o muestra mensaje
+      window.location.reload();
     } else {
       const errorData = await response.json();
       console.error("Error:", errorData);
@@ -92,7 +92,7 @@ const registrar = async () => {
             </label>
             <label>
               Fecha de nacimiento:
-              <input v-model="fechaNac" type="tel" />
+              <input v-model="fechaNac" type="date" />
             </label>
             <label>
               Contraseña:
@@ -147,5 +147,9 @@ const registrar = async () => {
         gap: 15px;
     }
     
+    input[type="date"] {
+      font-family: 'Arial', sans-serif; /* o la fuente que estés usando */
+      color: black;
+    }
 </style>
   

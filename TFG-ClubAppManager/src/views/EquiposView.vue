@@ -16,6 +16,7 @@
     }
 
     const guardarEntrenador = (entrenador) => {
+        
         console.log('Nuevo entrenador:', entrenador)
         
     }

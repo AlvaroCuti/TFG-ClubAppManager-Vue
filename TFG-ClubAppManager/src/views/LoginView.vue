@@ -30,6 +30,12 @@ const logear = async () => {
 
       if (response.ok) {
         const data = await response.json()
+        
+        sessionStorage.setItem('token', data.token)
+        sessionStorage.setItem('tel', data.tel)
+        sessionStorage.setItem('nombre', data.nombre)
+        sessionStorage.setItem('rol', data.rol)
+
         auth.setToken(data.token)
         auth.setTel(data.tel)
         auth.setNombre(data.nombre)

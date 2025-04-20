@@ -41,6 +41,7 @@ const eliminar = async () => {
     if (!response.ok) {
       throw new Error(`Error en la respuesta: ${response.status}`);
     }
+    window.location.reload();
     
   } catch (err) {
     console.error('Error al descargar el archivo:', err);

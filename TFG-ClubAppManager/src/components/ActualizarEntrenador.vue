@@ -58,9 +58,9 @@ const actualizar = async () => {
   formData.append("certDelitos", certDelitos.value);
 
   console.log("Contenido real de formData:");
-for (const pair of formData.entries()) {
-  console.log(pair[0], pair[1]);
-}
+  for (const pair of formData.entries()) {
+    console.log(pair[0], pair[1]);
+  }
 
   try {
     const response = await fetch(`http://localhost:8081/api/entrenador/${props.entrenadorId}`, {
@@ -73,6 +73,7 @@ for (const pair of formData.entries()) {
 
     if (response.ok) {
       console.log("Usuario actualizado correctamente");
+      window.location.reload();
     } else {
       const errorData = await response.json();
       console.error("Error:", errorData);
@@ -103,7 +104,7 @@ for (const pair of formData.entries()) {
             </label>
             <label>
               Fecha de nacimiento:
-              <input v-model="fechaNac" type="tel" />
+              <input v-model="fechaNac" type="date" />
             </label>
             <label>
               Contraseña:
@@ -157,6 +158,9 @@ for (const pair of formData.entries()) {
         margin-top: 15px;
         gap: 15px;
     }
-    
+    input[type="date"] {
+      font-family: 'Arial', sans-serif; /* o la fuente que estés usando */
+      color: black;
+    }
 </style>
   

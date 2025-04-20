@@ -43,7 +43,7 @@
     
     const borrar = async () => {
     try {
-      const response = await fetch(`http://localhost:8081/api/equipo/${props.nombre}`, {
+      const response = await fetch(`http://localhost:8081/api/equipo/${props.idEquipo}`, {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${auth.token}`
@@ -52,6 +52,7 @@
 
       if (response.ok) {
         console.log(response);
+        window.location.reload();
       } else {
         const errorData = await response.json();
         console.error("Error:", errorData);

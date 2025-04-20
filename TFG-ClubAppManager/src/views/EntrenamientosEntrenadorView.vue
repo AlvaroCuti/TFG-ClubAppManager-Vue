@@ -59,7 +59,6 @@
       const data = await response.json();
       equipos.value = data.equipos;
 
-      // ✅ Seleccionar automáticamente el primero
       if (equipos.value.length > 0) {
         equipoSeleccionado.value = equipos.value[0].idEquipo;
         await cargarEntrenamientos(); // carga inicial

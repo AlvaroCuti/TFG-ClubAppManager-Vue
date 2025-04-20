@@ -34,7 +34,7 @@ const actualizar = async () => {
 
     if (response.ok) {
       console.log("equipo registrado correctamente");
-     
+      window.location.reload();
     } else {
       const errorData = await response.json();
       console.error("Error:", errorData);
