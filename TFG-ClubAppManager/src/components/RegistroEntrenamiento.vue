@@ -29,6 +29,21 @@ const handleSubmit = () => {
 }
 
 const crear = async () => {
+  // Validación de campos
+  if (!fecha.value) {
+    alert("La fecha del entrenamiento es obligatoria.");
+    return;
+  }
+
+  if (!hora.value) {
+    alert("La hora del entrenamiento es obligatoria.");
+    return;
+  }
+
+  if (!lugar.value.trim()) {
+    alert("El lugar del entrenamiento es obligatorio.");
+    return;
+  }
   const ProgramacionEntrenamientoDTO = {
     fecha: fecha.value,
     hora: hora.value,
@@ -66,15 +81,15 @@ const crear = async () => {
           <form @submit.prevent="handleSubmit">
             <label>
               Fecha:
-              <input v-model="fecha" type="date" required />
+              <input v-model="fecha" type="date"/>
             </label>
             <label>
               Hora:
-              <input v-model="hora" type="time" required />
+              <input v-model="hora" type="time"/>
             </label>
             <label>
               Lugar:
-              <input v-model="lugar" type="text" required />
+              <input v-model="lugar" type="text"/>
             </label>
             <div class="modal-actions">
               <button type="submit" @click="crear">Guardar</button>
@@ -95,6 +110,7 @@ const crear = async () => {
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 1100;
     }
     .modal-box {
         background: #fff;

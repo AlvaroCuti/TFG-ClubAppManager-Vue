@@ -36,6 +36,20 @@ const handleDniFilesUser = (archivos) => {
 };
 
 const registrar = async () => {
+  if (
+    !nombre.value.trim() ||
+    !email.value.trim() ||
+    !telefono.value.trim() ||
+    !fechaNac.value ||
+    !pass.value.trim() ||
+    !dniFrontal.value ||
+    !dniTrasero.value ||
+    !certDelitos.value
+  ) {
+    alert("Por favor, completa todos los campos y sube los documentos requeridos.");
+    return;
+  }
+
   const creacionDTO = {
     nombre: nombre.value,
     email: email.value,
@@ -120,6 +134,7 @@ const registrar = async () => {
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 1100;
     }
     .modal-box {
         background: #fff;

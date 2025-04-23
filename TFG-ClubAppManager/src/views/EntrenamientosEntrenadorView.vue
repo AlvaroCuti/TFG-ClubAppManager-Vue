@@ -8,7 +8,8 @@
     
     const modalVisible = ref(false)
     const auth = useAuthStore()
-
+    const totalPages = ref(0);
+    const currentPage = ref(0);
     const entrenamientos = ref([]);
     const equipos = ref([]);
 
@@ -34,6 +35,35 @@
             if (response.ok) {
                 const data = await response.json();
                 entrenamientos.value = data._embedded?.entrenamientoDTOList || [];
+                totalPages.value = data.page.totalPages;
+                currentPage.value = data.page.number;   
+            } else {
+                const errorData = await response.json();
+                console.error('Error al obtener entrenamientos:', errorData);
+            }
+            } catch (error) {
+                console.error('Error en la solicitud:', error);
+            }
+    };
+
+
+    const cambiarPagina = async (pagina) => {
+        try {
+            const response = await fetch(
+            `http://localhost:8081/api/equipo/${equipoSeleccionado.value}/entrenamiento?page=${pagina}&size=10`,
+            {
+                method: 'GET',
+                headers: {
+                Authorization: `Bearer ${auth.token}`,
+                },
+            }
+            );
+
+            if (response.ok) {
+                const data = await response.json();
+                entrenamientos.value = data._embedded?.entrenamientoDTOList || [];
+                totalPages.value = data.page.totalPages;
+                currentPage.value = data.page.number;   
             } else {
                 const errorData = await response.json();
                 console.error('Error al obtener entrenamientos:', errorData);
@@ -44,33 +74,33 @@
     };
 
     onMounted(async () => {
-  try {
-    const response = await fetch(
-      `http://localhost:8081/api/entrenador/${auth.tel}/equipo`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${auth.token}`,
-        },
-      }
-    );
+    try {
+        const response = await fetch(
+        `http://localhost:8081/api/entrenador/${auth.tel}/equipo`,
+        {
+            method: 'GET',
+            headers: {
+            Authorization: `Bearer ${auth.token}`,
+            },
+        }
+        );
 
-    if (response.ok) {
-      const data = await response.json();
-      equipos.value = data.equipos;
+        if (response.ok) {
+        const data = await response.json();
+        equipos.value = data.equipos;
 
-      if (equipos.value.length > 0) {
-        equipoSeleccionado.value = equipos.value[0].idEquipo;
-        await cargarEntrenamientos(); // carga inicial
-      }
-    } else {
-      const errorData = await response.json();
-      console.error('Error al obtener equipos:', errorData);
+        if (equipos.value.length > 0) {
+            equipoSeleccionado.value = equipos.value[0].idEquipo;
+            await cargarEntrenamientos(); // carga inicial
+        }
+        } else {
+        const errorData = await response.json();
+        console.error('Error al obtener equipos:', errorData);
+        }
+    } catch (error) {
+        console.error('Error en la solicitud de equipos:', error);
     }
-  } catch (error) {
-    console.error('Error en la solicitud de equipos:', error);
-  }
-});
+    });
 
 watch(equipoSeleccionado, () => {
   cargarEntrenamientos();
@@ -110,6 +140,16 @@ watch(equipoSeleccionado, () => {
                 :numAsistencias="entrenamiento.numAsistencias"
                 :idEntrenamiento="entrenamiento.idEntrenamiento"
             />
+        </div>
+
+        <div class="pagination">
+            <button
+                v-for="n in totalPages"
+                :key="n"
+                :class="{ active: currentPage === (n - 1) }"
+                @click="cambiarPagina(n - 1)">
+                {{ n }}
+            </button>
         </div>
     </div>
 </template>
@@ -162,5 +202,30 @@ watch(equipoSeleccionado, () => {
     flex-wrap: wrap;
     flex: 1;
     padding-bottom: 100px;
+}
+
+.pagination {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 5px;
+}
+
+.pagination button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.pagination button.active {
+    background-color: #6543E0;
+    color: white;
 }
 </style>

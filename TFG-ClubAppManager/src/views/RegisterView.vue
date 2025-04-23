@@ -138,7 +138,7 @@ const registrar = async () => {
                 
                 <TextInput v-model="email" placeholder="Correo electrónico"></TextInput>
                 <TextInput v-model="telefono" placeholder="Telefono"></TextInput>
-                <TextInput v-model="fechaNacimiento" placeholder="Fecha de nacimiento"></TextInput>
+                <input v-model="fechaNacimiento" placeholder="Fecha de nacimiento" type="date" />
                 <PassInput v-model="pass"/>
                 <PassInput placeholder="Repite la contraseña"/>
                 <div class="drop">

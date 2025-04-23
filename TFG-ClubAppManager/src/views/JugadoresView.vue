@@ -10,6 +10,8 @@
     const jugadores = ref([]);
     const auth = useAuthStore()
     const filtros = ref([]);
+    const totalPages = ref(0);
+    const currentPage = ref(0);
 
     const modalVisible = ref(false)
 
@@ -61,6 +63,28 @@
         }
     };
 
+    const cambiarPagina = async (pagina) => {
+        try {
+            const response = await fetch(`http://localhost:8081/api/usuario?page=${pagina}&size=10`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${auth.token}`,
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                jugadores.value = data._embedded.jugadorDTOList;
+                totalPages.value = data.page.totalPages;
+                currentPage.value = data.page.number;
+            } else {
+                const errorData = await response.json();
+                console.error("Error:", errorData);
+            }
+        } catch (error) {
+            console.error("Error en la solicitud:", error);
+        }
+    };
 
     onMounted(async () => {
         try {
@@ -74,6 +98,8 @@
         if (response.ok) {
             const data = await response.json();
             jugadores.value = data._embedded.jugadorDTOList;
+            totalPages.value = data.page.totalPages;  // ← depende de cómo tu backend lo devuelve
+            currentPage.value = data.page.number;
             console.log(jugadores)
         } else {
             const errorData = await response.json();
@@ -122,6 +148,15 @@
                 :par="index % 2 === 0"
             />
         </div>
+        <div class="pagination">
+            <button
+                v-for="n in totalPages"
+                :key="n"
+                :class="{ active: currentPage === (n - 1) }"
+                @click="cambiarPagina(n - 1)">
+                {{ n }}
+            </button>
+        </div>
     </div>
 </template>
 
@@ -162,6 +197,30 @@
     color: #000;
     margin-left: 100px;
     margin-top: 20px;
+}
+.pagination {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 5px;
+}
+
+.pagination button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.pagination button.active {
+    background-color: #6543E0;
+    color: white;
 }
 
 </style>

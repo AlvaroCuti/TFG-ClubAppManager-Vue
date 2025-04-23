@@ -1,6 +1,37 @@
 <script setup>
+import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+import { onMounted, onBeforeUnmount } from 'vue'
+
 const auth = useAuthStore()
+const showMenu = ref(false)
+const router = useRouter()
+const perfilRef = ref(null)
+
+function toggleMenu() {
+  showMenu.value = !showMenu.value
+}
+
+function logout() {
+  auth.logout()
+  router.push('/login')
+}
+
+function handleClickOutside(event) {
+  if (perfilRef.value && !perfilRef.value.contains(event.target)) {
+    showMenu.value = false
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside)
+})
+
 </script>
 
 <template>
@@ -32,14 +63,20 @@ const auth = useAuthStore()
             </nav>
         </div>
         
-        <div class="perfil">
+        <div class="perfil" @click="toggleMenu" ref="perfilRef">
             <div class="imagen">
                 <img alt="logo" class="logo" src="@/assets/Avatar.png" width="35" height="35" />
             </div>
             <div class="infoPerfil">
-                <h4>{{auth.nombre}}</h4>
+                <h4>{{ auth.nombre }}</h4>
                 <h5>{{ auth.rol && auth.rol.charAt(0).toUpperCase() + auth.rol.slice(1).toLowerCase() }}</h5>
             </div>
+
+            <transition name="slide">
+            <div v-if="showMenu" class="menu-perfil">
+                <button @click.stop="logout" class="cerrar-sesion">Cerrar sesión</button>
+            </div>
+            </transition>
         </div>
    </div> 
 </template>
@@ -168,5 +205,45 @@ nav{
     font-size: smaller;
     font-weight: 400;
 }
+
+.menu-perfil {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1100;
+}
+
+.cerrar-sesion {
+  background-color: #6543E0;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.cerrar-sesion:hover {
+  background-color: #5234b5;
+}
+
+/* Animación de transición */
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
 
 </style>

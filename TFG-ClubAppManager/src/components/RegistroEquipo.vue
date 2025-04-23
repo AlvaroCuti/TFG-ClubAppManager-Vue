@@ -15,7 +15,21 @@ const addInput = () => {
 }
 
 const registrar = async () => {
-  
+
+  if (!nombre.value.trim()) {
+    alert("El nombre del equipo es obligatorio.");
+    return;
+  }
+
+  // Validar que al menos haya un teléfono y que todos estén bien escritos
+  for (let i = 0; i < inputs.value.length; i++) {
+    const tel = inputs.value[i].tel.trim();
+    if (!tel) {
+      alert(`El teléfono del entrenador ${i + 1} es obligatorio.`);
+      return;
+    }
+  }
+
   const crearEquipoDTO = {
     nombre: nombre.value,
     entrenadores: inputs.value
@@ -52,12 +66,12 @@ const registrar = async () => {
           <form @submit.prevent="registrar">
             <label>
               Nombre del equipo:
-              <input v-model="nombre" type="text" required />
+              <input v-model="nombre" type="text" />
             </label>
             <div v-for="(input, index) in inputs" :key="index">
               <label>
                 Telefono del entrenador:
-                <input v-model="input.tel" type="text" required />
+                <input v-model="input.tel" type="tel" />
               </label>
             </div>
             <div class="boton">
@@ -90,6 +104,7 @@ const registrar = async () => {
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 1100;
     }
     .modal-box {
         background: #fff;

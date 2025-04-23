@@ -81,6 +81,7 @@ const actualizar = async () => {
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 1100;
     }
     .modal-box {
         background: #fff;
