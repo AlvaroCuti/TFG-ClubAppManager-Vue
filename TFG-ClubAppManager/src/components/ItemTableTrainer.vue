@@ -90,10 +90,10 @@ const descargar = async () => {
 
         <div class="logo-column">
             <button class="boton" @click="descargar">
-                <img alt="logo" class="logo" src="@/assets/descarga.png" width="20" height="20" />
+                <img alt="logo" class="logo" src="@/assets/descarga2.png" width="21" height="21" />
             </button>
             <button class="boton" @click="abrirModal">
-                <img alt="logo" class="logo" src="@/assets/edit.png" width="20" height="20" />
+                <img alt="logo" class="logo" src="@/assets/edit3.png" width="21" height="21" />
             </button>
             <ActualizarEntrenadorModal
                 v-if="modalVisible"
@@ -102,7 +102,7 @@ const descargar = async () => {
                 @submit="guardarEntrenador"
             />
             <button class="boton" @click="eliminar">
-                <img alt="logo" class="logo" src="@/assets/basura.png" width="20" height="20" />
+                <img alt="logo" class="logo" src="@/assets/trash1.png" width="21" height="21" />
             </button>
         </div>
     </div>
@@ -151,7 +151,8 @@ const descargar = async () => {
         padding-right: 8px;
         padding-top: 3px;
         padding-bottom: 3px;
-
+        background-color: transparent;
+        border: none;
     }
 
 </style>

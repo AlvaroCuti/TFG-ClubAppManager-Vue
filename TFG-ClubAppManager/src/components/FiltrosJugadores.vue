@@ -94,8 +94,8 @@ const filtrar = async () => {
               <input v-model="emailTutor2" type="email" required />
             </label>
             <div class="modal-actions">
-              <button type="submit" @click="filtrar">Filtrar</button>
-              <button type="button" @click="emitClose">Cancelar</button>
+              <button type="submit" @click="filtrar" class="filtrar">Filtrar</button>
+              <button type="button" @click="emitClose" class="cancelar">Cancelar</button>
             </div>
           </form>
         </div>
@@ -144,5 +144,39 @@ const filtrar = async () => {
       font-family: 'Arial', sans-serif; /* o la fuente que estés usando */
       color: black;
     }
+
+    .filtrar{
+      border-radius: 7px;
+      background-color: #6543E0;
+      color:#F6F5F8;
+      border: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding-right: 10px;
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: smaller;
+      font-weight: 700;
+  }
+
+  .cancelar{
+    border-radius: 7px;
+      background-color: grey;
+      color:#F6F5F8;
+      border: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding-right: 10px;
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: smaller;
+      font-weight: 700;
+  }
 </style>
   

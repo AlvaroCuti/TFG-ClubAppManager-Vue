@@ -74,13 +74,16 @@ const registrar = async () => {
                 <input v-model="input.tel" type="tel" />
               </label>
             </div>
+
             <div class="boton">
-                <button type="button" @click="addInput">+</button>
+              <button type="button" @click="addInput" class="plus">
+                <img src="@/assets/plus-02.png" width="18" height="18"/>
+            </button>
             </div>
             
             <div class="modal-actions">
-              <button type="submit">Guardar</button>
-              <button type="button" @click="emitClose">Cancelar</button>
+              <button type="submit" class="guardar">Guardar</button>
+              <button type="button" @click="emitClose" class="cancelar">Cancelar</button>
             </div>
           </form>
         </div>
@@ -131,6 +134,56 @@ const registrar = async () => {
         margin-top: 15px;
         gap: 15px;
     }
-    
+
+    .plus{
+      border-radius: 7px;
+      background-color: #6543E0;
+      color:#F6F5F8;
+      border: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding-right: 7px;
+      padding-left: 7px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      font-size: smaller;
+      font-weight: 700;
+    }
+
+    .guardar{
+      border-radius: 7px;
+      background-color: #6543E0;
+      color:#F6F5F8;
+      border: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding-right: 10px;
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: smaller;
+      font-weight: 700;
+  }
+
+  .cancelar{
+    border-radius: 7px;
+      background-color: grey;
+      color:#F6F5F8;
+      border: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding-right: 10px;
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: smaller;
+      font-weight: 700;
+  }
 </style>
   

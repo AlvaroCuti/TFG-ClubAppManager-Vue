@@ -56,8 +56,8 @@ const actualizar = async () => {
               <input v-model="nombre" type="text" required />
             </label>
             <div class="modal-actions">
-              <button type="submit">Guardar</button>
-              <button type="button" @click="emitClose">Cancelar</button>
+              <button type="submit" class="guardar">Guardar</button>
+              <button type="button" @click="emitClose" class="cancelar">Cancelar</button>
             </div>
           </form>
         </div>
@@ -109,5 +109,38 @@ const actualizar = async () => {
         gap: 15px;
     }
     
+    .guardar{
+      border-radius: 7px;
+      background-color: #6543E0;
+      color:#F6F5F8;
+      border: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding-right: 10px;
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: smaller;
+      font-weight: 700;
+  }
+
+  .cancelar{
+    border-radius: 7px;
+      background-color: grey;
+      color:#F6F5F8;
+      border: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding-right: 10px;
+      padding-left: 10px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: smaller;
+      font-weight: 700;
+  }
 </style>
   

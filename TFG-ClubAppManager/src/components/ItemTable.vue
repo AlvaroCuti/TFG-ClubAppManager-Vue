@@ -59,7 +59,7 @@ const handleClick = async () => {
         </div>
         <div class="logo-column">
             <button class="boton" @click="handleClick">
-                <img alt="logo" class="logo" src="@/assets/descarga.png" width="20" height="20" />
+                <img alt="logo" class="logo" src="@/assets/descarga2.png" width="20" height="20" />
             </button>
         </div>
         
@@ -93,7 +93,8 @@ const handleClick = async () => {
         padding-right: 8px;
         padding-top: 3px;
         padding-bottom: 3px;
-
+        background-color: transparent;
+        border: none;
     }
 
     .box{

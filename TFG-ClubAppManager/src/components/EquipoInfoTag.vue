@@ -1,8 +1,6 @@
 <script setup>
-    import ButtonWithIcon from '../components/ButtonWithIcon.vue';
-    import trash from '@/assets/trash.png'; 
-    import edit from '@/assets/edit.png'; 
-    import iconoPlusPerson from '@/assets/IconPersonPlus.png'; 
+    import trash1 from '@/assets/trash1-blanc.png'; 
+    import edit3 from '@/assets/edit3-blanc.png'; 
     import ButtonOnlyIcon from '../components/ButtonOnlyIcon.vue';
     import { useAuthStore } from '@/stores/auth'
     import { computed } from 'vue'
@@ -64,57 +62,125 @@
 </script>
 
 <template>
-    <div class="tag">
+   <div class="tag">
+  <!-- Imagen superior con botones -->
+  <div class="imagen">
+    <div class="acciones-superior">
+        <ButtonOnlyIcon :icon="trash1" class="accion" color="#c70714" @click="borrar" />
+        <ButtonOnlyIcon :icon="edit3" class="accion" color="#E08B43" @click="abrirModal" />
+    </div>
+  </div>
 
-        <h2>Nombre: {{nombre}}</h2>
-        <h3>Participantes: {{ participantesDisplay }}</h3>
-        <h3>Entrenador: {{entrenador}}</h3> 
-        
-        <div class="botones">
-            <ButtonWithIcon :icon="iconoPlusPerson" class="boton" placeholder="Añadir Miembro"></ButtonWithIcon>
-            <ButtonOnlyIcon :icon="trash" class="boton2" color="#c70714" @click="borrar"></ButtonOnlyIcon>
-            <ButtonOnlyIcon :icon="edit" class="boton2" color="#fff100" @click="abrirModal"></ButtonOnlyIcon>
-            <EditarEquipo
-                v-if="modalVisible"
-                :idEquipo=props.idEquipo
-                @close="modalVisible = false"
-                @submit="guardarEntrenador"
-            />
-        </div>
-
+  <!-- Información del equipo -->
+   <div class="info">
+    <div class="datos">
+        <h2 class="nombre">Nombre: {{ nombre }}</h2>
+        <h3 class="part">Participantes: {{ participantesDisplay }}</h3>
+        <h3 class="entrenador">Entrenador: {{ entrenador }}</h3>
     </div>
 
-   
+    <!-- Botón inferior para añadir miembro -->
+    <div class="botones-inferiores">
+        <button :disabled="yaAsistio" @click="handleClick"> Añadir miembro </button> 
+    </div>
+   </div>
+
+  <!-- Modal -->
+  <EditarEquipo
+    v-if="modalVisible"
+    :idEquipo="props.idEquipo"
+    @close="modalVisible = false"
+    @submit="guardarEntrenador"
+  />
+</div>
+
 </template>
   
 
 <style scoped>
-.tag{
-    background-color: #D9D9D9;
-    border-radius: 15px;
-    width: 350px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    color: #000;
-    padding: 10px;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-    border-color: #000;
-    border-width: 1px;
+.tag {
+  background-color: #D9D9D9;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #000;
+  width: 435px;
+  height: auto;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  position: relative;
 }
 
-
-.tag > h2{
-    font-weight: 600;
+.imagen {
+  background-image: url('@/assets/fondo-equipo.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 115px;
+  width: 100%;
+  position: relative;
 }
 
-.botones{
+/* Botones de editar y borrar flotando arriba a la derecha */
+.acciones-superior {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+  background-color: rgba(0, 0, 0, 0.4); /* fondo negro con opacidad */
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.nombre {
+  font-size: x-large;
+  font-weight: 700;
+}
+
+.part, .entrenador {
+  font-size: medium;
+  font-weight: 500;
+}
+
+.info{
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: center;
-    margin-top: 10px;
-    gap: 15px;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.datos {
+  padding: 10px 15px;
+}
+
+.botones-inferiores {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 10px;
+}
+
+button{
+    border-radius: 14px;
+    background-color: #6543E0;
+    color:#F6F5F8;
+    border: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 28px;
+    padding-bottom: 28px;
+    font-size: smaller;
+    font-weight: 700;
 }
 
 </style>
