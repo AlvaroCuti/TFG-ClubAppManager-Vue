@@ -6,9 +6,13 @@ import LogInButton from '../components/LogInButton.vue';
 import ImagesDrop from '../components/ImagesDrop.vue';
 import { ref } from "vue";
 import TagTutor from '@/components/TagTutor.vue';
+import { useToast } from 'vue-toastification'
+import { useRouter } from 'vue-router';
 
+const toast = useToast()
 const currentIndex = ref(0); // Índice del paso actual
 const steps = ref(3); // Número total de pasos
+const router = useRouter();
 
 const nombre = ref('');
 const apellidos = ref('');
@@ -16,7 +20,7 @@ const email = ref('');
 const telefono = ref('');
 const fechaNacimiento = ref('');
 const pass = ref('');
-// const repetirPass = ref('');
+const repetirPass = ref('');  
 
 const emailTutor1 = ref('');
 const emailTutor2 = ref('');
@@ -65,6 +69,11 @@ const siguientePasoORegistrar = () => {
 };
 
 const registrar = async () => {
+  if (pass.value !== repetirPass.value) {
+    alert('Las contraseñas no coinciden');
+    return; 
+  }
+
   const creacionDTO = {
     nombre: nombre.value.concat(" ", apellidos.value),
     email: email.value,
@@ -91,8 +100,9 @@ const registrar = async () => {
     });
 
     if (response.ok) {
+      toast.success("Usuario registrado con éxito");
       console.log("Usuario registrado correctamente");
-      // Redirige o muestra mensaje
+      router.push('/login');
     } else {
       const errorData = await response.json();
       console.error("Error:", errorData);
@@ -138,7 +148,7 @@ const registrar = async () => {
                 
                 <TextInput v-model="email" placeholder="Correo electrónico"></TextInput>
                 <TextInput v-model="telefono" placeholder="Telefono"></TextInput>
-                <input v-model="fechaNacimiento" placeholder="Fecha de nacimiento" type="date" />
+                <input v-model="fechaNacimiento" placeholder="Fecha de nacimiento" type="date" class="fecha" />
                 <PassInput v-model="pass"/>
                 <PassInput placeholder="Repite la contraseña"/>
                 <div class="drop">
@@ -359,4 +369,16 @@ header {
   background: #6543E0;
 }
 
+.fecha{
+  padding: 8px 16px;
+  border-radius: 8px;
+  width: 100%;
+  background-color: #E1E0E7;
+  border: 0;
+}
+
+input:focus{
+  outline: none;
+  border: none; 
+}
 </style>

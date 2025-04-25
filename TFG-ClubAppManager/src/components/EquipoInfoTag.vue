@@ -6,12 +6,18 @@
     import { computed } from 'vue'
     import { ref } from 'vue';
     import EditarEquipo from './EditarEquipo.vue';
+    import AddJugador from './AddJugador.vue';
 
     const auth = useAuthStore()
-    const modalVisible = ref(false)
+    const modalVisibleEdit = ref(false)
+    const modalVisibleAdd = ref(false)
 
-    const abrirModal = () => {
-        modalVisible.value = true
+    const abrirModalEdit = () => {
+      modalVisibleEdit.value = true
+    }
+
+    const abrirModalAdd = () => {
+      modalVisibleAdd.value = true
     }
 
     const participantesDisplay = computed(() => {
@@ -67,7 +73,7 @@
   <div class="imagen">
     <div class="acciones-superior">
         <ButtonOnlyIcon :icon="trash1" class="accion" color="#c70714" @click="borrar" />
-        <ButtonOnlyIcon :icon="edit3" class="accion" color="#E08B43" @click="abrirModal" />
+        <ButtonOnlyIcon :icon="edit3" class="accion" color="#E08B43" @click="abrirModalEdit" />
     </div>
   </div>
 
@@ -81,15 +87,21 @@
 
     <!-- Botón inferior para añadir miembro -->
     <div class="botones-inferiores">
-        <button :disabled="yaAsistio" @click="handleClick"> Añadir miembro </button> 
+        <button :disabled="yaAsistio" @click="abrirModalAdd"> Añadir miembro </button> 
+        <AddJugador
+          v-if="modalVisibleAdd"
+          :idEquipo="props.idEquipo"
+          @close="modalVisibleAdd = false"
+          @submit="guardarEntrenador"
+        />
     </div>
    </div>
 
   <!-- Modal -->
   <EditarEquipo
-    v-if="modalVisible"
+    v-if="modalVisibleEdit"
     :idEquipo="props.idEquipo"
-    @close="modalVisible = false"
+    @close="modalVisibleEdit = false"
     @submit="guardarEntrenador"
   />
 </div>

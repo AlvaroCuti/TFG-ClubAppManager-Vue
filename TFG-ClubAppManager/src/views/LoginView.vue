@@ -8,6 +8,8 @@ import { RouterLink } from 'vue-router';
 import { ref } from "vue";
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
+import { useToast } from 'vue-toastification'
+const toast = useToast()
 
 const router = useRouter();
 
@@ -40,6 +42,11 @@ const logear = async () => {
         auth.setTel(data.tel)
         auth.setNombre(data.nombre)
         auth.setRol(data.rol)
+
+        const nomFormateado = auth.nombre.split(" ")[0];
+
+        toast.success(`Inicio de sesion exitoso. Bienvenido ${nomFormateado}`)
+
         if (data.rol === 'ADMIN') {
           router.push('/app/jugadores');
         } else if (data.rol === 'JUGADOR') {
@@ -52,6 +59,7 @@ const logear = async () => {
       } else {
         const errorData = await response.json();
         console.error("Error:", errorData);
+        toast.error(`Error al iniciar sesión. Credenciales inválidos`)
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);
