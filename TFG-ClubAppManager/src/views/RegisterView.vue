@@ -70,6 +70,8 @@ const siguientePasoORegistrar = () => {
 
 const registrar = async () => {
   if (pass.value !== repetirPass.value) {
+  console.log(pass.value);
+  console.log(repetirPass.value);
     alert('Las contraseñas no coinciden');
     return; 
   }
@@ -150,7 +152,7 @@ const registrar = async () => {
                 <TextInput v-model="telefono" placeholder="Telefono"></TextInput>
                 <input v-model="fechaNacimiento" placeholder="Fecha de nacimiento" type="date" class="fecha" />
                 <PassInput v-model="pass"/>
-                <PassInput placeholder="Repite la contraseña"/>
+                <PassInput v-model="repetirPass" placeholder="Repite la contraseña"/>
                 <div class="drop">
                   <ImagesDrop @update:files="handleDniFilesUser"/>
                 </div>
