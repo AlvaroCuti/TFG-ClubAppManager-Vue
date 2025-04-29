@@ -36,7 +36,7 @@ onBeforeUnmount(() => {
 
 <template>
    <div class="completo">
-        <div class="logo">
+        <div class="logo logoApp">
             <img alt="logo" class="logo" src="@/assets/LogoFinal.png" width="50" height="50" />
         </div>
 
@@ -45,19 +45,19 @@ onBeforeUnmount(() => {
                 <li class="apartado apartado1">
                     <router-link class="link" to="/app/jugadores" active-class="activo">
                         <img alt="logo" class="logo" src="@/assets/User.png" width="18" height="18" />
-                        Jugadores
+                        <span class="texto">Jugadores</span>
                     </router-link>
                 </li>
                 <li class="apartado apartado2">
                     <router-link class="link" to="/app/equipos" active-class="activo">
                         <img alt="logo" class="logo" src="@/assets/IconEquipo.png" width="18" height="18" />
-                        Equipos
+                        <span class="texto">Equipos</span>
                     </router-link>
                 </li>
                 <li class="apartado apartado3">
                     <router-link class="link" to="/app/entrenadores" active-class="activo">
                         <img alt="logo" class="logo" src="@/assets/IconEntrenadores.png" width="18" height="18" />
-                        Entrenadores
+                        <span class="texto">Entrenadores</span>
                     </router-link>
                 </li>
             </nav>
@@ -93,6 +93,10 @@ onBeforeUnmount(() => {
     font-weight: 500;
     padding-right: 16px;
     transition: color 0.4s ease; /* transición para el texto */
+}
+
+.link > span{
+    font-weight: 500;
 }
 
 .apartado{
@@ -182,16 +186,13 @@ nav{
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 17px;
 }
 
 .imagen{
     padding-right: 10px;
-}
-
-.perfil{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 17px;
 }
 
 .infoPerfil > h4{
@@ -245,5 +246,59 @@ nav{
   transform: translateY(-10px);
 }
 
+@media (max-width: 768px) {
+    .link{
+        color: #000;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        padding-right: 10px;
+        padding-left: 10px;
+        transition: color 0.4s ease; /* transición para el texto */
+    }
 
+    nav{
+        gap: 8px;
+    }
+  
+    .link > .logo {
+        display: none;
+    }
+
+    .logoApp {
+        display: none;
+    }
+
+    .completo {
+        background-color: #E1E0E7;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; /* <- space-between, no center */
+        align-items: center;
+        padding: 0 16px; /* Añadir un poco de padding lateral */
+    }
+
+    .apartados {
+        display: flex;
+        flex: 1;
+        justify-content: center; /* <- centra los apartados */
+        gap: 16px;
+        margin-left: 35px;
+    }
+
+    .perfil {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end; /* <- para que el perfil esté a la derecha */
+        align-items: center;
+        flex: 0 0 auto; /* <- evita que crezca y se quede del tamaño de su contenido */
+    }
+
+    .infoPerfil{
+        display: none;
+    }
+    
+}
 </style>

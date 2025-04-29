@@ -36,7 +36,7 @@ onBeforeUnmount(() => {
 
 <template>
    <div class="completo">
-        <div class="logo">
+        <div class="logo logoApp">
             <img alt="logo" class="logo" src="@/assets/LogoFinal.png" width="50" height="50" />
         </div>
 
@@ -218,6 +218,62 @@ nav{
 .slide-leave-to {
   opacity: 0;
   transform: translateY(-10px);
+}
+
+@media (max-width: 768px) {
+    .link{
+        color: #000;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500;
+        padding-right: 10px;
+        padding-left: 10px;
+        transition: color 0.4s ease; /* transición para el texto */
+    }
+
+    nav{
+        gap: 8px;
+    }
+  
+    .link > .logo {
+        display: none;
+    }
+
+    .logoApp {
+        display: none;
+    }
+
+    .completo {
+        background-color: #E1E0E7;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between; /* <- space-between, no center */
+        align-items: center;
+        padding: 0 16px; /* Añadir un poco de padding lateral */
+    }
+
+    .apartados {
+        display: flex;
+        flex: 1;
+        justify-content: center; /* <- centra los apartados */
+        gap: 16px;
+        margin-left: 35px;
+    }
+
+    .perfil {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end; /* <- para que el perfil esté a la derecha */
+        align-items: center;
+        flex: 0 0 auto; /* <- evita que crezca y se quede del tamaño de su contenido */
+    }
+
+    .infoPerfil{
+        display: none;
+    }
+    
 }
 
 </style>

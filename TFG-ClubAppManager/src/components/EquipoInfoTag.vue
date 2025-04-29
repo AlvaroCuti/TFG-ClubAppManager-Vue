@@ -195,4 +195,43 @@ button{
     font-weight: 700;
 }
 
+@media (max-width: 768px) {
+  .tag {
+    width: 90%; /* Que el card ocupe casi todo el ancho disponible */
+    margin: auto; /* Centrado */
+  }
+
+  .info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .botones-inferiores {
+    margin: 10px 20px;
+    padding: 5px 0;
+  }
+
+  button {
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+
+  .acciones-superior {
+    top: 5px;
+    right: 5px;
+    padding: 3px;
+    gap: 5px;
+  }
+
+  .nombre {
+    font-size: 22px;
+  }
+
+  .part, .entrenador {
+    font-size: 16px;
+  }
+}
+
+
 </style>

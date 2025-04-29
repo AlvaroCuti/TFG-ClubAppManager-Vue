@@ -383,4 +383,47 @@ input:focus{
   outline: none;
   border: none; 
 }
+
+
+@media (max-width: 768px) {
+  .right {
+    width: 100%;
+    height: 100%;
+    padding: 40px 20px;
+  }
+
+  .left {
+    display: none; /* Ocultamos la imagen de fondo en móviles */
+  }
+
+  .header-container {
+    width: 100%;
+    position: fixed;
+    padding: 10px 20px;
+  }
+
+  header {
+    padding-left: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pagina {
+    gap: 30px;
+  }
+
+  .credenciales {
+    gap: 12px;
+  }
+
+  .register {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .register h5, .register a {
+    padding: 0;
+  }
+}
 </style>

@@ -87,18 +87,21 @@ import { ref, onMounted } from 'vue';
                 @submit="guardarEntrenador"
             />
         </div>
-        
-        <div class="contenido">
-            <HeaderTableTrainer :items="['Nombre', 'Fecha de nacimiento', 'Correo electrónico', 'Teléfono', '']"></HeaderTableTrainer>
-            <ItemTableTrainer v-for="(entrenador, index) in entrenadores"
-                :key="entrenador.id || index"
-                :items="[
-                    entrenador.nombre,
-                    entrenador.fechaNac,
-                    entrenador.email,
-                    entrenador.tel,
-                ]"
-                :par="index % 2 === 0"/>
+        <div class="tabla-scroll">
+
+            <div class="contenido">
+                <HeaderTableTrainer :items="['Nombre', 'Fecha de nacimiento', 'Correo electrónico', 'Teléfono', '']"></HeaderTableTrainer>
+                <ItemTableTrainer v-for="(entrenador, index) in entrenadores"
+                    :key="entrenador.id || index"
+                    :items="[
+                        entrenador.nombre,
+                        entrenador.fechaNac,
+                        entrenador.email,
+                        entrenador.tel,
+                    ]"
+                    :par="index % 2 === 0"/>
+            </div>
+
         </div>
 
         <div class="pagination">
@@ -145,11 +148,19 @@ import { ref, onMounted } from 'vue';
     margin-top: 5px;
 }
 
-.contenido{
-    color: #000;
-    margin-left: 100px;
-    margin-top: 20px;
+.tabla-scroll {
+  overflow-x: auto;
+  margin-left: 100px;
+  margin-right: 50px;
 }
+
+/* Elimina los márgenes laterales innecesarios */
+.contenido {
+  color: #000;
+  min-width: 800px;
+  margin-top: 20px;
+}
+
 .pagination {
     position: fixed;
     bottom: 20px;
@@ -173,5 +184,39 @@ import { ref, onMounted } from 'vue';
 .pagination button.active {
     background-color: #6543E0;
     color: white;
+}
+
+@media (max-width: 768px) {
+
+    .tabla-scroll {
+        overflow-x: auto;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+  .contenido {
+    min-width: 600px;
+  }
+
+  .titulo > h1 {
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 24px;
+  }
+
+  .boton {
+    margin: 10px 20px;
+    justify-content: center;
+  }
+
+  .contenido {
+    margin-left: 20px;  /* Reducir margen en dispositivos móviles */
+    margin-top: 10px;   /* Reducir margen superior */
+  }
+
+  /* Quitar márgenes a la clase completo para dispositivos móviles */
+  .completo {
+    margin: 0;
+  }
 }
 </style>

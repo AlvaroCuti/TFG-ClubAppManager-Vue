@@ -27,7 +27,7 @@ import NavBarGeneral from '../components/NavBarGeneral.vue';
   left: 0;
   width: 100%;
   height: 100%;
-  margin-top: 60px;
+  margin-top: 55px;
   background-color: #f6f6f8;
   overflow: auto; /* Asegura scroll si hace falta */
   z-index: 1; /* Menor al de la navbar */

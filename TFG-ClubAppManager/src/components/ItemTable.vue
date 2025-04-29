@@ -72,7 +72,6 @@ const handleClick = async () => {
         display: grid;
         grid-template-columns: repeat(7, 1fr); /* 7 columnas iguales */
         background-color: #E1E0E7;
-        margin-right: 100px;
         border-radius: 0px 0px 0px 0px;
     }
 

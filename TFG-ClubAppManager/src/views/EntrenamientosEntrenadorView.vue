@@ -228,4 +228,24 @@ watch(equipoSeleccionado, () => {
     background-color: #6543E0;
     color: white;
 }
+
+@media (max-width: 768px) {
+  .titulo > h1 {
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 24px;
+  }
+
+  .contenido,
+  .boton,
+  .pagination {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .pagination {
+    bottom: 10px;
+  }
+
+}
 </style>

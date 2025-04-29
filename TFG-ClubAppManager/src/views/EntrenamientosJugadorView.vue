@@ -190,4 +190,29 @@
     background-color: #6543E0;
     color: white;
 }
+
+@media (max-width: 768px) {
+  .titulo > h1 {
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 24px;
+  }
+
+  .boton {
+    margin: 10px 20px;
+    justify-content: center;
+  }
+
+  .contenido {
+    margin: 10px 20px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .pagination {
+    bottom: 10px;
+    gap: 3px;
+  }
+
+}
 </style>

@@ -131,22 +131,23 @@
                 @remove="eliminarFiltro(index)"
             /> 
         </div>
-        
-        <div class="contenido">
-            <HeaderTable :items="['Nombre', 'Fecha de nacimiento', 'Correo electrónico', 'Teléfono', 'Correo electrónico Tutor 1', 'Correo electrónico Tutor 2', '']"></HeaderTable>
-            <ItemTable
-                v-for="(jugador, index) in jugadores"
-                :key="jugador.id || index"
-                :items="[
-                    jugador.nombre,
-                    jugador.fechaNac,
-                    jugador.email,
-                    jugador.tel,
-                    jugador.emailTutor1,
-                    jugador.emailTutor2,
-                ]"
-                :par="index % 2 === 0"
-            />
+        <div class="tabla-scroll">
+            <div class="contenido">
+                <HeaderTable :items="['Nombre', 'Fecha de nacimiento', 'Correo electrónico', 'Teléfono', 'Correo electrónico Tutor 1', 'Correo electrónico Tutor 2', '']"></HeaderTable>
+                <ItemTable
+                    v-for="(jugador, index) in jugadores"
+                    :key="jugador.id || index"
+                    :items="[
+                        jugador.nombre,
+                        jugador.fechaNac,
+                        jugador.email,
+                        jugador.tel,
+                        jugador.emailTutor1,
+                        jugador.emailTutor2,
+                    ]"
+                    :par="index % 2 === 0"
+                />
+            </div>
         </div>
         <div class="pagination">
             <button
@@ -193,11 +194,20 @@
     margin-bottom: -10px;
 }
 
-.contenido{
-    color: #000;
-    margin-left: 100px;
-    margin-top: 20px;
+.tabla-scroll {
+  overflow-x: auto;
+  margin-left: 100px;
+  margin-right: 100px;
 }
+
+/* Estilos internos no deben expandir el ancho más allá del necesario */
+.contenido {
+  color: #000;
+  min-width: 900px; /* Ajusta este valor según la cantidad de columnas */
+  margin-top: 20px;
+  /* Quitamos márgenes laterales */
+}
+
 .pagination {
     position: fixed;
     bottom: 20px;
@@ -221,6 +231,36 @@
 .pagination button.active {
     background-color: #6543E0;
     color: white;
+}
+
+@media (max-width: 768px) {
+  .tabla-scroll {
+    overflow-x: auto;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .contenido {
+    min-width: 700px; /* Ajusta según columnas, puede ser menos o más */
+  }
+
+  .titulo > h1 {
+    margin-left: 20px;
+    margin-top: 20px;
+    font-size: 24px;
+  }
+
+  .filtros {
+    margin-right: 20px;
+    margin-left: 20px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+
+  .completo {
+    margin: 0;
+  }
 }
 
 </style>
