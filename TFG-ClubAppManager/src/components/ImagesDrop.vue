@@ -5,6 +5,13 @@
     const emit = defineEmits(['update:files']);
     const archivosSeleccionados = ref([]);
 
+    const props = defineProps({
+        placeholder: {
+            type: String,
+            required: true
+        },
+    })
+
     const abrirSelector = () => {
         fileInput.value?.click();
     };
@@ -20,10 +27,10 @@
 <template>
     <div class="container" @click="abrirSelector">
         <img alt="logo" class="logo" src="@/assets/cloud.png" width="25" height="25" />
-        <h4>Seleccione fotos del DNI por delante y por detrás</h4>
+        <h4>{{ props.placeholder }}</h4>
     </div>
 
-    <input type="file" ref="fileInput" style="display: none" accept="image/*" multiple @change="handleArchivo" />
+    <input type="file" ref="fileInput" style="display: none" accept="image/*, application/pdf" multiple @change="handleArchivo" />
 
 </template>
   
@@ -49,8 +56,10 @@ img{
     color: #3E3854;
 }
 
-h4{
+h4 {
     color: #3E3854;
+    white-space: pre-line; /* Permite que '\n' se convierta en salto de línea */
+    text-align: center;
 }
 
 

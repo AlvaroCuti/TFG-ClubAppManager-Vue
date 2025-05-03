@@ -154,7 +154,7 @@ const registrar = async () => {
                 <PassInput v-model="pass"/>
                 <PassInput v-model="repetirPass" placeholder="Repite la contraseña"/>
                 <div class="drop">
-                  <ImagesDrop @update:files="handleDniFilesUser"/>
+                  <ImagesDrop  placeholder="Seleccione fotos del DNI por delante y por detrás" @update:files="handleDniFilesUser"/>
                 </div>
               </div>
              
@@ -168,7 +168,7 @@ const registrar = async () => {
                 
                 <TextInput v-model="emailTutor1" placeholder="Correo electrónico tutor 1"></TextInput>
                 <div class="drop">
-                  <ImagesDrop @update:files="handleDniFilesTutor1"/>
+                  <ImagesDrop placeholder="Seleccione fotos del DNI por delante y por detrás" @update:files="handleDniFilesTutor1"/>
                 </div>
               </div>
             </div>
@@ -182,7 +182,7 @@ const registrar = async () => {
                 <TextInput v-model="emailTutor2" placeholder="Correo electrónico tutor 2"></TextInput>
                 
                 <div class="drop">
-                  <ImagesDrop  @update:files="handleDniFilesTutor2"/>
+                  <ImagesDrop placeholder="Seleccione fotos del DNI por delante y por detrás" @update:files="handleDniFilesTutor2"/>
                 </div>
               </div>
               

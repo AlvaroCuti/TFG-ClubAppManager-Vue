@@ -92,6 +92,7 @@
             v-for="(equipo, index) in equipos"
                 :key="equipo.id || index"
                 :nombre=equipo.nombre
+                :categoria=equipo.categoria
                 :entrenador=equipo.entrenadores
                 :participantes=equipo.numeroJugadores
                 :idEquipo=equipo.idEquipo
@@ -148,6 +149,7 @@
     flex-direction: row;
     gap: 30px;
     flex-wrap: wrap;
+    padding-bottom: 120px;
 }
 
 .pagination {

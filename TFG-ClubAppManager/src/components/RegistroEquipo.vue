@@ -10,6 +10,18 @@ const nombre = ref('')
 const entrenadoresDisponibles = ref([])
 const entrenadoresSeleccionados = ref(['']) // Primer select visible por defecto
 
+const categoriaSeleccionada = ref('')
+const categorias = [
+  { label: 'Prebenjamín', value: 'PREBENJAMIN' },
+  { label: 'Benjamín', value: 'BENJAMIN' },
+  { label: 'Alevin', value: 'ALEVIN' },
+  { label: 'Infantil', value: 'INFANTIL' },
+  { label: 'Cadete', value: 'CADETE' },
+  { label: 'Juvenil', value: 'JUVENIL' },
+  { label: 'Sub_23', value: 'SUB_23' },
+  { label: 'Senior', value: 'SENIOR' }
+]
+
 // Agrega un nuevo campo de selección
 const addInput = () => {
   entrenadoresSeleccionados.value.push('')
@@ -31,6 +43,7 @@ const registrar = async () => {
 
   const crearEquipoDTO = {
     nombre: nombre.value,
+    categoria: categoriaSeleccionada.value,
     entrenadores: seleccionFinal.map(tel => ({ tel }))
   }
 
@@ -85,9 +98,17 @@ onMounted(async () => {
         <form @submit.prevent="registrar">
           <label>
             Nombre del equipo:
-            <input v-model="nombre" type="text" />
+            <input v-model="nombre" type="text" class="nombre"/>
           </label>
 
+          <label for="categoria-select-">Selecciona una categoría
+            <select v-model="categoriaSeleccionada">
+              <option disabled value="">Selecciona una categoría</option>
+              <option v-for="cat in categorias" :key="cat.value" :value="cat.value">
+                {{ cat.label }}
+              </option>
+            </select>
+          </label>
           <div v-for="(entrenadorTel, index) in entrenadoresSeleccionados" :key="index" class="apartado">
             <label :for="'entrenador-select-' + index">Selecciona un entrenador:
             <select
@@ -129,6 +150,7 @@ onMounted(async () => {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-top: 1rem;
 }
 
 .modal-overlay {
@@ -154,13 +176,21 @@ onMounted(async () => {
 
 .modal-box label {
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
 }
 
 .modal-box input {
   width: 100%;
   padding: 0.5rem;
   margin-top: 0.25rem;
+}
+
+.apartado label{
+  margin-top: 0.75rem;
+}
+
+.nombre{
+  margin-bottom: 0.75rem;
 }
 
 .modal-actions {

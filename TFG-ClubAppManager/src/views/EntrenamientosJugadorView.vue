@@ -162,7 +162,7 @@
     gap: 60px;
     flex-wrap: wrap;
     flex: 1;
-    padding-bottom: 100px;
+    padding-bottom: 120px;
 }
 
 

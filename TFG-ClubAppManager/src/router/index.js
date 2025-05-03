@@ -9,6 +9,7 @@ import General from '../views/GeneralUsersView.vue'
 import EntrenamientosJugador from '../views/EntrenamientosJugadorView.vue'
 import EntrenamientosEntrenador from '../views/EntrenamientosEntrenadorView.vue'
 import Trainer from '../views/TrainerView.vue'
+import EquipoInfoView from '../views/EquipoInfoView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,10 +43,17 @@ const router = createRouter({
           component: Equipos, // lazy load
         },
         {
+          path: 'equipos/:nombre',
+          name: 'EquipoInfoView',
+          component: EquipoInfoView,
+          props: true,
+        },
+        {
           path: 'entrenadores',
           name: 'Entrenadores',
           component: Entrenadores,
         },
+        
       ],
     },
     {

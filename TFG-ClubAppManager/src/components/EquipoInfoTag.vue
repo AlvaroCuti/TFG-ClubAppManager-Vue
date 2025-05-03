@@ -7,10 +7,12 @@
     import { ref } from 'vue';
     import EditarEquipo from './EditarEquipo.vue';
     import AddJugador from './AddJugador.vue';
+    import { useRouter } from 'vue-router';
 
     const auth = useAuthStore()
     const modalVisibleEdit = ref(false)
     const modalVisibleAdd = ref(false)
+    const router = useRouter();
 
     const abrirModalEdit = () => {
       modalVisibleEdit.value = true
@@ -20,14 +22,41 @@
       modalVisibleAdd.value = true
     }
 
+    const verDetallesEquipo = () => {
+      router.push({
+        path: `/app/equipos/${encodeURIComponent(props.nombre)}`,
+        query: {
+          idEquipo: props.idEquipo
+        }
+      });   
+    };
+
     const participantesDisplay = computed(() => {
     return props.participantes === '0' || props.participantes === 0 || !props.participantes
         ? '0'
         : props.participantes
     })
 
+    const entrenadorNombre = computed(() => {
+      try {
+        const entrenadores = Array.isArray(props.entrenador)
+          ? props.entrenador
+          : JSON.parse(props.entrenador);
+
+        return entrenadores.length > 0 ? entrenadores[0].nombre : 'Sin asignar';
+      } catch (e) {
+        console.error('Error al procesar entrenador:', e, props.entrenador);
+        return 'Desconocido';
+      }
+    });
+
+
     const props = defineProps({
         nombre:{
+            type: String,
+            required: true
+        },
+        categoria:{
             type: String,
             required: true
         },
@@ -81,13 +110,15 @@
    <div class="info">
     <div class="datos">
         <h2 class="nombre">Nombre: {{ nombre }}</h2>
+        <h2 class="categoria">Categoria: {{ categoria.charAt(0).toUpperCase() + categoria.slice(1).toLowerCase() }}</h2>
         <h3 class="part">Participantes: {{ participantesDisplay }}</h3>
-        <h3 class="entrenador">Entrenador: {{ entrenador }}</h3>
+        <h3 class="entrenador">Entrenador: {{ entrenadorNombre }}</h3>
     </div>
 
     <!-- Botón inferior para añadir miembro -->
     <div class="botones-inferiores">
-        <button :disabled="yaAsistio" @click="abrirModalAdd"> Añadir miembro </button> 
+        <button class="add-btn" :disabled="yaAsistio" @click="abrirModalAdd"> Añadir miembro </button>
+        <button class="detalles-btn" @click="verDetallesEquipo">Más detalles</button> 
         <AddJugador
           v-if="modalVisibleAdd"
           :idEquipo="props.idEquipo"
@@ -147,8 +178,13 @@
 }
 
 .nombre {
-  font-size: x-large;
+  font-size: large;
   font-weight: 700;
+}
+
+.categoria{
+  font-size: medium;
+  font-weight: 500;
 }
 
 .part, .entrenador {
@@ -172,6 +208,7 @@
 .botones-inferiores {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   padding: 10px 0;
   margin-left: 40px;
   margin-right: 40px;
@@ -193,6 +230,26 @@ button{
     padding-bottom: 28px;
     font-size: smaller;
     font-weight: 700;
+}
+
+.detalles-btn {
+  margin-top: 10px;
+  background-color: #4B4B4B;
+  color: #fff;
+  border-radius: 14px;
+  padding: 15px 18px;
+  font-weight: 600;
+  font-size: smaller;
+}
+
+.add-btn {
+  margin-top: 10px;
+  background-color: #6543E0;
+  color: #fff;
+  border-radius: 14px;
+  padding: 15px 18px;
+  font-weight: 600;
+  font-size: smaller;
 }
 
 @media (max-width: 768px) {

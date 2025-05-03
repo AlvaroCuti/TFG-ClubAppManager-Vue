@@ -113,7 +113,8 @@ const registrar = async () => {
               <input v-model="pass" type="tel" />
             </label>
             <div class="drop">
-                <ImagesDrop @update:files="handleDniFilesUser"></ImagesDrop>
+                <ImagesDrop placeholder="Seleccione fotos del DNI por delante, por detrás 
+                y el certificado de delitos sexuales" @update:files="handleDniFilesUser"></ImagesDrop>
             </div>  
             <div class="modal-actions">
               <button type="submit" @click="registrar" class="guardar">Guardar</button>
