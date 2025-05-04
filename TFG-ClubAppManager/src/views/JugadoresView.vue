@@ -133,7 +133,7 @@
         </div>
         <div class="tabla-scroll">
             <div class="contenido">
-                <HeaderTable :items="['Nombre', 'Fecha de nacimiento', 'Correo electrónico', 'Teléfono', 'Correo electrónico Tutor 1', 'Correo electrónico Tutor 2', '']"></HeaderTable>
+                <HeaderTable :items="['Nombre', 'Fecha de nacimiento', 'Correo electrónico', 'Teléfono', 'Correo electrónico Tutor 1', 'Correo electrónico Tutor 2', 'Equipo', '']"></HeaderTable>
                 <ItemTable
                     v-for="(jugador, index) in jugadores"
                     :key="jugador.id || index"
@@ -144,6 +144,7 @@
                         jugador.tel,
                         jugador.emailTutor1,
                         jugador.emailTutor2,
+                        jugador.equipo ? jugador.equipo : '-' // Aquí se aplica el guion
                     ]"
                     :par="index % 2 === 0"
                 />

@@ -7,6 +7,10 @@ const props = defineProps({
         type: Array,
         required: true
     },
+    idEquipo:{
+        type: String,
+        required: true
+    },
     par: {
         type: Boolean,
         required: true
@@ -18,9 +22,23 @@ const props = defineProps({
 })
 
 const handleClick = async () => {
- 
+    const tel = props.items[1]; 
+    try {
+      const response = await fetch(`http://localhost:8081/api/equipo/${props.idEquipo}/jugador/${tel}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${auth.token}`
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error en la respuesta: ${response.status}`);
+      }
+      window.location.reload(); 
+    } catch (err) {
+        console.error('Error al descargar el archivo:', err);
+    }
 };
-
 </script>
 
 

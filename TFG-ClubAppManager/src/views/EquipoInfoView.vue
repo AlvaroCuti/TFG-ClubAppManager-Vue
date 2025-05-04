@@ -49,6 +49,7 @@ onMounted(async () => {
               v-for="(entrenador, index) in entrenadores"
               :key="entrenador.id || index"
               :items="[entrenador.nombre, entrenador.tel]"
+              :idEquipo="route.query.idEquipo"
               :par="index % 2 === 0"
             />
           </template>
@@ -62,6 +63,7 @@ onMounted(async () => {
               v-for="(jugador, index) in jugadores"
               :key="jugador.id || index"
               :items="[jugador.nombre, jugador.tel]"
+              :idEquipo="route.query.idEquipo"
               :par="index % 2 === 0"
             />
           </template>

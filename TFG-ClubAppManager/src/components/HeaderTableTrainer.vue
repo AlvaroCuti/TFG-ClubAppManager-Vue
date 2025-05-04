@@ -21,7 +21,7 @@
 <style scoped>
     .container{
         display: grid;
-        grid-template-columns: repeat(5, 1fr); /* 7 columnas iguales */
+        grid-template-columns: repeat(6, 1fr); /* 7 columnas iguales */
         background-color: #6543E0;
         border-radius: 8px;
         margin-bottom: 3px; /* solo en HeaderTable */
