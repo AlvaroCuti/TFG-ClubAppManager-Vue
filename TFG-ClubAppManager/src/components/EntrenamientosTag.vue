@@ -19,17 +19,87 @@
             type: String,
             required: true
         },
+        idEquipo:{
+            type: String,
+            required: true
+        },
         yaAsistio:{
             type: Boolean,
             required: true
         },
     })
 
+    function parseFechaConHora(fechaStr) {
+        const meses = {
+            enero: 0,
+            febrero: 1,
+            marzo: 2,
+            abril: 3,
+            mayo: 4,
+            junio: 5,
+            julio: 6,
+            agosto: 7,
+            septiembre: 8,
+            octubre: 9,
+            noviembre: 10,
+            diciembre: 11
+        };
+
+        // Divide la string: ["12", "diciembre", "2025", "15:30"]
+        const partes = fechaStr.toLowerCase().split(" ");
+        const dia = parseInt(partes[0], 10);
+        const mes = meses[partes[1]];
+        const anio = parseInt(partes[2], 10);
+
+        const [hora, minuto] = partes[3].split(":").map(Number);
+
+        if (mes === undefined) throw new Error("Mes no reconocido");
+
+        return new Date(anio, mes, dia, hora, minuto);
+    }
+
+    import { computed } from 'vue';
+
+    // Convertir la fecha string a objeto Date
+    const fechaEntrenamiento = computed(() => parseFechaConHora(props.horario));
+
+    // Verificar si la fecha ya pasó
+    const entrenamientoPasado = computed(() => {
+        const ahora = new Date();
+        return fechaEntrenamiento.value < ahora;
+    });
+
+
     const handleClick = async () => {
     try {
+        const idEquipo = props.idEquipo;
         const id = props.idEntrenamiento; 
-        const response = await fetch(`http://localhost:8081/api/equipo/entrenamiento/${id}/usuario/${auth.tel}`, {
+        const response = await fetch(`http://localhost:8081/api/equipo/${idEquipo}/entrenamiento/${id}/usuario/${auth.tel}`, {
         method: 'PUT',
+        headers: {
+            Authorization: `Bearer ${auth.token}`
+        },
+        });
+
+        if (response.ok) {
+            window.location.reload();
+            console.log("Usuario registrado correctamente");
+            // Redirige o muestra mensaje
+        } else {
+            const errorData = await response.json();
+            console.error("Error:", errorData);
+        }
+    } catch (error) {
+        console.error("Error en la solicitud:", error);
+    }
+    };
+
+    const handleCancel = async () => {
+    try {
+        const idEquipo = props.idEquipo;
+        const id = props.idEntrenamiento; 
+        const response = await fetch(`http://localhost:8081/api/equipo/${idEquipo}/entrenamiento/${id}/usuario/${auth.tel}`, {
+        method: 'DELETE',
         headers: {
             Authorization: `Bearer ${auth.token}`
         },
@@ -61,7 +131,8 @@
                 <h5 class="asis">{{ numAsistencias }} participantes</h5> 
             </div>
             <div class="boton" >
-               <button :disabled="yaAsistio" @click="handleClick"> Asistir </button> 
+                <button :disabled="yaAsistio || entrenamientoPasado" @click="handleClick" class="confirmar"> Asistir </button> 
+                <button :disabled="!yaAsistio || entrenamientoPasado" @click="handleCancel" class="cancelar"> Cancelar </button>
             </div>
         </div>
         
@@ -102,11 +173,15 @@
 }
 
 .boton{
-    margin-left: 40px;
     margin-right: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-button {
+.confirmar {
     border-radius: 14px;
     background-color: #6543E0;
     color:#F6F5F8;
@@ -122,6 +197,24 @@ button {
     font-size: smaller;
     font-weight: 700;
 }
+
+.cancelar {
+    border-radius: 14px;
+    background-color: #c70714;
+    color:#F6F5F8;
+    border: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-right: 25px;
+    padding-left: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: smaller;
+    font-weight: 700;
+}
+
 
 button:hover{
   background-color: #593bc8; /* Verde más oscuro */

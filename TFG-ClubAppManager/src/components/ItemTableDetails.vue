@@ -18,35 +18,7 @@ const props = defineProps({
 })
 
 const handleClick = async () => {
-  try {
-    const tel = props.items[3]; 
-    const nom = props.items[0]; 
-
-    const response = await fetch(`http://localhost:8081/api/usuario/${tel}`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${auth.token}`
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error en la respuesta: ${response.status}`);
-    }
-
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${nom}-imagenes.zip`; 
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-
-  } catch (err) {
-    console.error('Error al descargar el archivo:', err);
-  }
+ 
 };
 
 </script>

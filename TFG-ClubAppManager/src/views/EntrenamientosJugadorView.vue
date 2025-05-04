@@ -94,13 +94,14 @@
         <div class="titulo">
             <h1>Mi Equipo</h1>
         </div>
-        <div class="contenido">
+        <div class="contenido" v-if="equipo">
             <EntrenamientosTag
                 v-for="(entrenamiento, index) in entrenamientos"
                 :key="index"
                 :horario="entrenamiento.horario"
                 :lugar="entrenamiento.lugar"
                 :numAsistencias="entrenamiento.numAsistencias"
+                :idEquipo="equipo"
                 :idEntrenamiento="entrenamiento.idEntrenamiento"
                 :yaAsistio="entrenamiento.yaAsistio"
             />

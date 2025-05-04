@@ -34,7 +34,10 @@
 
             if (response.ok) {
                 const data = await response.json();
-                entrenamientos.value = data._embedded?.entrenamientoDTOList || [];
+                entrenamientos.value = (data._embedded?.entrenamientoDTOList || []).map(ent => ({
+                    ...ent,
+                    numAsistencias: ent.asistencias ? ent.asistencias.length : 0
+                }));
                 totalPages.value = data.page.totalPages;
                 currentPage.value = data.page.number;   
             } else {

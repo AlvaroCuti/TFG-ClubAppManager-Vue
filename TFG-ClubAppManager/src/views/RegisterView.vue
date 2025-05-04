@@ -37,25 +37,19 @@ const dniArchivos1 = ref([]);
 const dniArchivos2 = ref([]);
 
 const handleDniFilesUser = (archivos) => {
-  // Puedes guardarlos directamente en un ref, o separar si necesitas frontal/trasero
   dniArchivos.value = archivos;
-  // O, si solo esperas uno por input:
   dniFrontal.value = archivos[0] || null;
   dniTrasero.value = archivos[1] || null;
 };
 
 const handleDniFilesTutor1 = (archivos) => {
-  // Puedes guardarlos directamente en un ref, o separar si necesitas frontal/trasero
   dniArchivos1.value = archivos;
-  // O, si solo esperas uno por input:
   dniFrontalTutor1.value = archivos[0] || null;
   dniTraseroTutor1.value = archivos[1] || null;
 };
 
 const handleDniFilesTutor2 = (archivos) => {
-  // Puedes guardarlos directamente en un ref, o separar si necesitas frontal/trasero
   dniArchivos2.value = archivos;
-  // O, si solo esperas uno por input:
   dniFrontalTutor2.value = archivos[0] || null;
   dniTraseroTutor2.value = archivos[1] || null;
 };
@@ -64,7 +58,7 @@ const siguientePasoORegistrar = () => {
   if (currentIndex.value < steps.value - 1) {
     currentIndex.value++;
   } else {
-    registrar(); // último paso, ahora sí registramos
+    registrar();
   }
 };
 
@@ -154,7 +148,7 @@ const registrar = async () => {
                 <PassInput v-model="pass"/>
                 <PassInput v-model="repetirPass" placeholder="Repite la contraseña"/>
                 <div class="drop">
-                  <ImagesDrop  placeholder="Seleccione fotos del DNI por delante y por detrás" @update:files="handleDniFilesUser"/>
+                  <ImagesDrop  placeholder="Seleccione fotos del DNI por delante y por detrás" :maxFiles="2" @update:files="handleDniFilesUser"/>
                 </div>
               </div>
              
@@ -168,7 +162,7 @@ const registrar = async () => {
                 
                 <TextInput v-model="emailTutor1" placeholder="Correo electrónico tutor 1"></TextInput>
                 <div class="drop">
-                  <ImagesDrop placeholder="Seleccione fotos del DNI por delante y por detrás" @update:files="handleDniFilesTutor1"/>
+                  <ImagesDrop placeholder="Seleccione fotos del DNI por delante y por detrás" :maxFiles="2" @update:files="handleDniFilesTutor1"/>
                 </div>
               </div>
             </div>
@@ -182,7 +176,7 @@ const registrar = async () => {
                 <TextInput v-model="emailTutor2" placeholder="Correo electrónico tutor 2"></TextInput>
                 
                 <div class="drop">
-                  <ImagesDrop placeholder="Seleccione fotos del DNI por delante y por detrás" @update:files="handleDniFilesTutor2"/>
+                  <ImagesDrop placeholder="Seleccione fotos del DNI por delante y por detrás" :maxFiles="2" @update:files="handleDniFilesTutor2"/>
                 </div>
               </div>
               

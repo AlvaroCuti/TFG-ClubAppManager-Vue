@@ -29,7 +29,7 @@ const handleSubmit = () => {
 }
 
 const crear = async () => {
-  // Validación de campos
+
   if (!fecha.value) {
     alert("La fecha del entrenamiento es obligatoria.");
     return;
@@ -42,6 +42,14 @@ const crear = async () => {
 
   if (!lugar.value.trim()) {
     alert("El lugar del entrenamiento es obligatorio.");
+    return;
+  }
+
+  const ahora = new Date();
+  const fechaHoraEntrenamiento = new Date(`${fecha.value}T${hora.value}`);
+
+  if (fechaHoraEntrenamiento <= ahora) {
+    alert("La fecha y hora del entrenamiento deben ser posteriores al momento actual.");
     return;
   }
   const ProgramacionEntrenamientoDTO = {
