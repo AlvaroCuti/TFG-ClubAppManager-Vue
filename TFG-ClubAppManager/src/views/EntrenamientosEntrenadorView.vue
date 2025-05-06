@@ -120,7 +120,7 @@ watch(equipoSeleccionado, () => {
                 <label for="equipoSelect">Selecciona un equipo:</label>
                 <select id="equipoSelect" v-model="equipoSeleccionado">
                 <option v-for="equipo in equipos" :key="equipo.idEquipo" :value="equipo.idEquipo">
-                    {{ equipo.idEquipo }}
+                    {{ equipo.nombre }}
                 </option>
                 </select>
             </div>
@@ -142,6 +142,7 @@ watch(equipoSeleccionado, () => {
                 :lugar="entrenamiento.lugar"
                 :numAsistencias="entrenamiento.numAsistencias"
                 :idEntrenamiento="entrenamiento.idEntrenamiento"
+                :idEquipo="equipoSeleccionado"
             />
         </div>
 

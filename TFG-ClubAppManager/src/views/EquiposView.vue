@@ -149,7 +149,7 @@
     flex-direction: row;
     gap: 30px;
     flex-wrap: wrap;
-    padding-bottom: 120px;
+    padding-bottom: 150px;
 }
 
 .pagination {

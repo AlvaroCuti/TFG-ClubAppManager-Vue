@@ -56,6 +56,7 @@ const crear = async () => {
     fecha: fecha.value,
     hora: hora.value,
     lugar: lugar.value,
+    entrenador: auth.tel,
   };
 
   try {

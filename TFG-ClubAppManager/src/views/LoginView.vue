@@ -52,7 +52,11 @@ const logear = async () => {
         } else if (data.rol === 'JUGADOR') {
           router.push('/vistaJugador/jugador');
         } else if (data.rol === 'ENTRENADOR') {
-          router.push('/vistaEntrenador/entrenador');
+          if(data.debeCambiarPass){
+            router.push({ path: '/cambiarPass', query: { tel: data.tel } });
+          }else{
+            router.push('/vistaEntrenador/entrenador');
+          }
         } else {
           console.warn('Rol no reconocido:', data.rol)
         }

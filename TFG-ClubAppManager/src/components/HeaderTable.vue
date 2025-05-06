@@ -21,10 +21,11 @@
 <style scoped>
     .container{
         display: grid;
-        grid-template-columns: repeat(8, 1fr); /* 7 columnas iguales */
+        grid-template-columns: 1.5fr 1fr 1.5fr 1fr 1.5fr 1.5fr 1fr auto; 
         background-color: #6543E0;
         border-radius: 8px;
         margin-bottom: 3px; /* solo en HeaderTable */
+        padding-right: 40px; /* <-- Añadido */
     }
 
     .box{

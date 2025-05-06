@@ -10,6 +10,7 @@ import EntrenamientosJugador from '../views/EntrenamientosJugadorView.vue'
 import EntrenamientosEntrenador from '../views/EntrenamientosEntrenadorView.vue'
 import Trainer from '../views/TrainerView.vue'
 import EquipoInfoView from '../views/EquipoInfoView.vue'
+import CambiarPass from '../views/CambiarPassView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,11 @@ const router = createRouter({
       path: '/login',
       name: 'Login',
       component: Login,
+    },
+    {
+      path: '/cambiarPass',
+      name: 'cambiarPass',
+      component: CambiarPass,
     },
     {
       path: '/register',

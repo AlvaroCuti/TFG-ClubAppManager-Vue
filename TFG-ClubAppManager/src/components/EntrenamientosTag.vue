@@ -216,10 +216,16 @@
 }
 
 
-button:hover{
-  background-color: #593bc8; /* Verde más oscuro */
-  transform: scale(1.02); /* Hace el botón un poco más grande */
+button:not(:disabled).confirmar:hover {
+  background-color: #593bc8; 
+  transform: scale(1.02);
 }
+
+button:not(:disabled).cancelar:hover {
+  background-color: #b90713;
+  transform: scale(1.02);
+}
+
 
 .info{
     display: flex;

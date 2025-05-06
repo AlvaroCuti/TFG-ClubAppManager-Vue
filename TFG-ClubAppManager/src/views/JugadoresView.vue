@@ -199,6 +199,8 @@
   overflow-x: auto;
   margin-left: 100px;
   margin-right: 100px;
+  margin-bottom: 150px;
+
 }
 
 /* Estilos internos no deben expandir el ancho más allá del necesario */

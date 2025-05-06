@@ -70,9 +70,10 @@ const handleClick = async () => {
 <style scoped>
     .container{
         display: grid;
-        grid-template-columns: repeat(8, 1fr); /* 7 columnas iguales */
+        grid-template-columns: 1.5fr 1fr 1.5fr 1fr 1.5fr 1.5fr 1fr auto; 
         background-color: #E1E0E7;
         border-radius: 0px 0px 0px 0px;
+        padding-right: 40px; /* <-- Añadido */
     }
 
     .logo-column {
@@ -103,9 +104,13 @@ const handleClick = async () => {
         padding-bottom: 5px;
         padding-left: 15px;
         padding-right: 15px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+        
+    white-space: normal;
+    overflow: visible;
+    text-overflow: initial;
+    word-break: break-word;
+}
+
+
 
 </style>

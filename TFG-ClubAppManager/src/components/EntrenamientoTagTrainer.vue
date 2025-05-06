@@ -1,5 +1,10 @@
 <script setup>
-    defineProps({
+    import trash1 from '@/assets/trash1-blanc.png'; 
+    import ButtonOnlyIcon from '../components/ButtonOnlyIcon.vue';
+    import { useAuthStore } from '@/stores/auth'
+
+    const auth = useAuthStore()
+    const props = defineProps({
         horario:{
             type: String,
             required: true
@@ -16,12 +21,47 @@
             type: String,
             required: true
         },
+        idEquipo:{
+            type: String,
+            required: true  
+        }
     })
+
+    const borrar = async () => {
+
+    const JugadorIdDTO = {
+        tel: auth.tel,
+    };
+
+    try {
+      const response = await fetch(`http://localhost:8081/api/equipo/${props.idEquipo}/entrenamiento/${props.idEntrenamiento}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.token}`
+        },
+        body: JSON.stringify(JugadorIdDTO),
+      });
+
+      if (response.ok) {
+        console.log(response);
+        window.location.reload();
+      } else {
+        const errorData = await response.json();
+        console.error("Error:", errorData);
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+    }
+  };
 </script>
 
 <template>
     <div class="tag">
         <div class="imagen">
+            <div class="acciones-superior">
+                <ButtonOnlyIcon :icon="trash1" class="accion" color="#c70714" @click="borrar" />
+            </div>
         </div>
 
         <div class="info">
@@ -37,16 +77,28 @@
   
 
 <style scoped>
+
+
 .imagen {
-    background-image: url('@/assets/fondo-balones.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 150px;
-    width: 100%;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    margin: 0;
+  background-image: url('@/assets/fondo-balones.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 130px;
+  width: 100%;
+  position: relative;
+  border-radius: 15px 15px 0 0;
+}
+
+.acciones-superior {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+  background-color: rgba(0, 0, 0, 0.4); /* fondo negro con opacidad */
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .tag{
@@ -71,7 +123,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .datos{

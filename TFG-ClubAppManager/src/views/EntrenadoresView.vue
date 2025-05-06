@@ -90,7 +90,7 @@ import { ref, onMounted } from 'vue';
         <div class="tabla-scroll">
 
             <div class="contenido">
-                <HeaderTableTrainer :items="['Nombre', 'Fecha de nacimiento', 'Correo electrónico', 'Teléfono', 'Equipo', '']"></HeaderTableTrainer>
+                <HeaderTableTrainer :items="['Nombre', 'Fecha de nacimiento', 'Correo electrónico', 'Teléfono', 'Equipos', '']"></HeaderTableTrainer>
                 <ItemTableTrainer v-for="(entrenador, index) in entrenadores"
                     :key="entrenador.id || index"
                     :items="[
@@ -98,7 +98,7 @@ import { ref, onMounted } from 'vue';
                         entrenador.fechaNac,
                         entrenador.email,
                         entrenador.tel,
-                        entrenador.equipo ? entrenador.equipo : '-' // Aquí se aplica el guion
+                        entrenador.equipos ? entrenador.equipos : '-' // Aquí se aplica el guion
                     ]"
                     :par="index % 2 === 0"/>
             </div>
@@ -153,6 +153,7 @@ import { ref, onMounted } from 'vue';
   overflow-x: auto;
   margin-left: 100px;
   margin-right: 50px;
+  margin-bottom: 150px;
 }
 
 /* Elimina los márgenes laterales innecesarios */
