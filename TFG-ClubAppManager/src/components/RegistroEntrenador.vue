@@ -90,32 +90,32 @@ const registrar = async () => {
     <teleport to="body">
       <div class="modal-overlay" @click.self="emitClose">
         <div class="modal-box">
-          <h2>Registrar Entrenador</h2>
+          <h2 class="modal-title">Registrar Entrenador</h2>
           <form @submit.prevent="handleSubmit">
-            <label>
-              Nombre:
-              <input v-model="nombre" type="text" required />
-            </label>
-            <label>
-              Correo electrónico:
-              <input v-model="email" type="email" required />
-            </label>
-            <label>
-              Teléfono:
-              <input v-model="telefono" type="tel" />
-            </label>
-            <label>
-              Fecha de nacimiento:
-              <input v-model="fechaNac" type="date" />
-            </label>
-            <label>
-              Contraseña:
-              <input v-model="pass" type="tel" />
-            </label>
-            <div class="drop">
-                <ImagesDrop placeholder="Seleccione fotos del DNI por delante, por detrás 
-                y el certificado de delitos sexuales" :maxFiles="3" @update:files="handleDniFilesUser"></ImagesDrop>
-            </div>  
+            <label class="form-label">Nombre:</label>
+            <input v-model="nombre" type="text" class="form-input" required />
+
+            <label class="form-label">Correo electrónico:</label>
+            <input v-model="email" type="email" class="form-input" required />
+
+            <label class="form-label">Teléfono:</label>
+            <input v-model="telefono" type="tel" class="form-input" />
+
+            <label class="form-label">Fecha de nacimiento:</label>
+            <input v-model="fechaNac" type="date" class="form-input" />
+
+            <label class="form-label">Contraseña:</label>
+            <input v-model="pass" type="password" class="form-input" />
+
+            <div class="form-label">
+              Documentos requeridos:
+              <ImagesDrop
+                placeholder="Seleccione fotos del DNI por delante, por detrás y certificado de delitos"
+                :maxFiles="3"
+                @update:files="handleDniFilesUser"
+              />
+            </div>
+
             <div class="modal-actions">
               <button type="submit" @click="registrar" class="guardar">Guardar</button>
               <button type="button" @click="emitClose" class="cancelar">Cancelar</button>
@@ -127,79 +127,94 @@ const registrar = async () => {
 </template>
   
 <style scoped>
+    .titulo-principal{
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .titulo{
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
     .modal-overlay {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        background: rgba(0,0,0,0.4);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1100;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1100;
     }
+
     .modal-box {
-        background: #fff;
-        padding: 1.5rem;
-        border-radius: 8px;
-        min-width: 350px;
-        color: black;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      min-width: 360px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      color: #333;
     }
-    .modal-box label {
-        display: block;
-        margin-bottom: 1rem;
+
+    .modal-title {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-align: center;
     }
-    .modal-box input {
-        width: 100%;
-        padding: 0.5rem;
-        margin-top: 0.25rem;
+
+    .form-label {
+      display: block;
+      margin-bottom: 0rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    input[type="date"] {
+      font-family: 'Arial', sans-serif;
+      color: #333;
     }
 
     .modal-actions {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-        margin-top: 15px;
-        gap: 15px;
-    }
-    
-    input[type="date"] {
-      font-family: 'Arial', sans-serif; /* o la fuente que estés usando */
-      color: black;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
     }
 
-    .guardar{
-      border-radius: 7px;
-      background-color: #6543E0;
-      color:#F6F5F8;
-      border: 0;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding-right: 10px;
-      padding-left: 10px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      font-size: smaller;
-      font-weight: 700;
-  }
+    .guardar,
+    .cancelar {
+      border-radius: 6px;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-weight: bold;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
 
-  .cancelar{
-    border-radius: 7px;
-      background-color: grey;
-      color:#F6F5F8;
-      border: 0;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding-right: 10px;
-      padding-left: 10px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      font-size: smaller;
-      font-weight: 700;
-  }
+    .guardar {
+      background-color: #6543e0;
+      color: #fff;
+    }
+
+    .cancelar {
+      background-color: #999;
+      color: #fff;
+    }
+
 </style>
   

@@ -125,7 +125,9 @@ watch(equipoSeleccionado, () => {
                 </select>
             </div>
 
-            <ButtonWithIcon :icon="iconoPlus" placeholder="Añadir Entrenamiento" @click="abrirModal"></ButtonWithIcon>
+            <div class="add">
+                <ButtonWithIcon :icon="iconoPlus" placeholder="Añadir Entrenamiento" @click="abrirModal"></ButtonWithIcon>
+            </div>
             
             <RegistroEntrenamientoModal
                 v-if="modalVisible"
@@ -232,6 +234,39 @@ watch(equipoSeleccionado, () => {
     background-color: #6543E0;
     color: white;
 }
+
+.selector-equipo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+  margin-right: 20px;
+}
+
+.selector-equipo label {
+  margin-bottom: 6px;
+}
+
+.selector-equipo select {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  font-family: inherit;
+  color: #333;
+  background-color: #fff;
+  transition: border-color 0.3s;
+  min-width: 220px;
+}
+
+.selector-equipo select:focus {
+  outline: none;
+  border-color: #6543e0;
+  box-shadow: 0 0 0 2px rgba(101, 67, 224, 0.2);
+}
+
 
 @media (max-width: 768px) {
   .titulo > h1 {

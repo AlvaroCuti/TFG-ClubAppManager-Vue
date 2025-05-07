@@ -41,13 +41,60 @@ const eliminarArchivo = (index) => {
   archivosSeleccionados.value.splice(index, 1);
   emit('update:files', archivosSeleccionados.value);
 };
+
+const handleDrop = (event) => {
+  event.preventDefault();
+  const archivos = Array.from(event.dataTransfer.files).filter(f => f instanceof File);
+  agregarArchivos(archivos);
+  isDragging.value = false;
+};
+
+const agregarArchivos = (nuevosArchivos) => {
+  const espacioDisponible = props.maxFiles - archivosSeleccionados.value.length;
+  if (espacioDisponible <= 0) {
+    alert(`Solo se permiten hasta ${props.maxFiles} archivos.`);
+    return;
+  }
+
+  const archivosPermitidos = nuevosArchivos.slice(0, espacioDisponible);
+  archivosSeleccionados.value = [...archivosSeleccionados.value, ...archivosPermitidos];
+  emit('update:files', archivosSeleccionados.value);
+};
+
+const isDragging = ref(false);
+
+const handleDragOver = (event) => {
+  event.preventDefault();
+  isDragging.value = true;
+};
+
+const handleDragLeave = () => {
+  isDragging.value = false;
+};
+
+function getObjectURL(file) {
+  try {
+    return URL.createObjectURL(file);
+  } catch (e) {
+    console.error('Error creando URL del archivo:', e);
+    return '';
+  }
+}
 </script>
 
 <template>
-  <div class="container" @click="abrirSelector">
+  <div
+    class="container"
+    :class="{ 'dragging': isDragging }"
+    @click="abrirSelector"
+    @dragover="handleDragOver"
+    @dragleave="handleDragLeave"
+    @drop="handleDrop"
+  >
     <img alt="logo" class="logo" src="@/assets/cloud.png" width="25" height="25" />
     <h4>{{ props.placeholder }}</h4>
   </div>
+
 
   <input
     type="file"
@@ -71,18 +118,12 @@ const eliminarArchivo = (index) => {
   </div>
 </template>
 
-<script>
-function getObjectURL(file) {
-  try {
-    return URL.createObjectURL(file);
-  } catch (e) {
-    console.error('Error creando URL del archivo:', e);
-    return '';
-  }
-}
-</script>
-
 <style scoped>
+.container.dragging {
+  background-color: #D6D5E0;
+  border-color: #6543E0;
+  transition: background-color 0.3s ease;
+}
 .container {
   background-color: #E1E0E7;
   border-style: dashed;
@@ -119,7 +160,7 @@ h4 {
 
 .preview {
   position: relative;
-  width: 80px;
+  width: 50px;
   text-align: center;
 }
 

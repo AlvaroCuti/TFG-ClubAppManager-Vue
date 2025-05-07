@@ -144,7 +144,12 @@ const registrar = async () => {
                 
                 <TextInput v-model="email" placeholder="Correo electrónico"></TextInput>
                 <TextInput v-model="telefono" placeholder="Telefono"></TextInput>
-                <input v-model="fechaNacimiento" placeholder="Fecha de nacimiento" type="date" class="fecha" />
+                <input 
+                  v-model="fechaNacimiento" 
+                  type="date" 
+                  class="fecha" 
+                  :style="{ color: fechaNacimiento ? '#000000' : 'grey' }" 
+                />
                 <PassInput v-model="pass"/>
                 <PassInput v-model="repetirPass" placeholder="Repite la contraseña"/>
                 <div class="drop">
@@ -310,7 +315,7 @@ header {
 .pagina{
   display: flex;
   flex-direction: column; 
-  gap: 53px; 
+  gap: 25px; 
 }
 
 .titulo{

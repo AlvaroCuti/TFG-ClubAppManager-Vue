@@ -64,119 +64,116 @@ const filtrar = async () => {
 </script>
 
 <template>
-    <teleport to="body">
-      <div class="modal-overlay" @click.self="emitClose">
-        <div class="modal-box">
-          <h2>Filtrar Jugadores</h2>
-          <form @submit.prevent="handleSubmit">
-            <label>
-              Nombre:
-              <input v-model="nombre" type="text" required />
-            </label>
-            <label>
-              Teléfono:
-              <input v-model="tel" type="tel" />
-            </label>
-            <label>
-              Fecha de nacimiento:
-              <input v-model="fechaNac" type="date" />
-            </label>
-            <label>
-              Correo electrónico:
-              <input v-model="email" type="email" required />
-            </label>
-            <label>
-              Correo electrónico Tutor 1:
-              <input v-model="emailTutor1" type="email" required />
-            </label>
-            <label>
-              Correo electrónico Tutor 2:
-              <input v-model="emailTutor2" type="email" required />
-            </label>
-            <div class="modal-actions">
-              <button type="submit" @click="filtrar" class="filtrar">Filtrar</button>
-              <button type="button" @click="emitClose" class="cancelar">Cancelar</button>
-            </div>
-          </form>
-        </div>
+  <teleport to="body">
+    <div class="modal-overlay" @click.self="emitClose">
+      <div class="modal-box">
+        <h2 class="modal-title">Filtrar Jugadores</h2>
+        <form @submit.prevent="filtrar">
+          <label class="form-label">
+            Nombre:
+            <input v-model="nombre" type="text" class="form-input" />
+          </label>
+          <label class="form-label">
+            Teléfono:
+            <input v-model="tel" type="tel" class="form-input" />
+          </label>
+          <label class="form-label">
+            Fecha de nacimiento:
+            <input v-model="fechaNac" type="date" class="form-input" />
+          </label>
+          <label class="form-label">
+            Correo electrónico:
+            <input v-model="email" type="email" class="form-input" />
+          </label>
+          <label class="form-label">
+            Correo electrónico Tutor 1:
+            <input v-model="emailTutor1" type="email" class="form-input" />
+          </label>
+          <label class="form-label">
+            Correo electrónico Tutor 2:
+            <input v-model="emailTutor2" type="email" class="form-input" />
+          </label>
+
+          <div class="modal-actions">
+            <button type="submit" class="filtrar">Filtrar</button>
+            <button type="button" @click="emitClose" class="cancelar">Cancelar</button>
+          </div>
+        </form>
       </div>
-    </teleport>
+    </div>
+  </teleport>
 </template>
+
   
 <style scoped>
-    .modal-overlay {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        background: rgba(0,0,0,0.4);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1100;
-    }
-    .modal-box {
-        background: #fff;
-        padding: 1.5rem;
-        border-radius: 8px;
-        min-width: 350px;
-        color: black;
-    }
-    .modal-box label {
-        display: block;
-        margin-bottom: 1rem;
-    }
-    .modal-box input {
-        width: 100%;
-        padding: 0.5rem;
-        margin-top: 0.25rem;
-    }
+   .modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
 
-    .modal-actions {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-        margin-top: 15px;
-        gap: 15px;
-    }
-    
-    input[type="date"] {
-      font-family: 'Arial', sans-serif; /* o la fuente que estés usando */
-      color: black;
-    }
+.modal-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  min-width: 360px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
 
-    .filtrar{
-      border-radius: 7px;
-      background-color: #6543E0;
-      color:#F6F5F8;
-      border: 0;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding-right: 10px;
-      padding-left: 10px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      font-size: smaller;
-      font-weight: 700;
-  }
+.modal-title {
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+}
 
-  .cancelar{
-    border-radius: 7px;
-      background-color: grey;
-      color:#F6F5F8;
-      border: 0;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding-right: 10px;
-      padding-left: 10px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      font-size: smaller;
-      font-weight: 700;
-  }
+.form-label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.filtrar,
+.cancelar {
+  border-radius: 6px;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.filtrar {
+  background-color: #6543e0;
+  color: white;
+}
+
+.cancelar {
+  background-color: #999;
+  color: white;
+}
+
 </style>
   

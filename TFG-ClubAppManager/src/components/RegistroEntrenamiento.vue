@@ -112,49 +112,83 @@ const crear = async () => {
   
 <style scoped>
     .modal-overlay {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        background: rgba(0,0,0,0.4);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1100;
-    }
-    .modal-box {
-        background: #fff;
-        padding: 1.5rem;
-        border-radius: 8px;
-        min-width: 350px;
-        color: black;
-    }
-    .modal-box label {
-        display: block;
-        margin-bottom: 1rem;
-    }
-    .modal-box input {
-        width: 100%;
-        padding: 0.5rem;
-        margin-top: 0.25rem;
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
 
-    .modal-actions {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-        margin-top: 15px;
-        gap: 15px;
-    }
-    
-    input[type="date"] {
-      font-family: 'Arial', sans-serif; /* o la fuente que estés usando */
-      color: black;
-    }
-    
-    input[type="time"] {
-      font-family: 'Arial', sans-serif;
-      color: black;
-    }
+.modal-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  min-width: 360px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.modal-box h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.modal-box label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.modal-box input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+button {
+  border-radius: 6px;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"] {
+  background-color: #6543e0;
+  color: #fff;
+}
+
+button[type="submit"]:hover {
+  background-color: #4b32b0;
+}
+
+button[type="button"] {
+  background-color: #999;
+  color: #fff;
+}
+
+button[type="button"]:hover {
+  background-color: #666;
+}
+
 </style>
   

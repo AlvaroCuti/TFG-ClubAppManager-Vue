@@ -73,7 +73,7 @@ const handleClick = async () => {
         grid-template-columns: 1.5fr 1fr 1.5fr 1fr 1.5fr 1.5fr 1fr auto; 
         background-color: #E1E0E7;
         border-radius: 0px 0px 0px 0px;
-        padding-right: 40px; /* <-- Añadido */
+        padding-right: 40px; 
     }
 
     .logo-column {
@@ -105,10 +105,10 @@ const handleClick = async () => {
         padding-left: 15px;
         padding-right: 15px;
         
-    white-space: normal;
-    overflow: visible;
-    text-overflow: initial;
-    word-break: break-word;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: initial;
+        word-break: break-word;
 }
 
 

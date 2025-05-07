@@ -90,42 +90,47 @@ onMounted(async () => {
   }
 })
 </script>
+
 <template>
   <teleport to="body">
     <div class="modal-overlay" @click.self="emitClose">
       <div class="modal-box">
-        <h2>Registrar Equipo</h2>
+        <h2 class="modal-title">Registrar Equipo</h2>
         <form @submit.prevent="registrar">
-          <label>
+          <label class="form-label">
             Nombre del equipo:
-            <input v-model="nombre" type="text" class="nombre"/>
+            <input v-model="nombre" type="text" class="form-input" />
           </label>
 
-          <label for="categoria-select-">Selecciona una categoría
-            <select v-model="categoriaSeleccionada">
+          <label class="form-label">
+            Selecciona una categoría:
+            <select v-model="categoriaSeleccionada" class="form-select">
               <option disabled value="">Selecciona una categoría</option>
               <option v-for="cat in categorias" :key="cat.value" :value="cat.value">
                 {{ cat.label }}
               </option>
             </select>
           </label>
+
           <div v-for="(entrenadorTel, index) in entrenadoresSeleccionados" :key="index" class="apartado">
-            <label :for="'entrenador-select-' + index">Selecciona un entrenador:
-            <select
-              :id="'entrenador-select-' + index"
-              v-model="entrenadoresSeleccionados[index]"
-            >
-              <option disabled value="">Selecciona un entrenador</option>
-              <option
-                v-for="entrenador in entrenadoresDisponibles.filter(e => 
-                  !entrenadoresSeleccionados.includes(e.tel) || e.tel === entrenadorTel
-                )"
-                :key="entrenador.tel"
-                :value="entrenador.tel"
+            <label class="form-label">
+              Entrenador {{ index + 1 }}:
+              <select
+                v-model="entrenadoresSeleccionados[index]"
+                class="form-select"
               >
-                {{ entrenador.nombre }}
-              </option>
-            </select></label>
+                <option disabled value="">Selecciona un entrenador</option>
+                <option
+                  v-for="entrenador in entrenadoresDisponibles.filter(e =>
+                    !entrenadoresSeleccionados.includes(e.tel) || e.tel === entrenadorTel
+                  )"
+                  :key="entrenador.tel"
+                  :value="entrenador.tel"
+                >
+                  {{ entrenador.nombre }}
+                </option>
+              </select>
+            </label>
           </div>
 
           <div class="boton">
@@ -143,6 +148,7 @@ onMounted(async () => {
     </div>
   </teleport>
 </template>
+
 
 <style scoped>
 .boton {
@@ -168,83 +174,79 @@ onMounted(async () => {
 
 .modal-box {
   background: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  min-width: 350px;
-  color: black;
+  padding: 2rem;
+  border-radius: 12px;
+  min-width: 360px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  color: #333;
 }
 
-.modal-box label {
+.modal-title {
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form-label {
   display: block;
-  margin-bottom: 0rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 
-.modal-box input {
+.form-input,
+.form-select {
   width: 100%;
   padding: 0.5rem;
-  margin-top: 0.25rem;
-}
-
-.apartado label{
-  margin-top: 0.75rem;
-}
-
-.nombre{
-  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 0.5rem;
 }
 
 .modal-actions {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  margin-top: 15px;
-  gap: 15px;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-.plus {
-  border-radius: 7px;
-  background-color: #6543e0;
-  color: #f6f5f8;
-  border: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 5px 7px;
-  font-size: smaller;
-  font-weight: 700;
+.guardar,
+.cancelar {
+  border-radius: 6px;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .guardar {
-  border-radius: 7px;
   background-color: #6543e0;
-  color: #f6f5f8;
-  border: 0;
-  padding: 10px;
-  font-size: smaller;
-  font-weight: 700;
+  color: #fff;
 }
 
 .cancelar {
-  border-radius: 7px;
-  background-color: grey;
-  color: #f6f5f8;
-  border: 0;
-  padding: 10px;
-  font-size: smaller;
-  font-weight: 700;
+  background-color: #999;
+  color: #fff;
 }
 
-.apartado {
+.plus {
+  border-radius: 6px;
+  background-color: #6543e0;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
+  align-items: center;
 }
 
-.modal-box select {
-  width: 100%;
-  padding: 0.5rem;
-  margin-top: 0.25rem;
+.boton {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }
+
 
 </style>

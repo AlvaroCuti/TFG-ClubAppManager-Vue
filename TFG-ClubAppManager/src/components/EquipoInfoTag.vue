@@ -207,50 +207,41 @@
 
 .botones-inferiores {
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  padding: 10px 0;
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-top: 10px;
+  gap: 0.75rem;
+  padding: 0 2rem 1rem 2rem;
+  margin-top: 20px;
 }
 
-button{
-    border-radius: 14px;
-    background-color: #6543E0;
-    color:#F6F5F8;
-    border: 0;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding-right: 15px;
-    padding-left: 15px;
-    padding-top: 28px;
-    padding-bottom: 28px;
-    font-size: smaller;
-    font-weight: 700;
-}
-
+.add-btn,
 .detalles-btn {
-  margin-top: 10px;
-  background-color: #4B4B4B;
-  color: #fff;
-  border-radius: 14px;
-  padding: 15px 18px;
-  font-weight: 600;
-  font-size: smaller;
+  border-radius: 6px;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .add-btn {
-  margin-top: 10px;
-  background-color: #6543E0;
+  background-color: #6543e0;
   color: #fff;
-  border-radius: 14px;
-  padding: 15px 18px;
-  font-weight: 600;
-  font-size: smaller;
 }
+
+.add-btn:hover {
+  background-color: #4b32b0;
+}
+
+.detalles-btn {
+  background-color: #4b4b4b;
+  color: #fff;
+}
+
+.detalles-btn:hover {
+  background-color: #2e2e2e;
+}
+
 
 @media (max-width: 768px) {
   .tag {

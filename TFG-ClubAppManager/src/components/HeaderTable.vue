@@ -25,7 +25,7 @@
         background-color: #6543E0;
         border-radius: 8px;
         margin-bottom: 3px; /* solo en HeaderTable */
-        padding-right: 40px; /* <-- Añadido */
+        padding-right: 47px; /* <-- Añadido */
     }
 
     .box{
