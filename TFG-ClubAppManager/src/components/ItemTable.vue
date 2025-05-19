@@ -70,7 +70,7 @@ const handleClick = async () => {
 <style scoped>
     .container{
         display: grid;
-        grid-template-columns: 1.5fr 1fr 1.5fr 1fr 1.5fr 1.5fr 1fr auto; 
+        grid-template-columns: 2fr 1fr 2fr 1fr 2fr 2fr 1fr auto; 
         background-color: #E1E0E7;
         border-radius: 0px 0px 0px 0px;
         padding-right: 40px; 

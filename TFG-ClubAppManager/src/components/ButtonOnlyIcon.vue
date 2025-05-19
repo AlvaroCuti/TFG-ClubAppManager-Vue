@@ -27,6 +27,7 @@ const emit = defineEmits(["click"]);
         padding-left: 10px;
         padding-top: 5px;
         padding-bottom: 5px;
+        display: flex;
     }
 
 </style>
