@@ -54,7 +54,61 @@ const handleDniFilesTutor2 = (archivos) => {
   dniTraseroTutor2.value = archivos[1] || null;
 };
 
+const validarCampos = () => {
+  // Datos del usuario
+  if (currentIndex.value === 0) {
+    if (
+      !nombre.value || 
+      !apellidos.value || 
+      !email.value || 
+      !telefono.value || 
+      !fechaNacimiento.value || 
+      !pass.value || 
+      !repetirPass.value
+    ) {
+      toast.error("Completa todos los campos.");
+      return false;
+    }
+    if (pass.value !== repetirPass.value) {
+      toast.error("Las contraseñas no coinciden.");
+      return false;
+    }
+    if (!dniFrontal.value || !dniTrasero.value) {
+      toast.error("Debes subir ambas fotos del DNI del usuario.");
+      return false;
+    }
+  }
+
+  // Tutor 1
+  if (currentIndex.value === 1) {
+    if (
+      !emailTutor1.value || 
+      !dniFrontalTutor1.value || 
+      !dniTraseroTutor1.value
+    ) {
+      toast.error("Debes completar todos los campos del Tutor 1.");
+      return false;
+    }
+  }
+
+  // Tutor 2
+  if (currentIndex.value === 2) {
+    if (
+      !emailTutor2.value || 
+      !dniFrontalTutor2.value || 
+      !dniTraseroTutor2.value
+    ) {
+      toast.error("Debes completar todos los campos del Tutor 2.");
+      return false;
+    }
+  }
+
+  return true;
+};
+
 const siguientePasoORegistrar = () => {
+  if (!validarCampos()) return;
+
   if (currentIndex.value < steps.value - 1) {
     currentIndex.value++;
   } else {
@@ -62,14 +116,8 @@ const siguientePasoORegistrar = () => {
   }
 };
 
-const registrar = async () => {
-  if (pass.value !== repetirPass.value) {
-  console.log(pass.value);
-  console.log(repetirPass.value);
-    alert('Las contraseñas no coinciden');
-    return; 
-  }
 
+const registrar = async () => {
   const creacionDTO = {
     nombre: nombre.value.concat(" ", apellidos.value),
     email: email.value,
@@ -97,20 +145,19 @@ const registrar = async () => {
 
     if (response.ok) {
       toast.success("Usuario registrado con éxito");
-      console.log("Usuario registrado correctamente");
       router.push('/login');
-    } else {
-      const errorData = await response.json();
-      console.error("Error:", errorData);
+    } else if(response.status == 400){
+      toast.error("Error al registrar. Datos incompletos");
+    }else {
+      toast.error(`Error inesperado al registrar. Intenta más tarde`)
     }
   } catch (error) {
-    console.error("Error en la solicitud:", error);
+      console.error("Error en la solicitud:", error);
+      toast.error("No se pudo conectar al servidor. Revisa tu conexión.");
   }
 };
-
 </script>
 
-<!-- src/views/RegisterForm.vue -->
 <template>
   <div class="header-container">
       <header>
@@ -233,8 +280,8 @@ const registrar = async () => {
 }
 
 .boton-login{
-  width: 100%; /* se adapta al contenedor padre */
-  max-width: 410px; /* igual que .credenciales si es fijo */
+  width: 100%;
+  max-width: 410px;
 }
 
 .carousel-container {
@@ -297,7 +344,7 @@ const registrar = async () => {
 
 .header-container {
   width: 50%;
-  position: fixed; /* Si quieres que siempre esté visible */
+  position: fixed;
   top: 0;
   right: 0;
   z-index: 100;
@@ -392,7 +439,7 @@ input:focus{
   }
 
   .left {
-    display: none; /* Ocultamos la imagen de fondo en móviles */
+    display: none;
   }
 
   .header-container {

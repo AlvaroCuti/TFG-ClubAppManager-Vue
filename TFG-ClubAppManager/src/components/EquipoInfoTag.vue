@@ -8,7 +8,8 @@
     import EditarEquipo from './EditarEquipo.vue';
     import AddJugador from './AddJugador.vue';
     import { useRouter } from 'vue-router';
-
+    import { useToast } from 'vue-toastification'
+    const toast = useToast()
     const auth = useAuthStore()
     const modalVisibleEdit = ref(false)
     const modalVisibleAdd = ref(false)
@@ -84,14 +85,14 @@
       });
 
       if (response.ok) {
-        console.log(response);
+        toast.success("Equipo eliminado con exito");
         window.location.reload();
       } else {
-        const errorData = await response.json();
-        console.error("Error:", errorData);
+        toast.error("Error al eliminar equipo");
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);
+      toast.error("Error al descargar la informacion del usuario");
     }
   };
 </script>

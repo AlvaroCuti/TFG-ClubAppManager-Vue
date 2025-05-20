@@ -2,7 +2,9 @@
 import { useAuthStore } from '@/stores/auth'
 import { ref} from 'vue';
 import ActualizarEntrenadorModal from '../components/ActualizarEntrenador.vue'
+import { useToast } from 'vue-toastification'
 
+const toast = useToast()
 const auth = useAuthStore()
 
 const props = defineProps({
@@ -38,13 +40,16 @@ const eliminar = async () => {
       },
     });
 
-    if (!response.ok) {
-      throw new Error(`Error en la respuesta: ${response.status}`);
+    if (response.ok) {
+      toast.success("Entrenador eliminado con exito");
+      window.location.reload();    
+    }else{
+      toast.success("Error al eliminar entrenador");
+      window.location.reload();
     }
-    window.location.reload();
-    
   } catch (err) {
-    console.error('Error al descargar el archivo:', err);
+    console.error('Error al eliminar entrenador:', err);
+    toast.error("No se pudo conectar al servidor. Revisa tu conexión.");
   }
 };
 
@@ -61,7 +66,7 @@ const descargar = async () => {
       });
   
       if (!response.ok) {
-        throw new Error(`Error en la respuesta: ${response.status}`);
+        toast.error("Error al descargar la informacion del usuario");
       }
       
     const blob = await response.blob();
@@ -76,6 +81,7 @@ const descargar = async () => {
     URL.revokeObjectURL(url);
     } catch (err) {
       console.error('Error al descargar el archivo:', err);
+      toast.error("Error al descargar la informacion del usuario");
     }
   };
 

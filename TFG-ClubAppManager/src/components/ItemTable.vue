@@ -1,5 +1,7 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth'
+import { useToast } from 'vue-toastification'
+const toast = useToast()
 const auth = useAuthStore()
 
 const props = defineProps({
@@ -30,7 +32,8 @@ const handleClick = async () => {
     });
 
     if (!response.ok) {
-      throw new Error(`Error en la respuesta: ${response.status}`);
+      toast.error("Error al descargar la informacion del usuario");
+      return;
     }
 
     const blob = await response.blob();
@@ -46,6 +49,7 @@ const handleClick = async () => {
 
   } catch (err) {
     console.error('Error al descargar el archivo:', err);
+    toast.error("Error al descargar la informacion del usuario");
   }
 };
 

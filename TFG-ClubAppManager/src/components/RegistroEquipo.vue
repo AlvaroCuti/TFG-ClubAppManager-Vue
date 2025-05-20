@@ -1,14 +1,16 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
+import { useToast } from 'vue-toastification'
 
+const toast = useToast()
 const emit = defineEmits(['close', 'submit'])
 const auth = useAuthStore()
 const emitClose = () => emit('close')
 
 const nombre = ref('')
 const entrenadoresDisponibles = ref([])
-const entrenadoresSeleccionados = ref(['']) // Primer select visible por defecto
+const entrenadoresSeleccionados = ref([''])
 
 const categoriaSeleccionada = ref('')
 const categorias = [
@@ -22,7 +24,6 @@ const categorias = [
   { label: 'Senior', value: 'SENIOR' }
 ]
 
-// Agrega un nuevo campo de selección
 const addInput = () => {
   entrenadoresSeleccionados.value.push('')
 }
@@ -30,14 +31,19 @@ const addInput = () => {
 // Envía el formulario
 const registrar = async () => {
   if (!nombre.value.trim()) {
-    alert("El nombre del equipo es obligatorio.")
+    toast.error("El nombre del equipo es obligatorio.")
+    return
+  }
+
+  if (!categoriaSeleccionada.value) {
+    toast.error("Debes seleccionar una categoría.")
     return
   }
 
   const seleccionFinal = entrenadoresSeleccionados.value.filter(tel => tel !== '')
 
   if (seleccionFinal.length === 0) {
-    alert("Debes seleccionar al menos un entrenador.")
+    toast.error("Debes seleccionar al menos un entrenador.")
     return
   }
 
@@ -58,14 +64,16 @@ const registrar = async () => {
     })
 
     if (response.ok) {
-      console.log("equipo registrado correctamente")
-      window.location.reload()
+      toast.success("Equipo registrado con éxito");
+      window.location.reload();
+    } else if(response.status == 400){
+      toast.error("Error al registrar. Datos incompletos");
     } else {
-      const errorData = await response.json()
-      console.error("Error:", errorData)
+      toast.error(`Error inesperado al registrar. Intenta más tarde`)
     }
   } catch (error) {
     console.error("Error en la solicitud:", error)
+    toast.error("No se pudo conectar al servidor. Revisa tu conexión.");
   }
 }
 

@@ -1,5 +1,4 @@
 <script setup>
-// import { RouterLink, RouterView } from 'vue-router'
 import TextInput from '../components/TextInput.vue';
 import PassInput from '../components/PassInput.vue';
 import LogInButton from '../components/LogInButton.vue';
@@ -18,6 +17,10 @@ const pass = ref('');
 const auth = useAuthStore()
 
 const logear = async () => {
+  if (!tel.value || !pass.value) {
+    toast.error("Por favor, completa todos los campos.");
+    return;
+  }
   try {
       const response = await fetch("http://localhost:8081/api/usuario/login", {
         method: "POST",
@@ -60,13 +63,15 @@ const logear = async () => {
         } else {
           console.warn('Rol no reconocido:', data.rol)
         }
-      } else {
-        const errorData = await response.json();
-        console.error("Error:", errorData);
+      } else if(response.status == 401){
         toast.error(`Error al iniciar sesión. Credenciales inválidos`)
+      }
+      else{
+        toast.error(`Error inesperado al iniciar sesión. Intenta más tarde`)
       }
     } catch (error) {
       console.error("Error en la solicitud:", error);
+      toast.error("No se pudo conectar al servidor. Revisa tu conexión.");
     }
   };
 </script>
@@ -115,28 +120,28 @@ const logear = async () => {
 }
 
 .right {
-  width: 50%;  /* Ocupa la mitad derecha de la pantalla */
-  height: 100vh; /* Toda la altura de la pantalla */
+  width: 50%;  
+  height: 100vh; 
   position: fixed;
   top: 0;
-  right: 0; /* Alineado a la derecha */
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .imagen-header {
-  width: 100%; /* Ocupará todo el ancho de .right */
-  height: 100%; /* Ocupará toda la altura */
-  background-image: url('@/assets/fondo.png');  /*Ruta de la imagen */
-  background-size: cover; /* Ajusta la imagen para cubrir todo el div */
-  background-position: center; /* Centra la imagen */
-  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  width: 100%;
+  height: 100%;
+  background-image: url('@/assets/fondo.png'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .header-container {
   width: 50%;
-  position: fixed; /* Si quieres que siempre esté visible */
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
@@ -197,7 +202,7 @@ header {
   }
 
   .right {
-    display: none; /* Ocultamos la imagen de fondo en móviles */
+    display: none;
   }
 
   .header-container {

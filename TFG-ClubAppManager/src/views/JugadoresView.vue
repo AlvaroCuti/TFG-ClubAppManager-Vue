@@ -27,7 +27,6 @@
     const eliminarFiltro = async (index) => {
         filtros.value.splice(index, 1); // quitamos el filtro
 
-        // Creamos un objeto a partir de los filtros que quedan
         const campos = {};
         for (const filtro of filtros.value) {
             const [key, val] = filtro.split(':').map(s => s.trim());
@@ -98,7 +97,7 @@
         if (response.ok) {
             const data = await response.json();
             jugadores.value = data._embedded.jugadorDTOList;
-            totalPages.value = data.page.totalPages;  // ← depende de cómo tu backend lo devuelve
+            totalPages.value = data.page.totalPages; 
             currentPage.value = data.page.number;
             console.log(jugadores)
         } else {
@@ -144,7 +143,7 @@
                         jugador.tel,
                         jugador.emailTutor1,
                         jugador.emailTutor2,
-                        jugador.equipo ? jugador.equipo : '-' // Aquí se aplica el guion
+                        jugador.equipo ? jugador.equipo : '-'
                     ]"
                     :par="index % 2 === 0"
                 />
@@ -203,12 +202,10 @@
 
 }
 
-/* Estilos internos no deben expandir el ancho más allá del necesario */
 .contenido {
   color: #000;
-  min-width: 900px; /* Ajusta este valor según la cantidad de columnas */
+  min-width: 900px;
   margin-top: 20px;
-  /* Quitamos márgenes laterales */
 }
 
 .pagination {
@@ -244,7 +241,7 @@
   }
 
   .contenido {
-    min-width: 700px; /* Ajusta según columnas, puede ser menos o más */
+    min-width: 700px;
   }
 
   .titulo > h1 {

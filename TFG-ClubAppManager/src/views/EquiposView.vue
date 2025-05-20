@@ -18,9 +18,7 @@
     }
 
     const guardarEntrenador = (entrenador) => {
-        
         console.log('Nuevo entrenador:', entrenador)
-        
     }
 
     const cambiarPagina = async (pagina) => {
