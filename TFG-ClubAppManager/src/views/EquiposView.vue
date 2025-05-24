@@ -5,6 +5,7 @@
     import { ref, onMounted } from 'vue';
     import { useAuthStore } from '@/stores/auth'
     import RegistroEquipo from '@/components/RegistroEquipo.vue';
+    const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 
     const modalVisible = ref(false)
@@ -23,7 +24,7 @@
 
     const cambiarPagina = async (pagina) => {
         try {
-        const response = await fetch(`http://localhost:8081/api/equipo?page=${pagina}&size=10`, {
+        const response = await fetch(`${API_URL}/api/equipo?page=${pagina}&size=10`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${auth.token}`
@@ -47,7 +48,7 @@
 
     onMounted(async () => {
         try {
-        const response = await fetch("http://localhost:8081/api/equipo?page=0&size=10", {
+        const response = await fetch(`${API_URL}/api/equipo?page=0&size=10`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${auth.token}`

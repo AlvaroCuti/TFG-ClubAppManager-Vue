@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const emit = defineEmits(['close', 'submit'])
 const auth = useAuthStore()
@@ -36,7 +37,7 @@ const filtrar = async () => {
     }
 
   try {
-    const response = await fetch(`http://localhost:8081/api/usuario?${cadena.value}page=0&size=10`, {
+    const response = await fetch(`${API_URL}/api/usuario?${cadena.value}page=0&size=10`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.token}`

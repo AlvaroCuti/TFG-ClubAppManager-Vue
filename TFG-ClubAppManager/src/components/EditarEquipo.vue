@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const emit = defineEmits(['close', 'submit'])
 const auth = useAuthStore()
@@ -23,7 +24,7 @@ const actualizar = async () => {
   };
 
   try {
-    const response = await fetch(`http://localhost:8081/api/equipo/${props.idEquipo}`, {
+    const response = await fetch(`${API_URL}/api/equipo/${props.idEquipo}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

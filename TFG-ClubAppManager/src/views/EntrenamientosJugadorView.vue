@@ -3,6 +3,7 @@
     import {  ref, onMounted } from 'vue';
     import {useAuthStore } from '@/stores/auth'
     const auth = useAuthStore()
+    const API_URL = import.meta.env.VITE_API_BASE_URL;
 
     const entrenamientos = ref([]);
     const equipo = ref([]);
@@ -11,7 +12,7 @@
 
     const cambiarPagina = async (pagina) => {
         try {
-        const response = await fetch(`http://localhost:8081/api/equipo/${equipo.value}/entrenamiento?page=${pagina}&size=10`, {
+        const response = await fetch(`${API_URL}/api/equipo/${equipo.value}/entrenamiento?page=${pagina}&size=10`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${auth.token}`
@@ -41,7 +42,7 @@
     onMounted(async () => {
 
         try {
-        const response = await fetch(`http://localhost:8081/api/usuario/${auth.tel}/equipo`, {
+        const response = await fetch(`${API_URL}/api/usuario/${auth.tel}/equipo`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${auth.token}`
@@ -61,7 +62,7 @@
 
 
         try {
-        const response = await fetch(`http://localhost:8081/api/equipo/${equipo.value}/entrenamiento?page=0&size=10`, {
+        const response = await fetch(`${API_URL}/api/equipo/${equipo.value}/entrenamiento?page=0&size=10`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${auth.token}`

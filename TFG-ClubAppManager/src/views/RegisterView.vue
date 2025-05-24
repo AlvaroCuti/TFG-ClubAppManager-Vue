@@ -8,6 +8,7 @@ import { ref } from "vue";
 import TagTutor from '@/components/TagTutor.vue';
 import { useToast } from 'vue-toastification'
 import { useRouter } from 'vue-router';
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const toast = useToast()
 const currentIndex = ref(0); // Índice del paso actual
@@ -138,7 +139,7 @@ const registrar = async () => {
   formData.append("dniTraseroTutor2", dniTraseroTutor2.value);
 
   try {
-    const response = await fetch("http://localhost:8081/api/usuario/register", {
+    const response = await fetch(`${API_URL}/api/usuario/register`, {
       method: "POST",
       body: formData,
     });

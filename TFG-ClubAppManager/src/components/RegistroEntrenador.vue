@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import ImagesDrop from '../components/ImagesDrop.vue';
 import { useAuthStore } from '@/stores/auth'
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const emit = defineEmits(['close', 'submit'])
 const dniArchivos = ref([]);
@@ -65,7 +66,7 @@ const registrar = async () => {
   formData.append("certDelitos", certDelitos.value);
 
   try {
-    const response = await fetch("http://localhost:8081/api/entrenador", {
+    const response = await fetch(`${API_URL}/api/entrenador`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${auth.token}`

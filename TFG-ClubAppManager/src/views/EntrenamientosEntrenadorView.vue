@@ -5,7 +5,8 @@
     import {  ref, onMounted, watch} from 'vue';
     import {useAuthStore } from '@/stores/auth'
     import RegistroEntrenamientoModal from '../components/RegistroEntrenamiento.vue'
-    
+    const API_URL = import.meta.env.VITE_API_BASE_URL;
+
     const modalVisible = ref(false)
     const auth = useAuthStore()
     const totalPages = ref(0);
@@ -23,7 +24,7 @@
 
         try {
             const response = await fetch(
-            `http://localhost:8081/api/equipo/${equipoSeleccionado.value}/entrenamiento?page=0&size=10`,
+            `${API_URL}/api/equipo/${equipoSeleccionado.value}/entrenamiento?page=0&size=10`,
             {
                 method: 'GET',
                 headers: {
@@ -53,7 +54,7 @@
     const cambiarPagina = async (pagina) => {
         try {
             const response = await fetch(
-            `http://localhost:8081/api/equipo/${equipoSeleccionado.value}/entrenamiento?page=${pagina}&size=10`,
+            `${API_URL}/api/equipo/${equipoSeleccionado.value}/entrenamiento?page=${pagina}&size=10`,
             {
                 method: 'GET',
                 headers: {
@@ -79,7 +80,7 @@
     onMounted(async () => {
     try {
         const response = await fetch(
-        `http://localhost:8081/api/entrenador/${auth.tel}/equipo`,
+        `${API_URL}/api/entrenador/${auth.tel}/equipo`,
         {
             method: 'GET',
             headers: {

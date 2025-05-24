@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useToast } from 'vue-toastification'
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const toast = useToast()
 const emit = defineEmits(['close', 'submit'])
@@ -54,7 +55,7 @@ const registrar = async () => {
   }
 
   try {
-    const response = await fetch("http://localhost:8081/api/equipo", {
+    const response = await fetch(`${API_URL}/api/equipo`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +81,7 @@ const registrar = async () => {
 // Cargar entrenadores al montar
 onMounted(async () => {
   try {
-    const response = await fetch("http://localhost:8081/api/entrenador?page=0&size=100", {
+    const response = await fetch(`${API_URL}/api/entrenador?page=0&size=100`, {
       headers: {
         Authorization: `Bearer ${auth.token}`
       }

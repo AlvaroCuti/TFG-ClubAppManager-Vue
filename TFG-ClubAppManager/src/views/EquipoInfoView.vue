@@ -4,6 +4,7 @@ import HeaderTableDetails from '../components/HeaderTableDetails.vue';
 import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/auth'
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const route = useRoute()
 const nombreEquipo = route.params.nombre
@@ -14,7 +15,7 @@ const auth = useAuthStore()
 onMounted(async () => {
     const idEquipo = route.query.idEquipo;
     try {
-    const response = await fetch(`http://localhost:8081/api/equipo/${idEquipo}`, {
+    const response = await fetch(`${API_URL}/api/equipo/${idEquipo}`, {
         method: "GET",
         headers: {
             Authorization: `Bearer ${auth.token}`

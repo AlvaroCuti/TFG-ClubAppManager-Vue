@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const auth = useAuthStore()
 const emit = defineEmits(['close', 'submit'])
@@ -60,7 +61,7 @@ const crear = async () => {
   };
 
   try {
-    const response = await fetch(`http://localhost:8081/api/equipo/${props.equipoId}/entrenamiento`, {
+    const response = await fetch(`${API_URL}/api/equipo/${props.equipoId}/entrenamiento`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

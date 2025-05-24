@@ -6,6 +6,7 @@ import RegistroEntrenadorModal from '../components/RegistroEntrenador.vue'
 import iconoPlus from '@/assets/IconPlus.png'; 
 import { useAuthStore } from '@/stores/auth'
 import { ref, onMounted } from 'vue';
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
     const modalVisible = ref(false)
     const auth = useAuthStore()
@@ -24,7 +25,7 @@ import { ref, onMounted } from 'vue';
 
     const cambiarPagina = async (pagina) => {
         try {
-        const response = await fetch(`http://localhost:8081/api/entrenador?page=${pagina}&size=10`, {
+        const response = await fetch(`${API_URL}/api/entrenador?page=${pagina}&size=10`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${auth.token}`
@@ -48,7 +49,7 @@ import { ref, onMounted } from 'vue';
 
     onMounted(async () => {
         try {
-        const response = await fetch("http://localhost:8081/api/entrenador?page=0&size=10", {
+        const response = await fetch(`${API_URL}/api/entrenador?page=0&size=10`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${auth.token}`

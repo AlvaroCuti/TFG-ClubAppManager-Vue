@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification'
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const toast = useToast()
 const router = useRouter();
@@ -21,7 +22,7 @@ const handleSave = async () => {
   }
 
   try {
-      const response = await fetch(`http://localhost:8081/api/usuario/${tel}/pass`, {
+      const response = await fetch(`${API_URL}/api/usuario/${tel}/pass`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

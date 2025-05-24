@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useToast } from 'vue-toastification'
 const toast = useToast()
 const auth = useAuthStore()
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const props = defineProps({
     items: {
@@ -24,7 +25,7 @@ const handleClick = async () => {
     const tel = props.items[3]; 
     const nom = props.items[0]; 
 
-    const response = await fetch(`http://localhost:8081/api/usuario/${tel}`, {
+    const response = await fetch(`${API_URL}/api/usuario/${tel}`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${auth.token}`

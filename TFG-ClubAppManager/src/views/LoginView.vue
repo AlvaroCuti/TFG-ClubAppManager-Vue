@@ -8,6 +8,9 @@ import { ref } from "vue";
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/auth'
 import { useToast } from 'vue-toastification'
+
+const API_URL = import.meta.env.VITE_API_BASE_URL;
+
 const toast = useToast()
 
 const router = useRouter();
@@ -22,7 +25,7 @@ const logear = async () => {
     return;
   }
   try {
-      const response = await fetch("http://localhost:8081/api/usuario/login", {
+      const response = await fetch(`${API_URL}/api/usuario/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

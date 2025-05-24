@@ -14,6 +14,7 @@
     const modalVisibleEdit = ref(false)
     const modalVisibleAdd = ref(false)
     const router = useRouter();
+    const API_URL = import.meta.env.VITE_API_BASE_URL;
 
     const abrirModalEdit = () => {
       modalVisibleEdit.value = true
@@ -77,7 +78,7 @@
     
     const borrar = async () => {
     try {
-      const response = await fetch(`http://localhost:8081/api/equipo/${props.idEquipo}`, {
+      const response = await fetch(`${API_URL}/api/equipo/${props.idEquipo}`, {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${auth.token}`

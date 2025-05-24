@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/auth'
 import { ref} from 'vue';
 import ActualizarEntrenadorModal from '../components/ActualizarEntrenador.vue'
 import { useToast } from 'vue-toastification'
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const toast = useToast()
 const auth = useAuthStore()
@@ -33,7 +34,7 @@ const eliminar = async () => {
   const tel = props.items[3]; 
 
   try {
-    const response = await fetch(`http://localhost:8081/api/entrenador/${tel}`, {
+    const response = await fetch(`${API_URL}/api/entrenador/${tel}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${auth.token}`
@@ -58,7 +59,7 @@ const descargar = async () => {
     const tel = props.items[3]; 
     const nom = props.items[0]; 
     try {
-      const response = await fetch(`http://localhost:8081/api/entrenador/${tel}`, {
+      const response = await fetch(`${API_URL}/api/entrenador/${tel}`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${auth.token}`

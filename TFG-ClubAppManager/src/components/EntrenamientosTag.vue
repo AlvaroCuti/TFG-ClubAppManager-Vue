@@ -1,6 +1,7 @@
 <script setup>
  import {useAuthStore } from '@/stores/auth'
  const auth = useAuthStore()
+    const API_URL = import.meta.env.VITE_API_BASE_URL;
 
     const props = defineProps({
         horario:{
@@ -74,7 +75,7 @@
     try {
         const idEquipo = props.idEquipo;
         const id = props.idEntrenamiento; 
-        const response = await fetch(`http://localhost:8081/api/equipo/${idEquipo}/entrenamiento/${id}/usuario/${auth.tel}`, {
+        const response = await fetch(`${API_URL}/api/equipo/${idEquipo}/entrenamiento/${id}/usuario/${auth.tel}`, {
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${auth.token}`
@@ -98,7 +99,7 @@
     try {
         const idEquipo = props.idEquipo;
         const id = props.idEntrenamiento; 
-        const response = await fetch(`http://localhost:8081/api/equipo/${idEquipo}/entrenamiento/${id}/usuario/${auth.tel}`, {
+        const response = await fetch(`${API_URL}/api/equipo/${idEquipo}/entrenamiento/${id}/usuario/${auth.tel}`, {
         method: 'DELETE',
         headers: {
             Authorization: `Bearer ${auth.token}`

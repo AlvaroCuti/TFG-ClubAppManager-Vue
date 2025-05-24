@@ -6,7 +6,8 @@
     import RoundButtonFilled from '../components/RoundButtonFilled.vue';
     import { useAuthStore } from '@/stores/auth'
     import FiltrosJugadores from '@/components/FiltrosJugadores.vue';
-   
+    const API_URL = import.meta.env.VITE_API_BASE_URL;
+
     const jugadores = ref([]);
     const auth = useAuthStore()
     const filtros = ref([]);
@@ -39,8 +40,8 @@
             .join('&');
 
         const url = queryParams
-            ? `http://localhost:8081/api/usuario?${queryParams}&page=0&size=10`
-            : `http://localhost:8081/api/usuario?page=0&size=10`;
+            ? `${API_URL}/api/usuario?${queryParams}&page=0&size=10`
+            : `${API_URL}/api/usuario?page=0&size=10`;
 
         try {
             const response = await fetch(url, {
@@ -64,7 +65,7 @@
 
     const cambiarPagina = async (pagina) => {
         try {
-            const response = await fetch(`http://localhost:8081/api/usuario?page=${pagina}&size=10`, {
+            const response = await fetch(`${API_URL}/api/usuario?page=${pagina}&size=10`, {
                 method: "GET",
                 headers: {
                     Authorization: `Bearer ${auth.token}`,
@@ -87,7 +88,7 @@
 
     onMounted(async () => {
         try {
-        const response = await fetch("http://localhost:8081/api/usuario?page=0&size=10", {
+        const response = await fetch(`${API_URL}/api/usuario?page=0&size=10`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${auth.token}`

@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import FiltrosJugadores from '../components/FiltrosJugadores.vue'
 import RoundButtonNotFilled from '@/components/RoundButtonNoFill.vue';
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const emit = defineEmits(['close', 'submit'])
 const auth = useAuthStore()
@@ -30,7 +31,7 @@ const aplicarFiltros = async ({ jugadores: jugadoresFiltrados, filtros: filtrosA
 
 const fetchJugadores = async () => {
   try {
-    const response = await fetch(`http://localhost:8081/api/usuario?page=0&size=100`, {
+    const response = await fetch(`${API_URL}/api/usuario?page=0&size=100`, {
       headers: {
         Authorization: `Bearer ${auth.token}`
       }
@@ -55,7 +56,7 @@ const actualizar = async () => {
   const tel = jugadorSeleccionado.value.tel
 
   try {
-    const response = await fetch(`http://localhost:8081/api/equipo/${props.idEquipo}/jugador/${tel}`, {
+    const response = await fetch(`${API_URL}/api/equipo/${props.idEquipo}/jugador/${tel}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${auth.token}`
@@ -79,7 +80,7 @@ const actualizar = async () => {
   <teleport to="body">
     <div class="modal-overlay" @click.self="emitClose">
        <div class="modal-box">
-        <h2 class="modal-title">Añadir jugador</h2>
+        <h2 class="modal-title">Añadir miembro</h2>
         <form @submit.prevent="actualizar">
             <div class="filtros-modal">
               <div class="texto">

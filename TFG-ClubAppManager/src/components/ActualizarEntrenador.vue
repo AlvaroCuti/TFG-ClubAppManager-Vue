@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import ImagesDrop from '../components/ImagesDrop.vue';
 import { useAuthStore } from '@/stores/auth'
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const emit = defineEmits(['close', 'submit'])
 const dniArchivos = ref([]);
@@ -19,10 +20,10 @@ const certDelitos = ref(null);
 const emitClose = () => emit('close')
 
 const props = defineProps({
-    entrenadorId: {
-        type: String,
-        required: true
-    },
+  entrenadorId: {
+    type: String,
+    required: true
+  },
 })
 
 const handleSubmit = () => {
@@ -43,7 +44,6 @@ const handleDniFilesUser = (archivos) => {
 };
 
 const actualizar = async () => {
-  
   if (
     !nombre.value.trim() ||
     !email.value.trim() ||
@@ -72,13 +72,8 @@ const actualizar = async () => {
   formData.append("dniTrasero", dniTrasero.value);
   formData.append("certDelitos", certDelitos.value);
 
-  console.log("Contenido real de formData:");
-  for (const pair of formData.entries()) {
-    console.log(pair[0], pair[1]);
-  }
-
   try {
-    const response = await fetch(`http://localhost:8081/api/entrenador/${props.entrenadorId}`, {
+    const response = await fetch(`${API_URL}/api/entrenador/${props.entrenadorId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${auth.token}`
@@ -100,119 +95,119 @@ const actualizar = async () => {
 </script>
 
 <template>
-    <teleport to="body">
-      <div class="modal-overlay" @click.self="emitClose">
-        <div class="modal-box">
-          <h2>Actualizar Entrenador</h2>
-          <form @submit.prevent="handleSubmit">
-            <label>
-              Nombre:
-              <input v-model="nombre" type="text" required />
-            </label>
-            <label>
-              Correo electrónico:
-              <input v-model="email" type="email" required />
-            </label>
-            <label>
-              Teléfono:
-              <input v-model="telefono" type="tel" />
-            </label>
-            <label>
-              Fecha de nacimiento:
-              <input v-model="fechaNac" type="date" />
-            </label>
-            <label>
-              Contraseña:
-              <input v-model="pass" type="tel" />
-            </label>
-            <div class="drop">
-                <ImagesDrop placeholder="Seleccione fotos del DNI por delante, por detrás 
-                y el certificado de delitos sexuales" @update:files="handleDniFilesUser"></ImagesDrop>
-            </div>  
-            <div class="modal-actions">
-              <button type="submit" @click="actualizar" class="guardar">Guardar</button>
-              <button type="button" @click="emitClose" class="cancelar">Cancelar</button>
-            </div>
-          </form>
-        </div>
+  <teleport to="body">
+    <div class="modal-overlay" @click.self="emitClose">
+      <div class="modal-box">
+        <h2 class="modal-title">Actualizar Entrenador</h2>
+        <form @submit.prevent="handleSubmit">
+          <label class="form-label">Nombre:</label>
+          <input v-model="nombre" type="text" class="form-input" required />
+
+          <label class="form-label">Correo electrónico:</label>
+          <input v-model="email" type="email" class="form-input" required />
+
+          <label class="form-label">Teléfono:</label>
+          <input v-model="telefono" type="tel" class="form-input" />
+
+          <label class="form-label">Fecha de nacimiento:</label>
+          <input v-model="fechaNac" type="date" class="form-input" />
+
+          <label class="form-label">Contraseña:</label>
+          <input v-model="pass" type="password" class="form-input" />
+
+          <div class="form-label">
+            Documentos requeridos:
+            <ImagesDrop
+              placeholder="Seleccione fotos del DNI por delante, por detrás y certificado de delitos"
+              :maxFiles="3"
+              @update:files="handleDniFilesUser"
+            />
+          </div>
+
+          <div class="modal-actions">
+            <button type="submit" @click="actualizar" class="guardar">Guardar</button>
+            <button type="button" @click="emitClose" class="cancelar">Cancelar</button>
+          </div>
+        </form>
       </div>
-    </teleport>
+    </div>
+  </teleport>
 </template>
-  
+
 <style scoped>
-    .modal-overlay {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        background: rgba(0,0,0,0.4);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1100;
-    }
-    .modal-box {
-        background: #fff;
-        padding: 1.5rem;
-        border-radius: 8px;
-        min-width: 350px;
-        color: black;
-    }
-    .modal-box label {
-        display: block;
-        margin-bottom: 1rem;
-    }
-    .modal-box input {
-        width: 100%;
-        padding: 0.5rem;
-        margin-top: 0.25rem;
-    }
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
 
-    .modal-actions {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
-        margin-top: 15px;
-        gap: 15px;
-    }
-    input[type="date"] {
-      font-family: 'Arial', sans-serif; /* o la fuente que estés usando */
-      color: black;
-    }
+.modal-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  min-width: 360px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
 
-    
-  .guardar{
-      border-radius: 7px;
-      background-color: #6543E0;
-      color:#F6F5F8;
-      border: 0;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding-right: 10px;
-      padding-left: 10px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      font-size: smaller;
-      font-weight: 700;
-  }
+.modal-title {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+}
 
-  .cancelar{
-    border-radius: 7px;
-      background-color: grey;
-      color:#F6F5F8;
-      border: 0;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      padding-right: 10px;
-      padding-left: 10px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      font-size: smaller;
-      font-weight: 700;
-  }
+.form-label {
+  display: block;
+  margin-bottom: 0rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+input[type="date"] {
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.guardar,
+.cancelar {
+  border-radius: 6px;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.guardar {
+  background-color: #6543e0;
+  color: #fff;
+}
+
+.cancelar {
+  background-color: #999;
+  color: #fff;
+}
 </style>
-  

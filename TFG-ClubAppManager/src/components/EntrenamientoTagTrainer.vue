@@ -2,6 +2,7 @@
     import trash1 from '@/assets/trash1-blanc.png'; 
     import ButtonOnlyIcon from '../components/ButtonOnlyIcon.vue';
     import { useAuthStore } from '@/stores/auth'
+    const API_URL = import.meta.env.VITE_API_BASE_URL;
 
     const auth = useAuthStore()
     const props = defineProps({
@@ -34,7 +35,7 @@
     };
 
     try {
-      const response = await fetch(`http://localhost:8081/api/equipo/${props.idEquipo}/entrenamiento/${props.idEntrenamiento}`, {
+      const response = await fetch(`${API_URL}/api/equipo/${props.idEquipo}/entrenamiento/${props.idEntrenamiento}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",

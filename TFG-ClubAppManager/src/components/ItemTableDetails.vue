@@ -1,6 +1,7 @@
 <script setup>
 import { useAuthStore } from '@/stores/auth'
 const auth = useAuthStore()
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 const props = defineProps({
     items: {
@@ -24,7 +25,7 @@ const props = defineProps({
 const handleClick = async () => {
     const tel = props.items[1]; 
     try {
-      const response = await fetch(`http://localhost:8081/api/equipo/${props.idEquipo}/jugador/${tel}`, {
+      const response = await fetch(`${API_URL}/api/equipo/${props.idEquipo}/jugador/${tel}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${auth.token}`
