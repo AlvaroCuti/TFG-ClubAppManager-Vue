@@ -14,12 +14,16 @@ const props = defineProps({
         type: String,
         required: true
     },
+    entrenador:{
+        type:Array,
+        required: true
+    }
 })
 
 const actualizar = async () => {
   const modificarEquipoDTO = {
     nombre: nombre.value,
-    entrenadores: [],
+    entrenadores: props.entrenador,
     jugadores: [] 
   };
 

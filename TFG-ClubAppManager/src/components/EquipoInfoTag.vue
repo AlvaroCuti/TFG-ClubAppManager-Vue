@@ -67,7 +67,7 @@
             required: true
         },
         entrenador:{
-            type: String,
+            type: Array,
             required: true
         },
         idEquipo:{
@@ -134,6 +134,7 @@
   <EditarEquipo
     v-if="modalVisibleEdit"
     :idEquipo="props.idEquipo"
+    :entrenador=" props.entrenador"
     @close="modalVisibleEdit = false"
     @submit="guardarEntrenador"
   />
