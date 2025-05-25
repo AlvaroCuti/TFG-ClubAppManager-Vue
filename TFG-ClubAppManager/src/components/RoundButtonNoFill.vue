@@ -9,7 +9,7 @@ defineProps({
 
 <template>
     <button class="boton">
-        <img src="@/assets/filter.png" width="20" height="20"/>
+        <img src="@/assets/Filter.png" width="20" height="20"/>
         {{placeholder}}
     </button>
 </template>
