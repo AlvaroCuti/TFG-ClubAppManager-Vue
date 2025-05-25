@@ -1,30 +1,31 @@
 <script setup>
 defineProps({
-  placeholder:{
+  placeholder: {
     type: String,
     default: "Iniciar Sesión"
   },
   to: {
     type: String,
-    required: true
+    default: null
   }
 })
-const emit = defineEmits(["click"]);
 
+const emit = defineEmits(["click"])
 </script>
 
 <template>
-    <RouterLink :to="to" class="container">
-        <button @click="emit('click')">{{placeholder}}</button>
+  <div class="container">
+    <RouterLink v-if="to" :to="to">
+      <button @click="emit('click')">{{ placeholder }}</button>
     </RouterLink>
+    <button v-else @click="emit('click')">{{ placeholder }}</button>
+  </div>
 </template>
-  
 
 <style scoped>
-/* Estilo básico para el input */
-.container{
-    display: flex;
-    justify-content: center;
+.container {
+  display: flex;
+  justify-content: center;
 }
 
 button {
@@ -32,13 +33,13 @@ button {
   border-radius: 8px;
   width: 100%;
   background-color: #6543E0;
-  color:#F6F5F8;
+  color: #F6F5F8;
   border: 0;
+  transition: transform 0.2s ease;
 }
 
-button:hover{
-  background-color: #593bc8; /* Verde más oscuro */
-  transform: scale(1.02); /* Hace el botón un poco más grande */
+button:hover {
+  background-color: #593bc8;
+  transform: scale(1.02);
 }
-
 </style>

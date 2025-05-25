@@ -98,7 +98,7 @@ const logear = async () => {
         <PassInput v-model="pass"/>
       </div>
 
-      <LogInButton @click="logear"/>
+      <LogInButton @click="logear" />
 
       <div class="register">
           <h5>¿No tienes una cuenta?</h5>
