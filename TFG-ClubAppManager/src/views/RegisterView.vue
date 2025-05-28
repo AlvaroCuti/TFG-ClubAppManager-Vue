@@ -211,9 +211,6 @@ const registrar = async () => {
                 <div class="adaptado">
                   <PassInput v-model="repetirPass" placeholder="Repite la contraseña"/>
                 </div>
-                 <div class="adaptado">
-                  <PassInput v-model="repetirPass" placeholder="Repite la contraseña"/>
-                 </div>
                 <div class="drop adaptado">
                   <ImagesDrop  placeholder="Seleccione fotos del DNI por delante y por detrás" :maxFiles="2" @update:files="handleDniFilesUser"/>
                 </div>
@@ -469,6 +466,7 @@ input:focus{
     width: 100%;
     height: 100%;
     padding: 40px 20px;
+    overflow-y: auto;
   }
 
   .left {
