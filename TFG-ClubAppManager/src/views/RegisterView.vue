@@ -431,8 +431,12 @@ input:focus{
   border: none; 
 }
 
-
 @media (max-width: 768px) {
+  .nombre {
+    flex-direction: column;
+    row-gap: 12px;
+  }
+
   .right {
     width: 100%;
     height: 100%;

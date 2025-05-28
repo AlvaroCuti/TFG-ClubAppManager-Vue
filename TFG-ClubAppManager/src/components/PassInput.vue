@@ -22,6 +22,10 @@ const emit = defineEmits(["update:modelValue"]);
   
 
 <style scoped>
+.container {
+  width: 100%;
+}
+
 input {
   padding: 8px 16px;
   border-radius: 8px;
