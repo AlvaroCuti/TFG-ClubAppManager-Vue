@@ -451,7 +451,7 @@ input:focus{
 @media (max-width: 768px) {
   .boton-login{
     width: 100%;
-    max-width: 365px;
+    max-width: 350px;
     display: flex;
     justify-content: center;
   }
@@ -462,7 +462,7 @@ input:focus{
   }
 
   .adaptado{
-        padding: 0 25px;
+    padding: 0 35px;
   }
 
   .right {
@@ -488,11 +488,11 @@ input:focus{
   }
 
   .pagina {
-    gap: 30px;
+    gap: 20px;
   }
 
   .credenciales {
-    gap: 12px;
+    gap: 8px;
   }
 
   .register {
