@@ -460,7 +460,7 @@ input:focus{
   }
 
   .pagina {
-    gap: 30px;
+    padding: 0 20px;
   }
 
   .credenciales {
