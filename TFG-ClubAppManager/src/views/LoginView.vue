@@ -90,7 +90,7 @@ const logear = async () => {
   <div class="left"> 
     <div class="pagina"> 
       <div class="titulo">
-        <HeaderSesion msgPrincipal="Inicia Sesión" msgSecundario="Bienvenido a FutbolApp"></HeaderSesion>
+        <HeaderSesion msgPrincipal="Inicia Sesión" msgSecundario="Bienvenido a ClubAppManager"></HeaderSesion>
       </div>
 
       <div class="credenciales">
