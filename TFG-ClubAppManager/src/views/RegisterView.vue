@@ -185,22 +185,36 @@ const registrar = async () => {
           <div class="carousel" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
             <div class="parte">
               <div class="credenciales">
-                <div class="nombre">
+                <div class="nombre adaptado" >
                   <TextInput v-model="nombre" placeholder="Nombre"></TextInput>
                   <TextInput v-model="apellidos" placeholder="Apellidos"></TextInput>
                 </div>
                 
-                <TextInput v-model="email" placeholder="Correo electrónico"></TextInput>
-                <TextInput v-model="telefono" placeholder="Telefono"></TextInput>
-                <input 
-                  v-model="fechaNacimiento" 
-                  type="date" 
-                  class="fecha" 
-                  :style="{ color: fechaNacimiento ? '#000000' : 'grey' }" 
-                />
-                <PassInput v-model="pass"/>
-                <PassInput v-model="repetirPass" placeholder="Repite la contraseña"/>
-                <div class="drop">
+                <div class="adaptado">
+                  <TextInput v-model="email" placeholder="Correo electrónico"></TextInput>
+                </div>
+                <div class="adaptado">
+                  <TextInput v-model="telefono" placeholder="Telefono"></TextInput>
+                </div>
+
+                <div class="adaptado">
+                    <input 
+                    v-model="fechaNacimiento" 
+                    type="date" 
+                    class="fecha" 
+                    :style="{ color: fechaNacimiento ? '#000000' : 'grey' }" 
+                  />
+                </div>
+                <div class="adaptado">
+                  <PassInput v-model="pass"/>
+                </div>
+                <div class="adaptado">
+                  <PassInput v-model="repetirPass" placeholder="Repite la contraseña"/>
+                </div>
+                 <div class="adaptado">
+                  <PassInput v-model="repetirPass" placeholder="Repite la contraseña"/>
+                 </div>
+                <div class="drop adaptado">
                   <ImagesDrop  placeholder="Seleccione fotos del DNI por delante y por detrás" :maxFiles="2" @update:files="handleDniFilesUser"/>
                 </div>
               </div>
@@ -209,12 +223,13 @@ const registrar = async () => {
 
             <div class="parte">
               <div class="credenciales">
-                <div class="tutor">
+                <div class="tutor adaptado">
                   <TagTutor placeholder="Tutor 1"></TagTutor>  
                 </div>
-                
-                <TextInput v-model="emailTutor1" placeholder="Correo electrónico tutor 1"></TextInput>
-                <div class="drop">
+                <div class="adaptado">
+                  <TextInput v-model="emailTutor1" placeholder="Correo electrónico tutor 1"></TextInput>
+                </div>
+                <div class="drop adaptado">
                   <ImagesDrop placeholder="Seleccione fotos del DNI por delante y por detrás" :maxFiles="2" @update:files="handleDniFilesTutor1"/>
                 </div>
               </div>
@@ -222,13 +237,14 @@ const registrar = async () => {
 
             <div class="parte">
               <div class="credenciales">
-                <div class="tutor">
+                <div class="tutor adaptado">
                   <TagTutor placeholder="Tutor 2"></TagTutor>  
                 </div>
 
-                <TextInput v-model="emailTutor2" placeholder="Correo electrónico tutor 2"></TextInput>
-                
-                <div class="drop">
+                <div class="adaptado">
+                  <TextInput v-model="emailTutor2" placeholder="Correo electrónico tutor 2"></TextInput>
+                </div>
+                <div class="drop adaptado">
                   <ImagesDrop placeholder="Seleccione fotos del DNI por delante y por detrás" :maxFiles="2" @update:files="handleDniFilesTutor2"/>
                 </div>
               </div>
@@ -268,8 +284,10 @@ const registrar = async () => {
   text-underline-offset: 2px;
 }
 
-.drop{
+.drop {
   margin-top: 20px;
+  max-width: 410px; /* o el ancho deseado */
+  width: 100%;
 }
 
 .boton{
@@ -431,10 +449,20 @@ input:focus{
 }
 
 @media (max-width: 768px) {
+  .boton-login{
+    width: 100%;
+    max-width: 365px;
+    display: flex;
+    justify-content: center;
+  }
+  
   .nombre {
     flex-direction: column;
     row-gap: 12px;
-    padding: 0 25px;
+  }
+
+  .adaptado{
+        padding: 0 25px;
   }
 
   .right {
