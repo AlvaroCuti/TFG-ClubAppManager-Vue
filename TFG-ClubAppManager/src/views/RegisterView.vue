@@ -270,7 +270,6 @@ const registrar = async () => {
 
 .drop{
   margin-top: 20px;
-
 }
 
 .boton{
@@ -435,6 +434,7 @@ input:focus{
   .nombre {
     flex-direction: column;
     row-gap: 12px;
+    padding: 0 25px;
   }
 
   .right {
@@ -460,7 +460,7 @@ input:focus{
   }
 
   .pagina {
-    padding: 0 20px;
+    gap: 30px;
   }
 
   .credenciales {
