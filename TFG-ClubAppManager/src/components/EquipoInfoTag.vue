@@ -39,18 +39,7 @@
         : props.participantes
     })
 
-    const entrenadorNombre = computed(() => {
-      try {
-        const entrenadores = Array.isArray(props.entrenador)
-          ? props.entrenador
-          : JSON.parse(props.entrenador);
-
-        return entrenadores.length > 0 ? entrenadores[0].nombre : 'Sin asignar';
-      } catch (e) {
-        console.error('Error al procesar entrenador:', e, props.entrenador);
-        return 'Desconocido';
-      }
-    });
+   
 
 
     const props = defineProps({
@@ -67,6 +56,10 @@
             required: true
         },
         entrenador:{
+            type: Array,
+            required: true
+        },
+        jugador:{
             type: Array,
             required: true
         },
@@ -114,7 +107,10 @@
         <h2 class="nombre">Nombre: {{ nombre }}</h2>
         <h2 class="categoria">Categoria: {{ categoria.charAt(0).toUpperCase() + categoria.slice(1).toLowerCase() }}</h2>
         <h3 class="part">Participantes: {{ participantesDisplay }}</h3>
-        <h3 class="entrenador">Entrenador: {{ entrenadorNombre }}</h3>
+        <h3 class="entrenador">
+          Entrenador{{ props.entrenador.length > 1 ? 'es' : '' }}: 
+          {{ props.entrenador.map(e => e.nombre).join(', ') || 'Sin asignar' }}
+        </h3>    
     </div>
 
     <!-- Botón inferior para añadir miembro -->
@@ -134,7 +130,8 @@
   <EditarEquipo
     v-if="modalVisibleEdit"
     :idEquipo="props.idEquipo"
-    :entrenador=" props.entrenador"
+    :entrenador="props.entrenador"
+    :jugador="props.jugador"
     @close="modalVisibleEdit = false"
     @submit="guardarEntrenador"
   />

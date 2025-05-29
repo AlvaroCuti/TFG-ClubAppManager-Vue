@@ -39,8 +39,8 @@ const fetchJugadores = async () => {
 
     if (response.ok) {
       const data = await response.json()
-      jugadores.value = data._embedded?.jugadorDTOList || []
-    } else {
+      jugadores.value = (data._embedded?.jugadorDTOList || []).filter(jugador => jugador.equipo == null)
+    }else {
       console.error("Error al cargar jugadores")
     }
   } catch (error) {

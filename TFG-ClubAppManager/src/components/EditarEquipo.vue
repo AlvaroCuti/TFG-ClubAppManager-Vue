@@ -17,6 +17,10 @@ const props = defineProps({
     entrenador:{
         type:Array,
         required: true
+    },
+    jugador:{
+        type:Array,
+        required: true
     }
 })
 
@@ -24,8 +28,10 @@ const actualizar = async () => {
   const modificarEquipoDTO = {
     nombre: nombre.value,
     entrenadores: props.entrenador,
-    jugadores: [] 
+    jugadores: props.jugador
   };
+  
+    console.log(modificarEquipoDTO);
 
   try {
     const response = await fetch(`${API_URL}/api/equipo/${props.idEquipo}`, {

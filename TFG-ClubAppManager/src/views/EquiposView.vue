@@ -94,6 +94,7 @@
                 :categoria=equipo.categoria
                 :entrenador=equipo.entrenadores
                 :participantes=equipo.numeroJugadores
+                :jugador=equipo.jugadores
                 :idEquipo=equipo.idEquipo
             />
         </div>
