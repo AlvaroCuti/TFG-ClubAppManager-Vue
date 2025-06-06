@@ -124,7 +124,7 @@
         year: 'numeric',
         month: 'long', 
         day: 'numeric'
-    }) + fechaEntrenamiento.value.toLocaleTimeString('es-ES', {
+    }) + ' ' + fechaEntrenamiento.value.toLocaleTimeString('es-ES', {
         hour: '2-digit',
         minute: '2-digit'
     });
