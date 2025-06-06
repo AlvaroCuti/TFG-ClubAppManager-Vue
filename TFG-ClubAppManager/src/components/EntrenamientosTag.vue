@@ -31,7 +31,6 @@
     })
 
     function parseFechaConHora(fechaStr) {
-        console.log(fechaStr);
        const meses = {
         enero: 0,     january: 0,
         febrero: 1,   february: 1,
@@ -50,7 +49,6 @@
         // Divide la string: ["12", "diciembre", "2025", "15:30"]
         const partes = fechaStr.toLowerCase().split(" ");
         const dia = parseInt(partes[0], 10);
-        console.log(partes[1]);
         const mes = meses[partes[1]];
         const anio = parseInt(partes[2], 10);
 
@@ -120,6 +118,19 @@
         console.error("Error en la solicitud:", error);
     }
     };
+
+    const fechaEntrenamientoFormateada = computed(() => {
+    return fechaEntrenamiento.value.toLocaleDateString('es-ES', {
+        weekday: 'long', 
+        year: 'numeric',
+        month: 'long', 
+        day: 'numeric'
+    }) + ' a las ' + fechaEntrenamiento.value.toLocaleTimeString('es-ES', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+});
+
 </script>
 
 <template>
@@ -130,7 +141,7 @@
         <div class="info">
             <div class="datos">
                 <h5 class="titulo">Entrenamiento</h5>
-                <h5 class="hora">{{ horario }}, {{ lugar }}</h5>
+                <h5 class="hora">{{ fechaEntrenamientoFormateada  }}, {{ lugar }}</h5>
                 <h5 class="asis">{{ numAsistencias }} participantes</h5> 
             </div>
             <div class="boton" >
