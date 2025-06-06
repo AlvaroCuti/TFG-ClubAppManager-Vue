@@ -121,11 +121,10 @@
 
     const fechaEntrenamientoFormateada = computed(() => {
     return fechaEntrenamiento.value.toLocaleDateString('es-ES', {
-        weekday: 'long', 
         year: 'numeric',
         month: 'long', 
         day: 'numeric'
-    }) + ' a las ' + fechaEntrenamiento.value.toLocaleTimeString('es-ES', {
+    }) + fechaEntrenamiento.value.toLocaleTimeString('es-ES', {
         hour: '2-digit',
         minute: '2-digit'
     });
